@@ -1,0 +1,48 @@
+import type { Project } from '@/types';
+
+export const projects: Project[] = [
+  {
+    id: 1,
+    title: "Mobile App Design",
+    slug: "mobile-app-design",
+    thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
+    category: "UI/UX",
+    description: "A comprehensive mobile application design focusing on user experience and minimal aesthetics.",
+    year: "2024",
+    client: "TechStart Inc.",
+    role: "Lead Designer",
+  },
+  {
+    id: 2,
+    title: "Dashboard Design",
+    slug: "dashboard-design",
+    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    category: "Web Design",
+    description: "Analytics dashboard with clean data visualization and intuitive navigation.",
+    year: "2024",
+    client: "DataViz Corp",
+    role: "Product Designer",
+  },
+  {
+    id: 3,
+    title: "VectorVault",
+    slug: "vectorvault",
+    thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop",
+    category: "Branding",
+    description: "Complete brand identity and visual design system for a digital asset platform.",
+    year: "2023",
+    client: "VectorVault",
+    role: "Brand Designer",
+  },
+  {
+    id: 4,
+    title: "District Case Study",
+    slug: "district-case-study",
+    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    category: "Case Study",
+    description: "End-to-end product design case study for a real estate platform.",
+    year: "2023",
+    client: "District Real Estate",
+    role: "UX Designer",
+  },
+];
