@@ -1,5 +1,9 @@
 import type { Profile } from '@/types';
 
+/**
+ * Profile data matching the Framer source exactly.
+ * Social links extracted from framer-source/analysis/footer-section.html
+ */
 export const profile: Profile = {
   name: "Malavika Suresh",
   firstName: "MALAVIKA",
@@ -14,9 +18,7 @@ export const profile: Profile = {
   philosophy: "I'm dedicated to crafting beautiful and highly functional designs that seamlessly align with my clients' unique needs and long-term goals.",
   available: true,
   social: {
-    linkedin: "https://linkedin.com",
-    behance: "https://behance.net",
-    dribbble: "https://dribbble.com",
-    instagram: "https://instagram.com",
+    linkedin: "https://www.linkedin.com/in/malavika-suresh-40642a293?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BYRmcKUiyQAOpWKGnadCgNQ%3D%3D",
+    behance: "https://www.behance.net/malavikasuresh1",
   }
 };

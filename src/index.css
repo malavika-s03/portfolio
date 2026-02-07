@@ -80,6 +80,13 @@ body {
   background: var(--foreground);
 }
 
+/* Custom cursor - hide native cursor on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 /* Links */
 a {
   color: inherit;

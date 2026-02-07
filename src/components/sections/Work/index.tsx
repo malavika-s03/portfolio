@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ProjectCard } from '@/components/shared/ProjectCard';
 import { projects } from '@/data/projects';
@@ -23,12 +24,17 @@ export function Work() {
             work.
           </h2>
 
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="px-[26px] py-4 text-base font-medium tracking-[-0.04em] leading-[1.2em] bg-[#f5f5f5] hover:bg-foreground hover:text-background transition-colors cursor-pointer"
+          {/* "Show More" - padding 20px 36px (Big variant) in Framer, links to /works */}
+          <Link
+            to="/project/works"
+            className="px-9 py-5 text-base font-medium tracking-[-0.04em] leading-[1.2em] bg-[#f5f5f5] hover:bg-foreground hover:text-background transition-colors cursor-pointer inline-block no-underline text-foreground"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowAll(!showAll);
+            }}
           >
             {showAll ? 'Show Less' : 'Show More'}
-          </button>
+          </Link>
         </motion.div>
 
         {/* Projects Grid - 2 columns desktop, 1 column mobile, 20px gap */}

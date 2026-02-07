@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { profile } from '@/data/profile';
 import { scrollAppear, FRAMER_EASE } from '@/lib/animations';
@@ -21,12 +22,17 @@ export function About() {
             about.
           </h2>
 
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="px-[26px] py-4 text-base font-medium tracking-[-0.04em] leading-[1.2em] bg-[#f5f5f5] hover:bg-foreground hover:text-background transition-colors cursor-pointer"
+          {/* "Show More" links to /contact page in Framer - padding 16px 26px (Small variant) */}
+          <Link
+            to="/project/about"
+            className="px-[26px] py-4 text-base font-medium tracking-[-0.04em] leading-[1.2em] bg-[#f5f5f5] hover:bg-foreground hover:text-background transition-colors cursor-pointer inline-block no-underline text-foreground"
+            onClick={(e) => {
+              e.preventDefault();
+              setExpanded(!expanded);
+            }}
           >
             {expanded ? 'Show Less' : 'Show More'}
-          </button>
+          </Link>
         </motion.div>
 
         {/* Main About Text - Large, justified */}
@@ -50,7 +56,7 @@ export function About() {
               className="overflow-hidden w-full"
             >
               <div className="flex flex-col md:flex-row gap-10 lg:gap-20 w-full">
-                {/* Portrait - aspect ratio 1.3825 */}
+                {/* Portrait - About image from Framer source: obb3zqFbOI0plXvmcRLAGwYDM.jpeg */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -59,8 +65,8 @@ export function About() {
                 >
                   <div style={{ aspectRatio: '1.3825' }} className="overflow-hidden">
                     <img
-                      src="https://framerusercontent.com/images/7hMiTdrGlu2C0xyOGVzHXNKngfU.jpg"
-                      alt={profile.name}
+                      src="https://framerusercontent.com/images/obb3zqFbOI0plXvmcRLAGwYDM.jpeg"
+                      alt="Woman with laptop"
                       className="w-full h-full object-cover"
                     />
                   </div>

@@ -40,18 +40,42 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Profile Photo - circular, border-radius: 140px */}
+          {/*
+            Profile Photo - circular, 168px desktop / 110px tablet+mobile
+            Framer source: .framer-aqkbdw { width:168px; height:168px; border-radius:140px; overflow:hidden; position:relative }
+            Contains avatar background + DSC01458 overlay positioned absolute
+          */}
           <motion.div
-            className="flex-shrink-0 rounded-[140px] overflow-hidden"
+            className="flex-shrink-0 w-[110px] lg:w-[168px] h-[110px] lg:h-[168px] rounded-[140px] overflow-hidden relative"
             initial={heroPhotoAppear.initial}
             animate={heroPhotoAppear.animate}
             transition={heroPhotoAppear.transition}
           >
-            <div className="w-[100px] md:w-[140px] lg:w-[168px] h-[100px] md:h-[140px] lg:h-[168px]">
+            {/* Background avatar image */}
+            <img
+              src="https://framerusercontent.com/images/j1OWdec3GtorzmtyEO583X355k.png"
+              alt={profile.name}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/*
+              DSC01458 overlay - Malavika's actual photo cropped within the circle
+              Framer CSS: .framer-5hdyvd { position:absolute; bottom:-13px; left:-61px; right:-60px;
+                           aspect-ratio:1.49702; height:193px (desktop) / 154px (tablet/mobile) }
+            */}
+            <div
+              className="absolute overflow-visible"
+              style={{
+                bottom: '-13px',
+                left: '-61px',
+                right: '-60px',
+                aspectRatio: '1.49702',
+                height: '193px',
+              }}
+            >
               <img
-                src="https://framerusercontent.com/images/j1OWdec3GtorzmtyEO583X355k.png"
-                alt={profile.name}
-                className="w-full h-full object-cover rounded-[140px]"
+                src="https://framerusercontent.com/images/dzn3ZiFmKa9VjNJZAibN7th28k.jpg"
+                alt=""
+                className="w-full h-full object-cover"
               />
             </div>
           </motion.div>
@@ -96,7 +120,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Divider line - exactly matches Framer */}
+      {/* Divider line */}
       <motion.div
         className="w-full flex items-center justify-center overflow-hidden"
         initial={{ opacity: 0 }}
