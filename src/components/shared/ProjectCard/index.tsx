@@ -9,7 +9,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const { setCursorText, resetCursor } = useCursor();
+  const { setCursorVariant, resetCursor } = useCursor();
 
   return (
     <motion.div
@@ -19,20 +19,20 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       transition={{
         duration: 0.6,
         delay: index * 0.1,
-        ease: [0.4, 0, 0.2, 1],
+        ease: [0.4, 0, 0.2, 1] as const,
       }}
     >
       <Link
         to={`/project/${project.slug}`}
-        onMouseEnter={() => setCursorText('View')}
+        onMouseEnter={() => setCursorVariant('hover')}
         onMouseLeave={() => resetCursor()}
-        className="group block relative overflow-hidden rounded-lg aspect-[4/3]"
+        className="group block relative overflow-hidden aspect-[4/3]"
       >
         {/* Image */}
         <motion.div
           className="absolute inset-0"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] as const }}
         >
           <img
             src={project.thumbnail}
@@ -42,19 +42,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           />
         </motion.div>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
-
-        {/* Title (hidden by default, shows on hover) */}
-        <div className="absolute inset-0 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div>
-            <span className="text-white/70 text-sm uppercase tracking-wider">
-              {project.category}
-            </span>
-            <h3 className="text-white text-xl font-medium mt-1">
-              {project.title}
-            </h3>
-          </div>
+        {/* Title Overlay - appears on hover at bottom right */}
+        <div className="absolute bottom-0 right-0 p-6">
+          <motion.h3
+            className="text-white text-2xl md:text-3xl font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
+          >
+            {project.title}
+          </motion.h3>
         </div>
       </Link>
     </motion.div>

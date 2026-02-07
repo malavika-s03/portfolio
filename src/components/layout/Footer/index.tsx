@@ -25,13 +25,16 @@ export function Footer() {
   };
 
   return (
-    <footer ref={ref} id="contact" className="bg-foreground text-background py-20 md:py-32">
-      <Container>
-        <div className="space-y-12">
-          {/* CTA Text */}
-          <div className="max-w-4xl">
+    <footer ref={ref} id="contact" className="bg-black text-white min-h-screen flex flex-col">
+      {/* Top spacer with curved edge from content above */}
+      <div className="h-32 md:h-48" />
+
+      <Container className="flex-1 flex flex-col justify-center">
+        <div className="space-y-10">
+          {/* CTA Text with gradient opacity */}
+          <div className="max-w-5xl">
             <motion.h2
-              className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight"
+              className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight text-white"
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               custom={0}
@@ -40,7 +43,7 @@ export function Footer() {
               Curious about what we can create together?
             </motion.h2>
             <motion.p
-              className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight opacity-60 mt-2"
+              className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight text-white/50 mt-1"
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               custom={1}
@@ -62,54 +65,55 @@ export function Footer() {
               href={`mailto:${profile.email}`}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="inline-flex items-center px-8 py-4 bg-background text-foreground font-medium rounded-full hover:scale-105 transition-transform"
+              className="inline-flex items-center px-8 py-4 bg-white text-black font-medium hover:scale-105 transition-transform"
             >
               Get in Touch
             </a>
 
             {profile.available && (
               <div className="flex items-center gap-3">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
                 </span>
-                <span className="text-sm opacity-80">Available For Work</span>
+                <span className="text-sm text-white/80">Available For Work</span>
               </div>
             )}
           </motion.div>
-
-          {/* Social Links & Copyright */}
-          <motion.div
-            className="flex flex-wrap items-center justify-between pt-12 border-t border-background/20"
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            custom={3}
-            variants={textVariants}
-          >
-            <div className="flex gap-6">
-              {Object.entries(profile.social).map(([platform, url]) => (
-                url && (
-                  <a
-                    key={platform}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    className="text-sm capitalize opacity-60 hover:opacity-100 transition-opacity"
-                  >
-                    {platform}
-                  </a>
-                )
-              ))}
-            </div>
-
-            <p className="text-sm opacity-60 mt-4 md:mt-0">
-              © {new Date().getFullYear()} {profile.name}. All rights reserved.
-            </p>
-          </motion.div>
         </div>
       </Container>
+
+      {/* Bottom contact info */}
+      <motion.div
+        className="pb-8 md:pb-12"
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        custom={3}
+        variants={textVariants}
+      >
+        <Container>
+          <div className="space-y-1">
+            {profile.phone && (
+              <a
+                href={`tel:${profile.phone}`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="block text-sm text-white/80 hover:text-white transition-colors"
+              >
+                {profile.phone}
+              </a>
+            )}
+            <a
+              href={`mailto:${profile.email}`}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="block text-sm text-white/80 hover:text-white transition-colors"
+            >
+              {profile.email}
+            </a>
+          </div>
+        </Container>
+      </motion.div>
     </footer>
   );
 }

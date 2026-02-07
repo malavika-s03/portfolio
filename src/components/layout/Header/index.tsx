@@ -29,57 +29,26 @@ export function Header() {
               HOME
             </Link>
 
-            {/* Right side - Theme toggle & Menu */}
-            <div className="flex items-center gap-6">
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className="p-2 rounded-full hover:bg-muted transition-colors"
-                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-              >
-                {theme === 'light' ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                  </svg>
-                )}
-              </button>
-
-              {/* Menu Button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                className="flex flex-col gap-1.5 p-2"
-                aria-label="Toggle menu"
-              >
-                <motion.span
-                  className="block w-6 h-0.5 bg-foreground origin-center"
-                  animate={{ rotate: isMenuOpen ? 45 : 0, y: isMenuOpen ? 6 : 0 }}
-                />
-                <motion.span
-                  className="block w-6 h-0.5 bg-foreground"
-                  animate={{ opacity: isMenuOpen ? 0 : 1 }}
-                />
-                <motion.span
-                  className="block w-6 h-0.5 bg-foreground origin-center"
-                  animate={{ rotate: isMenuOpen ? -45 : 0, y: isMenuOpen ? -6 : 0 }}
-                />
-              </button>
-            </div>
+            {/* Right side - Menu dots */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="flex gap-1 p-2"
+              aria-label="Toggle menu"
+            >
+              {/* 2x2 grid of dots */}
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                </div>
+                <div className="flex gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                </div>
+              </div>
+            </button>
           </nav>
         </Container>
       </header>
@@ -94,9 +63,28 @@ export function Header() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 bg-background"
           >
+            {/* Close button */}
+            <div className="fixed top-6 right-6 z-50">
+              <Container>
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setIsMenuOpen(false)}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    className="p-2 text-foreground"
+                    aria-label="Close menu"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </Container>
+            </div>
+
             <Container className="h-full flex items-center justify-center">
               <nav className="text-center">
-                <ul className="space-y-8">
+                <ul className="space-y-6">
                   {[
                     { to: '/', label: 'Home' },
                     { to: '/#work', label: 'Work' },
@@ -125,6 +113,23 @@ export function Header() {
                     </motion.li>
                   ))}
                 </ul>
+
+                {/* Theme toggle in menu */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="mt-12"
+                >
+                  <button
+                    onClick={toggleTheme}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    className="text-sm uppercase tracking-wider opacity-50 hover:opacity-100 transition-opacity"
+                  >
+                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                  </button>
+                </motion.div>
               </nav>
             </Container>
           </motion.div>
