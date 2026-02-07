@@ -1,0 +1,2 @@
+transition:color .4s cubic-bezier(.44,0,.56,1)}@media (max-width:1199px) and (min-width:810px){.framer-M2Nhb .framer-styles-preset-v5rub6:not(.rich-text-wrapper),.framer-M2Nhb .framer-styles-preset-v5rub6.rich-text-wrapper h4{--framer-font-family:"Inter","Inter Placeholder",sans-serif
+transition:color .4s cubic-bezier(.44,0,.56,1)}@supports (aspect-ratio:1){body{--framer-aspect-ratio-supported:auto}}.framer-IJBOH.framer-163ubxw,.framer-IJBOH .framer-163ubxw{display:block}.framer-IJBOH.framer-1izj3mo{cursor:pointer

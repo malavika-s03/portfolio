@@ -1,38 +1,30 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useCursor } from '@/context/CursorContext';
-import { Container } from '@/components/layout/Container';
 import { projects } from '@/data/projects';
 
 export function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { setCursorVariant, resetCursor } = useCursor();
-
   const project = projects.find(p => p.slug === slug);
 
   if (!project) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <Container>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Project not found</h1>
-            <Link
-              to="/"
-              onMouseEnter={() => setCursorVariant('hover')}
-              onMouseLeave={() => resetCursor()}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              ← Back to home
-            </Link>
-          </div>
-        </Container>
+      <main className="min-h-screen flex items-center justify-center px-5 md:px-10 lg:px-20">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Project not found</h1>
+          <Link
+            to="/"
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            ← Back to home
+          </Link>
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-20">
-      <Container>
+    <main className="min-h-screen pt-24 pb-20 px-5 md:px-10 lg:px-20">
+      <div className="w-full max-w-content mx-auto">
         {/* Back Link */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -42,8 +34,6 @@ export function ProjectPage() {
         >
           <Link
             to="/"
-            onMouseEnter={() => setCursorVariant('hover')}
-            onMouseLeave={() => resetCursor()}
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -116,7 +106,7 @@ export function ProjectPage() {
           />
         </motion.div>
 
-        {/* Project Content Placeholder */}
+        {/* Project Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -129,28 +119,6 @@ export function ProjectPage() {
             The goal was to create a {project.category.toLowerCase()} that would effectively communicate
             the brand's values while providing an exceptional user experience.
           </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Working as the {project.role || 'designer'}, I led the project from concept to completion,
-            ensuring every detail aligned with the project objectives and user needs.
-          </p>
-        </motion.div>
-
-        {/* Additional Images Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="grid md:grid-cols-2 gap-6 mt-16"
-        >
-          {[1, 2].map((_, i) => (
-            <div key={i} className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-              <img
-                src={`https://images.unsplash.com/photo-${1550745165 + i * 1000}-9bc0b252726f?w=800&h=600&fit=crop`}
-                alt={`${project.title} detail ${i + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
         </motion.div>
 
         {/* Next Project Navigation */}
@@ -166,8 +134,6 @@ export function ProjectPage() {
             return (
               <Link
                 to={`/project/${nextProject.slug}`}
-                onMouseEnter={() => setCursorVariant('hover')}
-                onMouseLeave={() => resetCursor()}
                 className="group block"
               >
                 <span className="text-muted-foreground text-sm uppercase tracking-wider">
@@ -180,7 +146,7 @@ export function ProjectPage() {
             );
           })()}
         </motion.div>
-      </Container>
+      </div>
     </main>
   );
 }

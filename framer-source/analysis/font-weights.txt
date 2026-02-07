@@ -1,0 +1,32 @@
+font-weight: 400
+font-weight: 500
+font-weight: 600
+font-weight: 700
+font-weight: 900
+font-weight:400
+font-weight:500
+font-weight:600
+font-weight:700
+font-weight:bolder}[data-framer-component-type=DeprecatedRichText] em{font-style:italic}[data-framer-component-type=DeprecatedRichText] .framer-image{max-width:100%
+font-weight:min(calc(var(--framer-font-weight-increase,0) + var(--font-weight,400)),900)
+font-weight:var(--framer-blockquote-font-weight,var(--framer-code-font-weight,var(--framer-font-weight,400)))
+font-weight:var(--framer-blockquote-font-weight-bold,var(--framer-font-weight-bold,bolder))
+font-weight:var(--framer-blockquote-font-weight-bold-italic,var(--framer-font-weight-bold-italic,bolder))
+font-weight:var(--framer-blockquote-font-weight-italic,var(--framer-font-weight-italic))
+font-weight:var(--framer-code-font-weight,var(--framer-font-weight,400))
+font-weight:var(--framer-font-weight)
+font-weight:var(--framer-font-weight,400)
+font-weight:var(--framer-font-weight-preview,var(--framer-blockquote-font-weight,var(--framer-font-weight,400)))
+font-weight:var(--framer-font-weight-preview,var(--framer-blockquote-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400))))
+font-weight:var(--framer-font-weight-preview,var(--framer-link-current-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400))))
+font-weight:var(--framer-font-weight-preview,var(--framer-link-hover-font-weight,var(--framer-blockquote-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400)))))
+font-weight:var(--framer-font-weight-preview,var(--framer-link-hover-font-weight,var(--framer-link-current-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400)))))
+font-weight:var(--framer-link-current-font-weight,var(--framer-link-font-weight,var(--framer-font-weight)))
+font-weight:var(--framer-link-current-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400)))
+font-weight:var(--framer-link-font-weight,var(--framer-font-weight))
+font-weight:var(--framer-link-font-weight,var(--framer-font-weight,400))
+font-weight:var(--framer-link-hover-font-weight,var(--framer-link-current-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400))))
+font-weight:var(--framer-link-hover-font-weight,var(--framer-link-font-weight,var(--framer-font-weight)))
+font-weight:var(--framer-link-hover-font-weight,var(--framer-link-font-weight,var(--framer-font-weight,400)))
+font-weight:500
+font-weight:700

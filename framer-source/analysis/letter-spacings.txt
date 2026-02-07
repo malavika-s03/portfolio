@@ -1,0 +1,15 @@
+letter-spacing:-.03em
+letter-spacing:-.04em
+letter-spacing:-.05em
+letter-spacing:-.06em
+letter-spacing:-.09em
+letter-spacing:-0.06em
+letter-spacing:-0.2px
+letter-spacing:0
+letter-spacing:0em
+letter-spacing:var(--framer-blockquote-letter-spacing,var(--framer-letter-spacing,0))
+letter-spacing:var(--framer-letter-spacing)
+letter-spacing:var(--framer-letter-spacing,0)
+letter-spacing:var(--letter-spacing)
+letter-spacing:-0.06em
+letter-spacing:-0.2px

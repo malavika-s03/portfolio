@@ -1,0 +1,11 @@
+border-radius:0px" height="100%" id="CBA5OkIHe" width="100%">Copy to Clipboard</button><!--/$--></div></div></div></div><div class="framer-1jmipcb" style="transform:none" data-framer-component-type="RichTextContainer"><p class="framer-text framer-styles-preset-1jr5377" data-styles-preset="WxvFNh3si" style="--framer-text-color:var(--token-e9abed44-df8b-4765-bbfe-7c072006d47b, rgb(0, 0, 0))">      Hello, I'm a freelancer specializing in minimal design with 10 years of expertise — based in Tokyo, working remote. Let’s create!</p></div></div></div></section><div class="framer-127ea2h" data-framer-name="Divider"><div class="framer-1fvxecq" data-framer-name="Divider"></div></div><section class="framer-19i4xg" data-framer-name="Work"><div class="framer-txbo53" data-framer-name="Container"><div class="framer-ga4x4w" data-framer-name="Section header" style="will-change:transform
+border-radius:0px" height="100%" id="CBA5OkIHe" width="100%">Copy to Clipboard</button><!--/$--></div></div></div></div><div class="ssr-variant hidden-14i04bq hidden-wizqf1 hidden-72rtr7"><div class="framer-1jpg09i-container" data-framer-cursor="1igxo09"><div class="framer-1Qr3s framer-Ifylc framer-1k1k2p1 framer-v-1k1k2p1" data-framer-name="Email"><div class="framer-x0dm4m" style="--extracted-r6o4lv:var(--token-e9abed44-df8b-4765-bbfe-7c072006d47b, rgb(0, 0, 0))
+border-radius:140px
+border-radius:inherit
+border-radius:var(--framer-blockquote-text-background-radius,var(--framer-text-background-radius,initial))
+border-radius:var(--framer-link-current-text-background-radius,var(--framer-link-text-background-radius,initial))
+border-radius:var(--framer-link-hover-text-background-radius,var(--framer-link-current-text-background-radius,var(--framer-link-text-background-radius,initial)))
+border-radius:var(--framer-link-hover-text-background-radius,var(--framer-link-text-background-radius,var(--framer-text-background-radius,initial)))
+border-radius:var(--framer-link-text-background-radius,initial)
+border-radius:0px
+border-radius:inherit

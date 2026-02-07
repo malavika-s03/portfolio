@@ -1,120 +1,112 @@
 import { motion } from 'framer-motion';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { profile } from '@/data/profile';
+import { heroNameAppear, heroPhotoAppear, heroBioAppear, FRAMER_EASE } from '@/lib/animations';
 
 export function Hero() {
   const { copied, copy } = useCopyToClipboard();
 
-  const nameVariants = {
-    hidden: { y: '100%' },
-    visible: (i: number) => ({
-      y: 0,
-      transition: {
-        duration: 0.8,
-        delay: 0.3 + i * 0.1,
-        ease: [0.4, 0, 0.2, 1] as const,
-      },
-    }),
-  };
-
   return (
-    <section className="min-h-screen flex flex-col">
-      {/* Main content wrapper with proper padding */}
-      <div className="flex-1 flex flex-col justify-between px-5 md:px-10 lg:px-20 pt-[140px] pb-20">
-        <div className="w-full max-w-content mx-auto">
-          {/* Top section: Name + Photo */}
-          <div className="flex items-start justify-between gap-2.5">
-            {/* Name column */}
-            <div className="flex-1 flex flex-col">
-              <div className="overflow-hidden">
-                <motion.h1
-                  className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-none tracking-[-0.09em]"
-                  initial="hidden"
-                  animate="visible"
-                  custom={0}
-                  variants={nameVariants}
-                >
-                  {profile.firstName}
-                </motion.h1>
-              </div>
-              <div className="overflow-hidden">
-                <motion.h1
-                  className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-none tracking-[-0.09em]"
-                  initial="hidden"
-                  animate="visible"
-                  custom={1}
-                  variants={nameVariants}
-                >
-                  {profile.lastName}
-                </motion.h1>
-              </div>
-            </div>
-
-            {/* Profile Photo - circular, 168px on desktop */}
-            <motion.div
-              className="flex-shrink-0"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <div className="w-[100px] md:w-[140px] lg:w-[168px] h-[100px] md:h-[140px] lg:h-[168px] rounded-[140px] overflow-hidden">
-                <img
-                  src="https://framerusercontent.com/images/j1OWdec3GtorzmtyEO583X355k.png"
-                  alt={profile.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom section: Email + Intro */}
-        <div className="w-full max-w-content mx-auto">
-          <motion.div
-            className="flex items-start justify-between gap-2.5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-          >
-            {/* Email with copy */}
-            <button
-              onClick={() => copy(profile.email)}
-              className="group flex items-center gap-2 text-foreground hover:opacity-70 transition-opacity"
-            >
-              <span className="text-base md:text-lg">{profile.emailDisplay || profile.email}</span>
-              <svg
-                className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+    <section className="w-full flex flex-col items-center px-5 md:px-[30px] lg:px-20 overflow-hidden">
+      {/* Container: 100vh on desktop, min-content on tablet/mobile */}
+      <div className="w-full max-w-[1600px] flex flex-col justify-center gap-[34px] lg:justify-between lg:gap-0 min-h-0 lg:min-h-[800px] lg:h-screen pt-[140px] pb-10 lg:pb-20 relative overflow-visible">
+        {/* Profile Section: row on desktop, column on mobile */}
+        <div className="flex flex-col lg:flex-row items-start gap-[30px] lg:gap-[10px] w-full overflow-hidden">
+          {/* Name Column */}
+          <div className="flex flex-col flex-none lg:flex-1 w-full lg:w-[1px] overflow-hidden order-1 lg:order-none">
+            {/* First Name */}
+            <div className="overflow-hidden">
+              <motion.div
+                initial={heroNameAppear.initial}
+                animate={heroNameAppear.animate}
+                transition={heroNameAppear.transition(0.3)}
               >
-                {copied ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                )}
-              </svg>
-            </button>
+                <h1 className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-[1em] tracking-[-0.09em]">
+                  {profile.firstName}
+                </h1>
+              </motion.div>
+            </div>
+            {/* Last Name */}
+            <div className="overflow-hidden">
+              <motion.div
+                initial={heroNameAppear.initial}
+                animate={heroNameAppear.animate}
+                transition={heroNameAppear.transition(0.4)}
+              >
+                <h1 className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-[1em] tracking-[-0.09em]">
+                  {profile.lastName}
+                </h1>
+              </motion.div>
+            </div>
+          </div>
 
-            {/* Intro Text - justified, specific max-width */}
-            <motion.p
-              className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.1] tracking-[-0.06em] text-justify max-w-[643px] flex-1"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
-            >
-              {profile.intro}
-            </motion.p>
+          {/* Profile Photo - circular, border-radius: 140px */}
+          <motion.div
+            className="flex-shrink-0 rounded-[140px] overflow-hidden"
+            initial={heroPhotoAppear.initial}
+            animate={heroPhotoAppear.animate}
+            transition={heroPhotoAppear.transition}
+          >
+            <div className="w-[100px] md:w-[140px] lg:w-[168px] h-[100px] md:h-[140px] lg:h-[168px]">
+              <img
+                src="https://framerusercontent.com/images/j1OWdec3GtorzmtyEO583X355k.png"
+                alt={profile.name}
+                className="w-full h-full object-cover rounded-[140px]"
+              />
+            </div>
           </motion.div>
         </div>
+
+        {/* Bio Section: Email + Intro */}
+        <motion.div
+          className="flex flex-col md:flex-row items-start justify-between gap-[10px] w-full overflow-hidden"
+          initial={heroBioAppear.initial}
+          animate={heroBioAppear.animate}
+          transition={heroBioAppear.transition}
+        >
+          {/* Email with copy - 26px text */}
+          <button
+            onClick={() => copy(profile.email)}
+            className="group flex items-center gap-3 text-foreground hover:opacity-70 transition-opacity flex-shrink-0"
+          >
+            <span className="text-[26px] font-medium tracking-[-0.06em] leading-[1.3em]">
+              {profile.emailDisplay || profile.email}
+            </span>
+            {/* Copy icon - 20x20 SVG matching Framer's exact icon */}
+            <svg
+              className="w-5 h-5 flex-shrink-0"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              {copied ? (
+                <path d="M5 10l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              ) : (
+                <>
+                  <rect x="1.668" y="1.668" width="12.222" height="12.222" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="transparent" />
+                  <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="transparent" />
+                </>
+              )}
+            </svg>
+          </button>
+
+          {/* Intro Text - justified, max-width 643px */}
+          <p className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.1em] tracking-[-0.06em] text-justify max-w-[643px]">
+            {profile.intro}
+          </p>
+        </motion.div>
       </div>
 
-      {/* Divider line */}
-      <div className="px-5 md:px-10 lg:px-20">
-        <div className="w-full max-w-content mx-auto">
-          <div className="h-px bg-framer-bg" />
+      {/* Divider line - exactly matches Framer */}
+      <motion.div
+        className="w-full flex items-center justify-center overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1, ease: FRAMER_EASE }}
+      >
+        <div className="w-full max-w-[1600px]">
+          <div className="h-px w-full bg-[#f5f5f5]" />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

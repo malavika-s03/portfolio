@@ -160,4 +160,8 @@ html.lenis body {
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  /* Framer-exact breakpoints: mobile <810, tablet 810-1199, desktop ≥1200 */
+  --breakpoint-md: 810px;
+  --breakpoint-lg: 1200px;
 }

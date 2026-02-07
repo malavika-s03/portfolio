@@ -1,0 +1,13 @@
+line-height:1.1em
+line-height:1.2em
+line-height:1.3em
+line-height:1.4em
+line-height:1.6em
+line-height:1em
+line-height:var(--framer-blockquote-line-height,var(--framer-line-height,1.2em))
+line-height:var(--framer-blockquote-line-height,var(--framer-line-height,1.2em))}@supports not (color:color(display-p3 1 1 1)){code.framer-text,code.framer-text span.framer-text:not([data-text-fill]){color:var(--framer-blockquote-text-color-rgb,var(--framer-blockquote-text-color,var(--framer-code-text-color-rgb,var(--framer-code-text-color,var(--framer-text-color-rgb,var(--framer-text-color,#000))))))}}blockquote.framer-text{unicode-bidi:initial
+line-height:var(--framer-line-height)}@supports not (color:color(display-p3 1 1 1)){p.framer-text,div.framer-text,h1.framer-text,h2.framer-text,h3.framer-text,h4.framer-text,h5.framer-text,h6.framer-text,li.framer-text,ol.framer-text,ul.framer-text,span.framer-text:not([data-text-fill]){color:var(--framer-blockquote-text-color-rgb,var(--framer-blockquote-text-color,var(--framer-text-color-rgb,var(--framer-text-color,#000))))
+line-height:var(--framer-line-height)}[data-framer-component-type=Text] a,[data-framer-component-type=Text] a div span,[data-framer-component-type=Text] a span span span,[data-framer-component-type=Text] a p span span,[data-framer-component-type=Text] a h1 span span,[data-framer-component-type=Text] a h2 span span,[data-framer-component-type=Text] a h3 span span,[data-framer-component-type=Text] a h4 span span,[data-framer-component-type=Text] a h5 span span,[data-framer-component-type=Text] a h6 span span{--font-family:var(--framer-link-font-family,var(--framer-font-family))
+line-height:var(--framer-line-height,1.2em)
+line-height:var(--line-height)
+line-height:1.1em

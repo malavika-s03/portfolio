@@ -1,6 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/cn';
-import { useCursor } from '@/context/CursorContext';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -22,8 +21,6 @@ const sizes = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => {
-    const { setCursorVariant, resetCursor } = useCursor();
-
     return (
       <button
         ref={ref}
@@ -33,8 +30,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           sizes[size],
           className
         )}
-        onMouseEnter={() => setCursorVariant('hover')}
-        onMouseLeave={() => resetCursor()}
         {...props}
       >
         {children}

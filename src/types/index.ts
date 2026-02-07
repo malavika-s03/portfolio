@@ -36,10 +36,3 @@ export interface SocialLinks {
   twitter?: string;
   github?: string;
 }
-
-export type CursorVariant = 'default' | 'hover' | 'click' | 'hidden' | 'text';
-
-export interface CursorState {
-  variant: CursorVariant;
-  text?: string;
-}
