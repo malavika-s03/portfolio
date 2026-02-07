@@ -18,6 +18,7 @@ export interface Profile {
   lastName: string;
   title: string;
   email: string;
+  emailDisplay?: string;
   phone?: string;
   location: string;
   intro: string;

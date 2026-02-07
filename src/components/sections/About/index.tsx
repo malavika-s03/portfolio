@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCursor } from '@/context/CursorContext';
 import { useInView } from '@/hooks/useInView';
-import { Container } from '@/components/layout/Container';
 import { profile } from '@/data/profile';
 
 export function About() {
   const [expanded, setExpanded] = useState(false);
-  const { setCursorVariant, resetCursor } = useCursor();
   const { ref, isInView } = useInView<HTMLElement>({ threshold: 0.2, triggerOnce: true });
 
   const textVariants = {
@@ -24,12 +21,12 @@ export function About() {
   };
 
   return (
-    <section ref={ref} id="about" className="py-16 md:py-24 border-t border-border">
-      <Container>
+    <section ref={ref} id="about" className="bg-white z-[2] relative px-5 md:px-10 lg:px-20 py-20 pb-40">
+      <div className="w-full max-w-content mx-auto">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex items-center justify-between mb-20">
           <motion.h2
-            className="text-xl md:text-2xl font-normal"
+            className="text-xl font-medium"
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={0}
@@ -40,8 +37,6 @@ export function About() {
 
           <motion.button
             onClick={() => setExpanded(!expanded)}
-            onMouseEnter={() => setCursorVariant('hover')}
-            onMouseLeave={() => resetCursor()}
             className="px-5 py-2 text-sm font-medium border border-foreground/20 rounded-full hover:bg-foreground hover:text-background transition-colors"
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
@@ -52,9 +47,9 @@ export function About() {
           </motion.button>
         </div>
 
-        {/* Main About Text - Large and bold */}
+        {/* Main About Text - Large, justified */}
         <motion.p
-          className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.1] tracking-tight max-w-5xl"
+          className="text-[32px] md:text-[40px] lg:text-[50px] font-medium leading-[1.1] tracking-[-0.06em] text-justify max-w-[728px]"
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           custom={1}
@@ -73,28 +68,30 @@ export function About() {
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] as const }}
               className="overflow-hidden"
             >
-              <div className="grid md:grid-cols-2 gap-12 mt-16 pt-16 border-t border-border">
-                {/* Portrait - Left side */}
+              <div className="flex flex-col md:flex-row gap-20 mt-20 pl-0 md:pl-[100px]">
+                {/* Portrait - Left side, aspect ratio 1.3825 */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="aspect-[3/4] bg-muted overflow-hidden"
+                  className="w-full md:w-[553px] flex-shrink-0"
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop"
-                    alt={profile.name}
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="aspect-[1.3825] overflow-hidden">
+                    <img
+                      src="https://framerusercontent.com/images/7hMiTdrGlu2C0xyOGVzHXNKngfU.jpg"
+                      alt={profile.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </motion.div>
 
                 {/* Philosophy Text - Right side */}
-                <div className="flex flex-col justify-end">
+                <div className="flex flex-col justify-end flex-1">
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-base md:text-lg leading-relaxed text-muted-foreground italic"
+                    className="text-xl leading-relaxed max-w-[311px] text-foreground"
                   >
                     {profile.philosophy}
                   </motion.p>
@@ -103,7 +100,7 @@ export function About() {
             </motion.div>
           )}
         </AnimatePresence>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -10,6 +10,25 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['Fragment Mono', 'monospace'],
+      },
+      fontSize: {
+        // Display/Name sizes
+        'display-xl': ['174px', { lineHeight: '1', letterSpacing: '-0.09em', fontWeight: '600' }],
+        'display-lg': ['116px', { lineHeight: '1', letterSpacing: '-0.09em', fontWeight: '600' }],
+        'display-md': ['76px', { lineHeight: '1', letterSpacing: '-0.09em', fontWeight: '600' }],
+        // About statement sizes
+        'statement-xl': ['50px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        'statement-lg': ['40px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        'statement-md': ['32px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        // Intro paragraph sizes
+        'intro-xl': ['40px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        'intro-lg': ['32px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        'intro-md': ['28px', { lineHeight: '1.1', letterSpacing: '-0.06em', fontWeight: '500' }],
+        // Section title
+        'section': ['20px', { lineHeight: '1.2', fontWeight: '500' }],
+        // Philosophy text
+        'philosophy': ['20px', { lineHeight: '1.4', fontWeight: '400' }],
       },
       colors: {
         background: 'var(--background)',
@@ -19,6 +38,31 @@ export default {
         border: 'var(--border)',
         accent: 'var(--accent)',
         'accent-foreground': 'var(--accent-foreground)',
+        // Framer exact colors
+        'framer-black': '#000000',
+        'framer-white': '#ffffff',
+        'framer-gray': '#333333',
+        'framer-gray-light': '#b3b3b3',
+        'framer-bg': '#f5f5f5',
+        'framer-accent': '#ed4337',
+        'framer-link': '#0099ff',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '30': '7.5rem',
+      },
+      maxWidth: {
+        'content': '1600px',
+        'statement': '728px',
+        'intro': '643px',
+        'philosophy': '311px',
+      },
+      borderRadius: {
+        'circle': '140px',
+      },
+      aspectRatio: {
+        'portrait': '1.3825',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

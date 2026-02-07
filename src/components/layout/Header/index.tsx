@@ -2,55 +2,43 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
-import { useCursor } from '@/context/CursorContext';
-import { Container } from '../Container';
-import { cn } from '@/lib/cn';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { setCursorVariant, resetCursor } = useCursor();
-
-  const handleMouseEnter = () => setCursorVariant('hover');
-  const handleMouseLeave = () => resetCursor();
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 py-6">
-        <Container>
+      <header className="fixed top-0 left-0 right-0 z-50 px-5 md:px-10 lg:px-20 py-6">
+        <div className="w-full max-w-content mx-auto">
           <nav className="flex items-center justify-between">
             {/* Logo / Home Link */}
             <Link
               to="/"
-              className="text-sm font-medium uppercase tracking-wider"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              className="text-sm font-medium uppercase tracking-wider text-foreground hover:opacity-70 transition-opacity"
             >
               HOME
             </Link>
 
-            {/* Right side - Menu dots */}
+            {/* Right side - Menu dots (2x2 grid) */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="flex gap-1 p-2"
+              className="flex gap-[3px] p-2 hover:opacity-70 transition-opacity"
               aria-label="Toggle menu"
             >
-              {/* 2x2 grid of dots */}
-              <div className="flex flex-col gap-1">
-                <div className="flex gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+              <div className="flex flex-col gap-[3px]">
+                <div className="flex gap-[3px]">
+                  <span className="w-[5px] h-[5px] rounded-full bg-foreground" />
+                  <span className="w-[5px] h-[5px] rounded-full bg-foreground" />
                 </div>
-                <div className="flex gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                <div className="flex gap-[3px]">
+                  <span className="w-[5px] h-[5px] rounded-full bg-foreground" />
+                  <span className="w-[5px] h-[5px] rounded-full bg-foreground" />
                 </div>
               </div>
             </button>
           </nav>
-        </Container>
+        </div>
       </header>
 
       {/* Full screen menu overlay */}
@@ -64,25 +52,19 @@ export function Header() {
             className="fixed inset-0 z-40 bg-background"
           >
             {/* Close button */}
-            <div className="fixed top-6 right-6 z-50">
-              <Container>
-                <div className="flex justify-end">
-                  <button
-                    onClick={() => setIsMenuOpen(false)}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    className="p-2 text-foreground"
-                    aria-label="Close menu"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </Container>
+            <div className="absolute top-6 right-5 md:right-10 lg:right-20 z-50">
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 text-foreground hover:opacity-70 transition-opacity"
+                aria-label="Close menu"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
             </div>
 
-            <Container className="h-full flex items-center justify-center">
+            <div className="h-full flex items-center justify-center px-5 md:px-10 lg:px-20">
               <nav className="text-center">
                 <ul className="space-y-6">
                   {[
@@ -101,12 +83,7 @@ export function Header() {
                       <Link
                         to={item.to}
                         onClick={() => setIsMenuOpen(false)}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        className={cn(
-                          'text-5xl md:text-7xl font-bold uppercase tracking-tight',
-                          'hover:opacity-50 transition-opacity'
-                        )}
+                        className="text-5xl md:text-7xl font-semibold uppercase tracking-tight hover:opacity-50 transition-opacity"
                       >
                         {item.label}
                       </Link>
@@ -123,15 +100,13 @@ export function Header() {
                 >
                   <button
                     onClick={toggleTheme}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
                     className="text-sm uppercase tracking-wider opacity-50 hover:opacity-100 transition-opacity"
                   >
                     {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                   </button>
                 </motion.div>
               </nav>
-            </Container>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

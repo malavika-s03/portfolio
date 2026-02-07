@@ -6,6 +6,7 @@ export const profile: Profile = {
   lastName: "SURESH",
   title: "Freelance Designer",
   email: "malavikasparambumana@gmail.com",
+  emailDisplay: "hello@yume.com",
   phone: "+91 9207768108",
   location: "Tokyo",
   intro: "Hello, I'm a freelancer specializing in minimal design with 10 years of expertise — based in Tokyo, working remote. Let's create!",

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useCursor } from '@/context/CursorContext';
 import type { Project } from '@/types';
 
 interface ProjectCardProps {
@@ -9,8 +8,6 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const { setCursorVariant, resetCursor } = useCursor();
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -24,9 +21,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     >
       <Link
         to={`/project/${project.slug}`}
-        onMouseEnter={() => setCursorVariant('hover')}
-        onMouseLeave={() => resetCursor()}
-        className="group block relative overflow-hidden aspect-[4/3]"
+        className="group block relative overflow-hidden aspect-square"
       >
         {/* Image */}
         <motion.div
@@ -42,14 +37,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           />
         </motion.div>
 
-        {/* Title Overlay - appears on hover at bottom right */}
-        <div className="absolute bottom-0 right-0 p-6">
-          <motion.h3
-            className="text-white text-2xl md:text-3xl font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
-          >
+        {/* Title Overlay - appears on hover, positioned bottom-right */}
+        <div className="absolute inset-0 flex items-end justify-end p-6">
+          <h4 className="text-white text-2xl md:text-3xl lg:text-4xl font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg">
             {project.title}
-          </motion.h3>
+          </h4>
         </div>
       </Link>
     </motion.div>

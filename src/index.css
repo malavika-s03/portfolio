@@ -1,19 +1,24 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap');
 
-/* CSS Variables for theming */
+/* CSS Variables for theming - Matching Framer exactly */
 :root {
   --background: #ffffff;
   --foreground: #000000;
   --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --border: #e5e5e5;
+  --muted-foreground: #b3b3b3;
+  --border: #f5f5f5;
   --accent: #000000;
   --accent-foreground: #ffffff;
 
-  /* Cursor */
-  --cursor-size: 12px;
-  --cursor-color: #000000;
+  /* Framer color tokens */
+  --framer-white: #ffffff;
+  --framer-black: #000000;
+  --framer-gray: #333333;
+  --framer-gray-light: #b3b3b3;
+  --framer-bg: #f5f5f5;
+  --framer-accent: #ed4337;
+  --framer-link: #0099ff;
 }
 
 .dark {
@@ -24,8 +29,6 @@
   --border: #262626;
   --accent: #ffffff;
   --accent-foreground: #000000;
-
-  --cursor-color: #ffffff;
 }
 
 /* Base styles */
@@ -37,6 +40,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -47,17 +52,8 @@ body {
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Hide default cursor on desktop */
-@media (hover: hover) and (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
 }
 
 /* Selection */
@@ -66,9 +62,9 @@ body {
   color: var(--background);
 }
 
-/* Scrollbar */
+/* Scrollbar - minimal */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -77,7 +73,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--muted-foreground);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -140,6 +136,19 @@ html.lenis body {
 
 .lenis.lenis-smooth iframe {
   pointer-events: none;
+}
+
+/* Gradient text utility for footer */
+.gradient-text {
+  background: linear-gradient(95deg, rgb(255, 255, 255) 37%, rgb(56, 56, 56) 95%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Text justify */
+.text-justify {
+  text-align: justify;
 }
 
 /* Custom theme utilities using @theme */
