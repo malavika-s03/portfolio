@@ -8,7 +8,7 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Yulu - UX Study",
-    slug: "violet-orbit",
+    slug: "yulu",
     thumbnail: "https://framerusercontent.com/images/HpYOQqypWOJ8EfkSik2rEBAMFwg.jpg",
     category: "UI/UX",
     description: "A comprehensive UX study focusing on user experience and minimal aesthetics.",

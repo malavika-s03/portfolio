@@ -6,6 +6,7 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { CustomCursor } from '@/components/shared/CustomCursor';
 import { HomePage } from '@/pages/Home';
 import { ProjectPage } from '@/pages/Project';
+import { YuluCaseStudyPage } from '@/pages/YuluCaseStudy';
 import { NotFoundPage } from '@/pages/NotFound';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <PageTransition>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/project/yulu" element={<YuluCaseStudyPage />} />
               <Route path="/project/:slug" element={<ProjectPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

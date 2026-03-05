@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { headerAppear, FRAMER_EASE } from '@/lib/animations';
@@ -7,6 +7,9 @@ import { headerAppear, FRAMER_EASE } from '@/lib/animations';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+  
+  const isYuluPage = location.pathname === '/project/yulu';
 
   return (
     <>
@@ -18,13 +21,16 @@ export function Header() {
       >
         <div className="w-full max-w-[1600px] mx-auto">
           <nav className="flex items-center justify-between">
-            {/* HOME Link */}
-            <Link
-              to="/"
-              className="text-sm font-medium uppercase tracking-wider text-foreground hover:opacity-70 transition-opacity"
-            >
-              HOME
-            </Link>
+            {/* HOME Link - hidden on Yulu case study page */}
+            {!isYuluPage && (
+              <Link
+                to="/"
+                className="text-sm font-medium uppercase tracking-wider text-foreground hover:opacity-70 transition-opacity"
+              >
+                HOME
+              </Link>
+            )}
+            {isYuluPage && <div />}
 
             {/* Dots menu icon - 19x19px, 2x2 grid, 5px dots, gap 2px rows / 9px cols */}
             <button
