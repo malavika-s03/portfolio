@@ -8,50 +8,47 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
-  
+
   const isYuluPage = location.pathname === '/project/yulu';
 
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 px-5 md:px-[30px] lg:px-20 py-6"
+        className="fixed top-0 left-0 right-0 z-50"
         initial={headerAppear.initial}
         animate={headerAppear.animate}
         transition={headerAppear.transition}
       >
-        <div className="w-full max-w-[1600px] mx-auto">
-          <nav className="flex items-center justify-between">
-            {/* HOME Link - hidden on Yulu case study page */}
+        <div className="w-full max-w-[1280px] mx-auto relative" style={{ height: '60px' }}>
+          <nav className="absolute inset-0 flex items-start justify-between px-[48px]">
             {!isYuluPage && (
               <Link
                 to="/"
-                className="text-sm font-medium uppercase tracking-wider text-foreground hover:opacity-70 transition-opacity"
+                className="text-[32px] font-medium uppercase text-foreground hover:opacity-70 transition-opacity"
+                style={{ lineHeight: '118px', letterSpacing: '-1.815px' }}
               >
                 HOME
               </Link>
             )}
             {isYuluPage && <div />}
 
-            {/* Dots menu icon - 19x19px, 2x2 grid, 5px dots, gap 2px rows / 9px cols */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex flex-col gap-[2px] w-[19px] h-[19px] items-center justify-center cursor-pointer hover:opacity-70 transition-opacity p-0"
+              className="cursor-pointer hover:opacity-70 transition-opacity p-0 bg-transparent border-none"
               aria-label="Toggle menu"
+              style={{ marginTop: '38px' }}
             >
-              <div className="flex gap-[9px]">
-                <span className="w-[5px] h-[5px] bg-foreground" style={{ aspectRatio: 1 }} />
-                <span className="w-[5px] h-[5px] bg-foreground" style={{ aspectRatio: 1 }} />
-              </div>
-              <div className="flex gap-[9px]">
-                <span className="w-[5px] h-[5px] bg-foreground" style={{ aspectRatio: 1 }} />
-                <span className="w-[5px] h-[5px] bg-foreground" style={{ aspectRatio: 1 }} />
+              <div className="grid grid-cols-2 gap-[5px]">
+                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
+                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
+                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
+                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
               </div>
             </button>
           </nav>
         </div>
       </motion.header>
 
-      {/* Full screen menu overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -61,8 +58,7 @@ export function Header() {
             transition={{ duration: 0.3, ease: FRAMER_EASE }}
             className="fixed inset-0 z-[60] bg-background"
           >
-            {/* Close button */}
-            <div className="absolute top-6 right-5 md:right-[30px] lg:right-20 z-50">
+            <div className="absolute top-[38px] right-[48px] z-50">
               <button
                 onClick={() => setIsMenuOpen(false)}
                 className="p-2 text-foreground hover:opacity-70 transition-opacity"
@@ -74,13 +70,12 @@ export function Header() {
               </button>
             </div>
 
-            <div className="h-full flex items-center justify-center px-5 md:px-[30px] lg:px-20">
+            <div className="h-full flex items-center justify-center px-[48px]">
               <nav className="text-center">
                 <ul className="space-y-6">
                   {[
                     { to: '/', label: 'Home' },
-                    { to: '/#work', label: 'Work' },
-                    { to: '/#about', label: 'About' },
+                    { to: '/#projects', label: 'Projects' },
                     { to: '/#contact', label: 'Contact' },
                   ].map((item, index) => (
                     <motion.li
@@ -101,11 +96,10 @@ export function Header() {
                   ))}
                 </ul>
 
-                {/* Theme toggle */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4, ease: FRAMER_EASE }}
+                  transition={{ delay: 0.3, ease: FRAMER_EASE }}
                   className="mt-12"
                 >
                   <button

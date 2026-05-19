@@ -2,66 +2,70 @@ import { motion } from 'framer-motion';
 import { profile } from '@/data/profile';
 import { heroNameAppear, heroPhotoAppear, heroBioAppear } from '@/lib/animations';
 
+const BASE = import.meta.env.BASE_URL;
+
 export function Hero() {
   return (
-    <section className="w-full flex flex-col items-center bg-white px-5 md:px-[30px] lg:px-20 overflow-hidden">
-      <div className="w-full max-w-[1600px] flex flex-col justify-between min-h-0 lg:min-h-[633px] pt-[120px] md:pt-[126px] pb-10 lg:pb-[50px] relative">
-        {/* Name + Photo area */}
-        <div className="flex items-start w-full">
-          {/* Name Column */}
-          <div className="flex flex-col flex-1 min-w-0">
-            {/* First Name */}
-            <div className="overflow-hidden">
-              <motion.div
-                initial={heroNameAppear.initial}
-                animate={heroNameAppear.animate}
-                transition={heroNameAppear.transition(0.3)}
+    <section className="w-full bg-white overflow-hidden">
+      <div className="w-full max-w-[1280px] mx-auto relative" style={{ height: '633px' }}>
+        {/* Name — exact Figma: left:53, top:126, 128px Medium, leading 118px, tracking -1.815px */}
+        <div className="absolute left-[53px] top-[126px] w-[757px]" style={{ lineHeight: 0 }}>
+          <div className="overflow-hidden">
+            <motion.div
+              initial={heroNameAppear.initial}
+              animate={heroNameAppear.animate}
+              transition={heroNameAppear.transition(0.3)}
+            >
+              <p
+                className="font-medium text-[#0a0a0a] text-[128px] mb-0"
+                style={{ lineHeight: '118px', letterSpacing: '-1.815px' }}
               >
-                <h1 className="text-[60px] md:text-[90px] lg:text-[128px] font-medium leading-[1em] tracking-[-0.014em] text-[#0a0a0a]">
-                  {profile.firstName}
-                </h1>
-              </motion.div>
-            </div>
-            {/* Last Name */}
-            <div className="overflow-hidden">
-              <motion.div
-                initial={heroNameAppear.initial}
-                animate={heroNameAppear.animate}
-                transition={heroNameAppear.transition(0.4)}
-              >
-                <h1 className="text-[60px] md:text-[90px] lg:text-[128px] font-medium leading-[1em] tracking-[-0.014em] text-[#0a0a0a]">
-                  {profile.lastName}
-                </h1>
-              </motion.div>
-            </div>
+                MALAVIKA
+              </p>
+            </motion.div>
           </div>
-
-          {/* Profile Photo */}
-          <motion.div
-            className="flex-shrink-0 w-[149px] h-[149px] rounded-[74px] overflow-hidden relative"
-            initial={heroPhotoAppear.initial}
-            animate={heroPhotoAppear.animate}
-            transition={heroPhotoAppear.transition}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}images/profile-photo.jpg`}
-              alt={profile.name}
-              className="h-full left-[-38%] max-w-none top-0 w-[178%] object-cover absolute"
-            />
-          </motion.div>
+          <div className="overflow-hidden">
+            <motion.div
+              initial={heroNameAppear.initial}
+              animate={heroNameAppear.animate}
+              transition={heroNameAppear.transition(0.4)}
+            >
+              <p
+                className="font-medium text-[#0a0a0a] text-[128px]"
+                style={{ lineHeight: '118px', letterSpacing: '-1.815px' }}
+              >
+                SURESH
+              </p>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Bio Section */}
-        <div className="flex justify-end w-full overflow-hidden">
-          <motion.p
-            className="text-[20px] md:text-[22px] lg:text-[24px] font-normal leading-[1.33em] text-[#0a0a0a] max-w-[607px]"
-            initial={heroBioAppear.initial}
-            animate={heroBioAppear.animate}
-            transition={heroBioAppear.transition}
-          >
+        {/* Profile photo — exact Figma: left:1050, top:118, 149x149, rounded-74px */}
+        <motion.div
+          className="absolute left-[1050px] top-[118px] w-[149px] h-[149px] rounded-[74px] overflow-hidden"
+          initial={heroPhotoAppear.initial}
+          animate={heroPhotoAppear.animate}
+          transition={heroPhotoAppear.transition}
+        >
+          <img
+            src={`${BASE}images/profile-photo.jpg`}
+            alt={profile.name}
+            className="absolute max-w-none object-cover pointer-events-none"
+            style={{ height: '100.09%', left: '-38.26%', top: '-0.04%', width: '177.85%' }}
+          />
+        </motion.div>
+
+        {/* Bio — exact Figma: left:605, top:443, 24px Regular, leading 32px, w:607 */}
+        <motion.div
+          className="absolute left-[605px] top-[443px] w-[607px]"
+          initial={heroBioAppear.initial}
+          animate={heroBioAppear.animate}
+          transition={heroBioAppear.transition}
+        >
+          <p className="font-normal text-[#0a0a0a] text-[24px]" style={{ lineHeight: '32px' }}>
             {profile.intro}
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
       </div>
     </section>
   );
