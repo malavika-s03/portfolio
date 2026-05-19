@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
-import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { profile } from '@/data/profile';
 import { heroNameAppear, heroPhotoAppear, heroBioAppear, FRAMER_EASE } from '@/lib/animations';
 
 export function Hero() {
-  const { copied, copy } = useCopyToClipboard();
 
   return (
     <section className="w-full flex flex-col items-center px-5 md:px-[30px] lg:px-20 overflow-hidden">
@@ -88,33 +86,8 @@ export function Hero() {
           animate={heroBioAppear.animate}
           transition={heroBioAppear.transition}
         >
-          {/* Email with copy - 26px text */}
-          <button
-            onClick={() => copy(profile.email)}
-            className="group flex items-center gap-3 text-foreground hover:opacity-70 transition-opacity flex-shrink-0"
-          >
-            <span className="text-[26px] font-medium tracking-[-0.06em] leading-[1.3em]">
-              {profile.emailDisplay || profile.email}
-            </span>
-            {/* Copy icon - 20x20 SVG matching Framer's exact icon */}
-            <svg
-              className="w-5 h-5 flex-shrink-0"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              {copied ? (
-                <path d="M5 10l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              ) : (
-                <>
-                  <rect x="1.668" y="1.668" width="12.222" height="12.222" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="transparent" />
-                  <path d="M17 6.11L18.332 6.11L18.332 18.332L6.109 18.332L6.109 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="transparent" />
-                </>
-              )}
-            </svg>
-          </button>
-
           {/* Intro Text - justified, max-width 643px */}
-          <p className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.1em] tracking-[-0.06em] text-justify max-w-[643px]">
+          <p className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.1em] tracking-[-0.06em] text-justify max-w-[643px] ml-auto">
             {profile.intro}
           </p>
         </motion.div>
