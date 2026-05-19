@@ -115,6 +115,48 @@ export const projectCardAppear = {
   }),
 };
 
+// ─── Projects Section Animations ────────────────────────────────────
+export const projectSectionAppear = {
+  title: {
+    initial: { opacity: 0, y: 80 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: FRAMER_EASE },
+    viewport: { once: true, margin: '-10%' as const },
+  },
+  image: {
+    initial: { opacity: 0, y: 100 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay: 0.1, ease: FRAMER_EASE },
+    viewport: { once: true, margin: '-10%' as const },
+  },
+  text: {
+    initial: { opacity: 0, y: 60 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay: 0.2, ease: FRAMER_EASE },
+    viewport: { once: true, margin: '-10%' as const },
+  },
+  button: {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, delay: 0.3, ease: FRAMER_EASE },
+    viewport: { once: true, margin: '-10%' as const },
+  },
+  floatingImage: (index: number) => ({
+    initial: { opacity: 0, scale: 0.8 },
+    whileInView: { opacity: 1, scale: 1 },
+    transition: { duration: 0.5, delay: 0.2 + index * 0.1, ease: FRAMER_EASE },
+    viewport: { once: true, margin: '-10%' as const },
+  }),
+};
+
+// ─── Info Bar Animation ────────────────────────────────────────────
+export const infoBarAppear = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  transition: { duration: 0.6, ease: FRAMER_EASE },
+  viewport: { once: true },
+};
+
 // ─── Page Transition ────────────────────────────────────────────────
 export const pageVariants = {
   initial: { opacity: 0, y: 20 },

@@ -10,6 +10,9 @@ export interface Project {
   role?: string;
   images?: string[];
   link?: string;
+  floatingImages?: string[];
+  overlayText?: string;
+  overlayTextColor?: string;
 }
 
 export interface Profile {
