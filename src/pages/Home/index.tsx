@@ -1,14 +1,14 @@
 import { Hero } from '@/components/sections/Hero';
-import { Work } from '@/components/sections/Work';
-import { About } from '@/components/sections/About';
+import { InfoBar } from '@/components/sections/InfoBar';
+import { Projects } from '@/components/sections/Projects';
 import { Footer } from '@/components/layout/Footer';
 
 export function HomePage() {
   return (
     <main>
       <Hero />
-      <Work />
-      <About />
+      <InfoBar />
+      <Projects />
       <Footer />
     </main>
   );
