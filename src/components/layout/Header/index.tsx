@@ -14,38 +14,35 @@ export function Header() {
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50"
+        className="absolute top-0 left-0 right-0 z-50"
         initial={headerAppear.initial}
         animate={headerAppear.animate}
         transition={headerAppear.transition}
       >
-        <div className="w-full max-w-[1280px] mx-auto relative" style={{ height: '60px' }}>
-          <nav className="absolute inset-0 flex items-start justify-between px-[48px]">
+        <div className="w-full relative" style={{ height: '4.69vw' }}>
             {!isYuluPage && (
               <Link
                 to="/"
-                className="text-[32px] font-medium uppercase text-foreground hover:opacity-70 transition-opacity"
-                style={{ lineHeight: '118px', letterSpacing: '-1.815px' }}
+                className="absolute font-medium uppercase text-foreground hover:opacity-70 transition-opacity"
+                style={{ left: '3.75vw', top: '0', fontSize: '2.5vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
               >
                 HOME
               </Link>
             )}
-            {isYuluPage && <div />}
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="cursor-pointer hover:opacity-70 transition-opacity p-0 bg-transparent border-none"
+              className="absolute cursor-pointer hover:opacity-70 transition-opacity p-0 bg-transparent border-none"
               aria-label="Toggle menu"
-              style={{ marginTop: '38px' }}
+              style={{ left: '91.02vw', top: '2.97vw' }}
             >
-              <div className="grid grid-cols-2 gap-[5px]">
-                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
-                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
-                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
-                <span className="w-[8px] h-[8px] bg-foreground rounded-full" />
+              <div className="grid grid-cols-2" style={{ gap: '0.39vw' }}>
+                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
               </div>
             </button>
-          </nav>
         </div>
       </motion.header>
 

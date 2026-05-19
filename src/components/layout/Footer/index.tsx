@@ -23,12 +23,13 @@ export function Footer() {
     <footer
       ref={ref}
       id="contact"
-      className="bg-black text-white z-[1] relative w-full"
+      className="w-full z-[1] relative"
+      style={{ backgroundColor: '#000000' }}
     >
-      <div className="w-full max-w-[1600px] mx-auto px-[51px] py-[52px] min-h-[400px] lg:min-h-[515px]">
-        {/* Heading */}
+      <div style={{ padding: '4.06vw 3.98vw', minHeight: '40.23vw' }}>
         <motion.h2
-          className="text-[36px] md:text-[42px] lg:text-[48px] font-medium leading-[90px] tracking-[-0.014em] text-[#fffefe]"
+          className="font-medium tracking-[-0.014em] text-[#fffefe]"
+          style={{ fontSize: '3.75vw', lineHeight: '7.03vw' }}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           custom={0}
@@ -37,11 +38,11 @@ export function Footer() {
           GET IN TOUCH
         </motion.h2>
 
-        {/* Links */}
-        <div className="flex flex-col gap-[10px] mt-[24px]">
+        <div className="flex flex-col" style={{ gap: '1.25vw', marginTop: '1.875vw' }}>
           <motion.a
             href={`mailto:${profile.email}`}
-            className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
+            className="font-normal text-[#99a1af] hover:text-white transition-colors"
+            style={{ fontSize: '1.17vw', lineHeight: '1.90vw' }}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={1}
@@ -55,13 +56,14 @@ export function Footer() {
               href={profile.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
+              className="font-normal text-[#99a1af] hover:text-white transition-colors"
+              style={{ fontSize: '1.17vw', lineHeight: '1.90vw' }}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               custom={2}
               variants={staggerVariants}
             >
-              LinkedIn
+              LInkedIn
             </motion.a>
           )}
 
@@ -70,7 +72,8 @@ export function Footer() {
               href={profile.social.behance}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
+              className="font-normal text-[#99a1af] hover:text-white transition-colors"
+              style={{ fontSize: '1.17vw', lineHeight: '1.90vw' }}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               custom={3}
