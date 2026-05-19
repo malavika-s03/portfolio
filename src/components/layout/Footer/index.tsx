@@ -23,133 +23,63 @@ export function Footer() {
     <footer
       ref={ref}
       id="contact"
-      className="bg-black text-white z-[1] relative w-full flex flex-col items-center px-5 md:px-[30px] lg:px-20 overflow-hidden"
+      className="bg-black text-white z-[1] relative w-full"
     >
-      {/* Container: 100vh, max-width 1600px, space-between */}
-      <div className="w-full max-w-[1600px] min-h-screen flex flex-col justify-between py-[60px] md:py-[60px]">
-        {/* Social media links - right-aligned */}
-        <motion.div
-          className="flex justify-end items-end gap-[26px] w-full"
+      <div className="w-full max-w-[1600px] mx-auto px-[51px] py-[52px] min-h-[400px] lg:min-h-[515px]">
+        {/* Heading */}
+        <motion.h2
+          className="text-[36px] md:text-[42px] lg:text-[48px] font-medium leading-[90px] tracking-[-0.014em] text-[#fffefe]"
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           custom={0}
           variants={staggerVariants}
         >
-          {profile.social.linkedin && (
-            <a
-              href={profile.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-base font-medium tracking-[-0.04em] text-white hover:text-[#b3b3b3] transition-colors duration-400"
-              style={{ transitionTimingFunction: 'cubic-bezier(0.44, 0, 0.56, 1)' }}
-            >
-              Linkedin
-            </a>
-          )}
-          {profile.social.behance && (
-            <a
-              href={profile.social.behance}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-base font-medium tracking-[-0.04em] text-white hover:text-[#b3b3b3] transition-colors duration-400"
-              style={{ transitionTimingFunction: 'cubic-bezier(0.44, 0, 0.56, 1)' }}
-            >
-              Behance
-            </a>
-          )}
-        </motion.div>
+          GET IN TOUCH
+        </motion.h2>
 
-        {/* CTA Section */}
-        <div className="flex flex-col gap-8 lg:gap-10 w-full">
-          {/* CTA Text with gradient */}
-          <motion.div
+        {/* Links */}
+        <div className="flex flex-col gap-[10px] mt-[24px]">
+          <motion.a
+            href={`mailto:${profile.email}`}
+            className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={1}
             variants={staggerVariants}
           >
-            <h4 className="text-[38px] md:text-[32px] lg:text-[48px] font-medium leading-[1.2em] tracking-[-0.05em]">
-              <span
-                className="gradient-text"
-                style={{
-                  backgroundImage: 'linear-gradient(95deg, rgb(255, 255, 255) 37%, rgb(56, 56, 56) 95%)',
-                }}
-              >
-                Curious about what we can create together?
-                <br />
-                Let's bring something extraordinary to life!
-              </span>
-            </h4>
-          </motion.div>
+            {profile.email}
+          </motion.a>
 
-          {/* CTA Button & Status */}
-          <motion.div
-            className="flex flex-col md:flex-row items-start md:items-center gap-10"
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            custom={2}
-            variants={staggerVariants}
-          >
-            {/* Get in Touch - rectangular, white bg, padding 20px 36px */}
-            <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center justify-center px-9 py-5 bg-white text-black font-medium text-base tracking-[-0.04em] leading-[1.2em] hover:opacity-90 transition-opacity"
+          {profile.social.linkedin && (
+            <motion.a
+              href={profile.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
+              custom={2}
+              variants={staggerVariants}
             >
-              Get in Touch
-            </a>
+              LinkedIn
+            </motion.a>
+          )}
 
-            {/* Available For Work */}
-            {profile.available && (
-              <div className="flex items-center gap-4">
-                {/* Pulse dot - 10px with animated overlay */}
-                <div className="relative flex items-center justify-center w-[10px] h-[10px]">
-                  <span className="absolute inline-flex rounded-full h-[10px] w-[10px] bg-white" />
-                  <motion.span
-                    className="absolute inline-flex rounded-full h-[10px] w-[10px] bg-white"
-                    animate={{
-                      scale: [1, 1.8, 1],
-                      opacity: [1, 0, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                  />
-                </div>
-                <span className="text-base text-white">Available For Work</span>
-              </div>
-            )}
-          </motion.div>
+          {profile.social.behance && (
+            <motion.a
+              href={profile.social.behance}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[15px] font-normal leading-[24px] text-[#99a1af] hover:text-white transition-colors"
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
+              custom={3}
+              variants={staggerVariants}
+            >
+              Behance
+            </motion.a>
+          )}
         </div>
-
-        {/* Bottom: Footer detail - phone + email */}
-        <motion.div
-          className="flex justify-between items-end w-full"
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          custom={3}
-          variants={staggerVariants}
-        >
-          <div className="flex flex-col gap-0">
-            {profile.phone && (
-              <a
-                href={`tel:${profile.phone}`}
-                className="text-base text-white hover:text-[#b3b3b3] transition-colors"
-                style={{ transitionTimingFunction: 'cubic-bezier(0.44, 0, 0.56, 1)', transitionDuration: '0.4s' }}
-              >
-                {profile.phone}
-              </a>
-            )}
-            <a
-              href={`mailto:${profile.email}`}
-              className="text-base text-white hover:text-[#b3b3b3] transition-colors"
-              style={{ transitionTimingFunction: 'cubic-bezier(0.44, 0, 0.56, 1)', transitionDuration: '0.4s' }}
-            >
-              {profile.email}
-            </a>
-          </div>
-        </motion.div>
       </div>
     </footer>
   );
