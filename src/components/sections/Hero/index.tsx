@@ -1,17 +1,15 @@
 import { motion } from 'framer-motion';
 import { profile } from '@/data/profile';
-import { heroNameAppear, heroPhotoAppear, heroBioAppear, FRAMER_EASE } from '@/lib/animations';
+import { heroNameAppear, heroPhotoAppear, heroBioAppear } from '@/lib/animations';
 
 export function Hero() {
-
   return (
-    <section className="w-full flex flex-col items-center px-5 md:px-[30px] lg:px-20 overflow-hidden">
-      {/* Container: 100vh on desktop, min-content on tablet/mobile */}
-      <div className="w-full max-w-[1600px] flex flex-col justify-center gap-[34px] lg:justify-between lg:gap-0 min-h-0 lg:min-h-[800px] lg:h-screen pt-[140px] pb-10 lg:pb-20 relative overflow-visible">
-        {/* Profile Section: row on desktop, column on mobile */}
-        <div className="flex flex-col lg:flex-row items-start gap-[30px] lg:gap-[10px] w-full overflow-hidden">
+    <section className="w-full flex flex-col items-center bg-white px-5 md:px-[30px] lg:px-20 overflow-hidden">
+      <div className="w-full max-w-[1600px] flex flex-col justify-between min-h-0 lg:min-h-[633px] pt-[120px] md:pt-[126px] pb-10 lg:pb-[50px] relative">
+        {/* Name + Photo area */}
+        <div className="flex items-start w-full">
           {/* Name Column */}
-          <div className="flex flex-col flex-none lg:flex-1 w-full lg:w-[1px] overflow-hidden order-1 lg:order-none">
+          <div className="flex flex-col flex-1 min-w-0">
             {/* First Name */}
             <div className="overflow-hidden">
               <motion.div
@@ -19,7 +17,7 @@ export function Hero() {
                 animate={heroNameAppear.animate}
                 transition={heroNameAppear.transition(0.3)}
               >
-                <h1 className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-[1em] tracking-[-0.09em]">
+                <h1 className="text-[60px] md:text-[90px] lg:text-[128px] font-medium leading-[1em] tracking-[-0.014em] text-[#0a0a0a]">
                   {profile.firstName}
                 </h1>
               </motion.div>
@@ -31,79 +29,40 @@ export function Hero() {
                 animate={heroNameAppear.animate}
                 transition={heroNameAppear.transition(0.4)}
               >
-                <h1 className="text-[76px] md:text-[116px] lg:text-[174px] font-semibold leading-[1em] tracking-[-0.09em]">
+                <h1 className="text-[60px] md:text-[90px] lg:text-[128px] font-medium leading-[1em] tracking-[-0.014em] text-[#0a0a0a]">
                   {profile.lastName}
                 </h1>
               </motion.div>
             </div>
           </div>
 
-          {/*
-            Profile Photo - circular, 168px desktop / 110px tablet+mobile
-            Framer source: .framer-aqkbdw { width:168px; height:168px; border-radius:140px; overflow:hidden; position:relative }
-            Contains avatar background + DSC01458 overlay positioned absolute
-          */}
+          {/* Profile Photo */}
           <motion.div
-            className="flex-shrink-0 w-[110px] lg:w-[168px] h-[110px] lg:h-[168px] rounded-[140px] overflow-hidden relative"
+            className="flex-shrink-0 w-[149px] h-[149px] rounded-[74px] overflow-hidden relative"
             initial={heroPhotoAppear.initial}
             animate={heroPhotoAppear.animate}
             transition={heroPhotoAppear.transition}
           >
-            {/* Background avatar image */}
             <img
-              src="https://framerusercontent.com/images/j1OWdec3GtorzmtyEO583X355k.png"
+              src={`${import.meta.env.BASE_URL}images/profile-photo.jpg`}
               alt={profile.name}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="h-full left-[-38%] max-w-none top-0 w-[178%] object-cover absolute"
             />
-            {/*
-              DSC01458 overlay - Malavika's actual photo cropped within the circle
-              Framer CSS: .framer-5hdyvd { position:absolute; bottom:-13px; left:-61px; right:-60px;
-                           aspect-ratio:1.49702; height:193px (desktop) / 154px (tablet/mobile) }
-            */}
-            <div
-              className="absolute overflow-visible"
-              style={{
-                bottom: '-13px',
-                left: '-61px',
-                right: '-60px',
-                aspectRatio: '1.49702',
-                height: '193px',
-              }}
-            >
-              <img
-                src="https://framerusercontent.com/images/dzn3ZiFmKa9VjNJZAibN7th28k.jpg"
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
           </motion.div>
         </div>
 
-        {/* Bio Section: Email + Intro */}
-        <motion.div
-          className="flex flex-col md:flex-row items-start justify-between gap-[10px] w-full overflow-hidden"
-          initial={heroBioAppear.initial}
-          animate={heroBioAppear.animate}
-          transition={heroBioAppear.transition}
-        >
-          {/* Intro Text - justified, max-width 643px */}
-          <p className="text-[28px] md:text-[32px] lg:text-[40px] font-medium leading-[1.1em] tracking-[-0.06em] text-justify max-w-[643px] ml-auto">
+        {/* Bio Section */}
+        <div className="flex justify-end w-full overflow-hidden">
+          <motion.p
+            className="text-[20px] md:text-[22px] lg:text-[24px] font-normal leading-[1.33em] text-[#0a0a0a] max-w-[607px]"
+            initial={heroBioAppear.initial}
+            animate={heroBioAppear.animate}
+            transition={heroBioAppear.transition}
+          >
             {profile.intro}
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Divider line */}
-      <motion.div
-        className="w-full flex items-center justify-center overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1, ease: FRAMER_EASE }}
-      >
-        <div className="w-full max-w-[1600px]">
-          <div className="h-px w-full bg-[#f5f5f5]" />
+          </motion.p>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
