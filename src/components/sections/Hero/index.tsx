@@ -9,34 +9,24 @@ export function Hero() {
     <section className="w-full bg-white overflow-hidden">
       <div className="w-full relative" style={{ height: '49.45vw' }}>
         <div className="absolute" style={{ left: '4.14vw', top: '9.84vw', width: '59.14vw', lineHeight: 0 }}>
-          <div className="overflow-hidden">
-            <motion.div
-              initial={heroNameAppear.initial}
-              animate={heroNameAppear.animate}
-              transition={heroNameAppear.transition(0.3)}
-            >
-              <p
-                className="font-medium text-[#0a0a0a] mb-0"
-                style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
-              >
-                MALAVIKA
-              </p>
-            </motion.div>
-          </div>
-          <div className="overflow-hidden">
-            <motion.div
-              initial={heroNameAppear.initial}
-              animate={heroNameAppear.animate}
-              transition={heroNameAppear.transition(0.4)}
-            >
-              <p
-                className="font-medium text-[#0a0a0a]"
-                style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
-              >
-                SURESH
-              </p>
-            </motion.div>
-          </div>
+          <motion.p
+            className="font-medium text-[#0a0a0a] mb-0"
+            style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
+            initial={heroNameAppear.initial}
+            animate={heroNameAppear.animate}
+            transition={heroNameAppear.transition(0.3)}
+          >
+            MALAVIKA
+          </motion.p>
+          <motion.p
+            className="font-medium text-[#0a0a0a]"
+            style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
+            initial={heroNameAppear.initial}
+            animate={heroNameAppear.animate}
+            transition={heroNameAppear.transition(0.4)}
+          >
+            SURESH
+          </motion.p>
         </div>
 
         <motion.div
