@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fragment+Mono&family=Oswald:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 /* CSS Variables for theming - Matching Framer exactly */
 :root {
@@ -156,6 +156,22 @@ html.lenis body {
 /* Text justify */
 .text-justify {
   text-align: justify;
+}
+
+/* VectorVault page - hide scrollbar completely */
+.vectorvault-page,
+.vectorvault-page *,
+.vectorvault-page html,
+.vectorvault-page body {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+}
+
+.vectorvault-page::-webkit-scrollbar,
+.vectorvault-page *::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Custom theme utilities using @theme */

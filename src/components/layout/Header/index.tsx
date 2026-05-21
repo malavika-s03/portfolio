@@ -10,6 +10,9 @@ export function Header() {
   const location = useLocation();
   
   const isYuluPage = location.pathname === '/project/yulu';
+  const isVectorVaultPage = location.pathname === '/project/vectorvault';
+  const isDistrictPage = location.pathname === '/project/district';
+  const isCaseStudyPage = isYuluPage || isVectorVaultPage || isDistrictPage;
 
   return (
     <>
@@ -21,8 +24,8 @@ export function Header() {
       >
         <div className="w-full max-w-[1600px] mx-auto">
           <nav className="flex items-center justify-between">
-            {/* HOME Link - hidden on Yulu case study page */}
-            {!isYuluPage && (
+            {/* HOME Link - hidden on case study pages */}
+            {!isCaseStudyPage && (
               <Link
                 to="/"
                 className="text-sm font-medium uppercase tracking-wider text-foreground hover:opacity-70 transition-opacity"
@@ -30,7 +33,7 @@ export function Header() {
                 HOME
               </Link>
             )}
-            {isYuluPage && <div />}
+            {isCaseStudyPage && <div />}
 
             {/* Dots menu icon - 19x19px, 2x2 grid, 5px dots, gap 2px rows / 9px cols */}
             <button

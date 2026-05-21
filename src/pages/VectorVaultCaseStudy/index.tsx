@@ -1,0 +1,1150 @@
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { COLORS, introductionText, jtbdData, jtbdHeaders, arunPersonaDetail } from './data';
+
+const BASE_URL = import.meta.env.BASE_URL || '/';
+const BASE_WIDTH = 1280;
+
+const vw = (px: number) => `${(px / BASE_WIDTH) * 100}vw`;
+
+const GreenArrowBullet = () => (
+  <img
+    src={`${BASE_URL}images/vectorvault/arrow_grreen.png`}
+    alt=""
+    style={{
+      width: vw(13),
+      height: vw(13),
+      marginRight: vw(8),
+      marginTop: vw(2),
+      flexShrink: 0,
+      imageRendering: 'pixelated'
+    }}
+  />
+);
+
+const WhiteArrowBullet = () => (
+  <img
+    src={`${BASE_URL}images/vectorvault/arrow_white.png`}
+    alt=""
+    style={{
+      width: vw(13),
+      height: vw(13),
+      marginRight: vw(8),
+      marginTop: vw(2),
+      flexShrink: 0,
+      imageRendering: 'pixelated'
+    }}
+  />
+);
+
+const PIXEL_TEXT_STYLE = {
+  fontFamily: "'Press Start 2P', monospace",
+  color: '#FF69B4',
+  textShadow: `
+    3px 0 0 #00FF00,
+    -3px 0 0 #00FF00,
+    0 3px 0 #00FF00,
+    0 -3px 0 #00FF00,
+    2px 2px 0 #00FF00,
+    -2px -2px 0 #00FF00,
+    2px -2px 0 #00FF00,
+    -2px 2px 0 #00FF00,
+    3px 1px 0 #00FF00,
+    -3px 1px 0 #00FF00,
+    3px -1px 0 #00FF00,
+    -3px -1px 0 #00FF00,
+    1px 3px 0 #00FF00,
+    -1px 3px 0 #00FF00,
+    1px -3px 0 #00FF00,
+    -1px -3px 0 #00FF00
+  `,
+  WebkitFontSmoothing: 'none' as const,
+  MozOsxFontSmoothing: 'grayscale' as const,
+  textRendering: 'optimizeSpeed' as const,
+  imageRendering: 'pixelated' as const
+};
+
+const HEADING_IMAGES: Record<string, { path: string; nativeHeight: number }> = {
+  'VECTORVAULT': { path: 'headings/vectorvault-title.png', nativeHeight: 60 },
+  'WHY VECTORVAULT ?': { path: 'headings/why-vectorvault.png', nativeHeight: 53 },
+  'SOFTWARE PROVIDERS': { path: 'headings/software-providers.png', nativeHeight: 39 },
+  'CREATIVE SOFTWARE SPEND': { path: 'headings/creative-software-spend.png', nativeHeight: 39 },
+  'JOBS TO BE DONE': { path: 'headings/jobs-to-be-done.png', nativeHeight: 37 },
+  'USER PERSONA': { path: 'headings/user-persona.png', nativeHeight: 37 },
+  'HOW THIS WORKS': { path: 'headings/how-this-works.png', nativeHeight: 105 },
+  'GAME OVER': { path: 'headings/game-over.png', nativeHeight: 58 }
+};
+
+const PixelArtHeading = ({ text, marginBottom = '0' }: { text: string; marginBottom?: string }) => {
+  const imageData = HEADING_IMAGES[text];
+  
+  if (imageData) {
+    return (
+      <img
+        src={`${BASE_URL}images/vectorvault/${imageData.path}`}
+        alt={text}
+        style={{
+          height: vw(imageData.nativeHeight),
+          width: 'auto',
+          marginBottom,
+          imageRendering: 'pixelated'
+        }}
+      />
+    );
+  }
+  
+  return (
+    <h2
+      style={{
+        ...PIXEL_TEXT_STYLE,
+        fontSize: vw(40),
+        textTransform: 'uppercase',
+        letterSpacing: '-0.02em',
+        marginBottom,
+        lineHeight: 1.2
+      }}
+    >
+      {text}
+    </h2>
+  );
+};
+
+const SOFTWARE_PROVIDERS_DATA = [
+  { name: 'ADOBE', percentage: 49, color: '#00E676' },
+  { name: 'OTHER', percentage: 24, color: '#E040E0' },
+  { name: 'APPLE', percentage: 11, color: '#2962FF' },
+  { name: 'CANVA', percentage: 7, color: '#304FFE' },
+  { name: 'ALLUDO', percentage: 5, color: '#00BFA5' },
+  { name: 'AVID TECHNOLOGY', percentage: 2, color: '#3949AB' },
+  { name: 'MAXON COMPUTER', percentage: 1, color: '#1A237E' }
+];
+
+const CREATIVE_SPEND_DATA = [
+  { name: 'USA', percentage: 52.8, color: '#00E676' },
+  { name: 'OTHERS', percentage: 20.5, color: '#E040E0' },
+  { name: 'UNITED KINGDOM', percentage: 5, color: '#00BFA5' },
+  { name: 'CHINA', percentage: 4.8, color: '#2962FF' },
+  { name: 'GERMANY', percentage: 4.5, color: '#304FFE' },
+  { name: 'JAPAN', percentage: 3.5, color: '#3949AB' },
+  { name: 'CANADA', percentage: 3.1, color: '#5C6BC0' },
+  { name: 'FRANCE', percentage: 2.6, color: '#F06292' },
+  { name: 'AUSTRALIA', percentage: 1.7, color: '#7986CB' },
+  { name: 'NETHERLANDS', percentage: 1.5, color: '#1A237E' }
+];
+
+export function VectorVaultCaseStudyPage() {
+  useEffect(() => {
+    const originalOverflow = document.documentElement.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    
+    document.documentElement.style.overflow = 'auto';
+    document.documentElement.style.scrollbarWidth = 'none';
+    document.body.style.overflow = 'visible';
+    document.body.style.scrollbarWidth = 'none';
+    
+    const style = document.createElement('style');
+    style.id = 'vectorvault-scrollbar-hide';
+    style.textContent = `
+      html, body { 
+        scrollbar-width: none !important; 
+        -ms-overflow-style: none !important;
+      }
+      html::-webkit-scrollbar, body::-webkit-scrollbar { 
+        display: none !important; 
+        width: 0 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.documentElement.style.overflow = originalOverflow;
+      document.documentElement.style.scrollbarWidth = '';
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.scrollbarWidth = '';
+      const styleEl = document.getElementById('vectorvault-scrollbar-hide');
+      if (styleEl) styleEl.remove();
+    };
+  }, []);
+
+  return (
+    <main
+      className="min-h-screen w-full vectorvault-page"
+      style={{ 
+        backgroundColor: COLORS.background
+      }}
+    >
+      <HeroAndIntroSection />
+      <WhyVectorVaultSection />
+      <SoftwareProvidersSection />
+      <CreativeSoftwareSpendSection />
+      <JobsToBeDonesection />
+      <UserPersonasSection />
+      <DetailedPersonaCard />
+      <HowThisWorksSection />
+      <GameOverFooter />
+    </main>
+  );
+}
+
+function HeroAndIntroSection() {
+  return (
+    <section
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: vw(604),
+        overflow: 'visible',
+        backgroundColor: COLORS.background
+      }}
+    >
+      {/* Hero illustration - anchored to right edge, fills 54.77% of viewport width 
+          (701/1280 = visible portion in Figma design) */}
+      <motion.img
+        src={`${BASE_URL}images/vectorvault/hero-illustration.png`}
+        alt="VectorVault Hero"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: vw(17),
+          width: vw(701),
+          height: vw(618),
+          objectFit: 'cover',
+          objectPosition: 'left center',
+          imageRendering: 'pixelated'
+        }}
+      />
+
+      {/* Vault icon - Figma: x=85, y=48, w=96, h=93 */}
+      <motion.img
+        src={`${BASE_URL}images/vectorvault/vault-icon.png`}
+        alt="Vault Icon"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          position: 'absolute',
+          left: vw(85),
+          top: vw(48),
+          width: vw(96),
+          height: vw(93),
+          imageRendering: 'pixelated'
+        }}
+      />
+
+      {/* VECTORVAULT title - Figma: x=206, y=63, w=734, h=60 */}
+      <motion.img
+        src={`${BASE_URL}images/vectorvault/headings/vectorvault-title.png`}
+        alt="VECTORVAULT"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          position: 'absolute',
+          left: vw(206),
+          top: vw(63),
+          height: vw(60),
+          width: 'auto',
+          imageRendering: 'pixelated'
+        }}
+      />
+
+      {/* Introduction label - Figma: x=87, y=240, Inter Bold 24px */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        style={{
+          position: 'absolute',
+          left: vw(87),
+          top: vw(240),
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 700,
+          fontSize: vw(24),
+          lineHeight: 'normal',
+          color: COLORS.text,
+          margin: 0
+        }}
+      >
+        Introduction
+      </motion.h2>
+
+      {/* Body text - Figma: x=87, y=313, w=776, Press Start 2P 16px/31px */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        style={{
+          position: 'absolute',
+          left: vw(87),
+          top: vw(313),
+          width: vw(776),
+          fontFamily: "'Press Start 2P', monospace",
+          fontWeight: 400,
+          fontSize: vw(16),
+          lineHeight: vw(31),
+          color: COLORS.text,
+          margin: 0,
+          WebkitFontSmoothing: 'none',
+          textRendering: 'optimizeSpeed' as const
+        }}
+      >
+        {introductionText}
+      </motion.p>
+    </section>
+  );
+}
+
+function WhyVectorVaultSection() {
+  const bulletStyle: React.CSSProperties = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: vw(11),
+    color: COLORS.text,
+    lineHeight: vw(22),
+    WebkitFontSmoothing: 'none',
+    textRendering: 'optimizeSpeed'
+  };
+  
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        position: 'relative',
+        width: '100%',
+        marginTop: vw(9),
+        minHeight: vw(280)
+      }}
+    >
+      {/* Heading - Figma: x=87, y=598 */}
+      <div style={{ position: 'absolute', left: vw(87), top: 0 }}>
+        <PixelArtHeading text="WHY VECTORVAULT ?" marginBottom="0" />
+      </div>
+      
+      {/* First bullet - Figma: x=835, y=598 (far right) */}
+      <div style={{ 
+        position: 'absolute',
+        left: vw(835),
+        top: vw(10),
+        display: 'flex', 
+        alignItems: 'flex-start'
+      }}>
+        <GreenArrowBullet />
+        <p style={bulletStyle}>
+          VECTORVAULT WAS BORN<br />
+          OUT OF CARPEL TUNNEL<br />
+          FROM THE <span style={{ color: '#00E676' }}>ALT + TAB</span><br />
+          TUTORIAL DOOM
+        </p>
+      </div>
+
+      {/* Bullet points below heading - Figma: x=87, y~180 from section top */}
+      <div style={{ position: 'absolute', left: vw(87), top: vw(150) }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: vw(30) }}>
+          <GreenArrowBullet />
+          <p style={bulletStyle}>
+            INCREASING COMPLEXITY IN TECHNICAL<br />
+            SOFTWARE(S) HAS LENGTHENED THE<br />
+            LEARNING CURVE
+          </p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <GreenArrowBullet />
+          <p style={bulletStyle}>
+            IT IS TOUGH TO FIT TUTORIALS &<br />
+            SOFTWARE WINDOWS INTO A SINGLE<br />
+            SCREEN, THUS PROMPTING AN ENDLESS<br />
+            LOOP OF <span style={{ color: '#00E676' }}>ALT + TAB</span>.
+          </p>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function PieChartWithLabels({ 
+  data, 
+  width, 
+  height,
+  labelPositions
+}: { 
+  data: { name: string; percentage: number; color: string }[]; 
+  width: string;
+  height: string;
+  labelPositions: { name: string; x: string; y: string; align?: string }[];
+}) {
+  const total = data.reduce((sum, item) => sum + item.percentage, 0);
+  
+  const createSlicePath = (percentage: number, startPercentage: number) => {
+    const startAngle = (startPercentage / 100) * 360 - 90;
+    const endAngle = ((startPercentage + percentage) / 100) * 360 - 90;
+    const largeArcFlag = percentage > 50 ? 1 : 0;
+    
+    const startX = 50 + 42 * Math.cos((startAngle * Math.PI) / 180);
+    const startY = 50 + 42 * Math.sin((startAngle * Math.PI) / 180);
+    const endX = 50 + 42 * Math.cos((endAngle * Math.PI) / 180);
+    const endY = 50 + 42 * Math.sin((endAngle * Math.PI) / 180);
+    
+    return `M 50 50 L ${startX} ${startY} A 42 42 0 ${largeArcFlag} 1 ${endX} ${endY} Z`;
+  };
+
+  const slices = data.map((item, index) => {
+    const cumulative = data.slice(0, index).reduce((s, d) => s + d.percentage, 0);
+    return { ...item, path: createSlicePath((item.percentage / total) * 100, (cumulative / total) * 100) };
+  });
+  
+  return (
+    <div style={{ position: 'relative', width, height }}>
+      <svg 
+        style={{ 
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80%',
+          height: '90%'
+        }} 
+        viewBox="0 0 100 100"
+      >
+        {slices.map((item, index) => (
+          <path key={index} d={item.path} fill={item.color} />
+        ))}
+      </svg>
+      {labelPositions.map((label, index) => {
+        const dataItem = data.find(d => d.name === label.name);
+        if (!dataItem) return null;
+        return (
+          <span
+            key={index}
+            style={{
+              position: 'absolute',
+              left: label.x,
+              top: label.y,
+              fontFamily: "'Press Start 2P', sans-serif",
+              fontSize: vw(9),
+              color: COLORS.text,
+              whiteSpace: 'nowrap',
+              textAlign: label.align === 'right' ? 'right' : 'left',
+              transform: label.align === 'right' ? 'translateX(-100%)' : 'none'
+            }}
+          >
+            {label.name} {dataItem.percentage}%
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+
+function SoftwareProvidersSection() {
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: vw(11),
+    color: COLORS.text,
+    lineHeight: '2',
+    WebkitFontSmoothing: 'none',
+    textRendering: 'optimizeSpeed'
+  };
+  
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        position: 'relative',
+        marginLeft: vw(85),
+        marginTop: vw(307),
+        minHeight: vw(450)
+      }}
+    >
+      <PixelArtHeading text="SOFTWARE PROVIDERS" marginBottom={vw(40)} />
+      {/* Left: bullet points - Figma: x=23, y=126 (relative to section) */}
+      <div style={{ 
+        position: 'absolute',
+        left: vw(23), 
+        top: vw(126),
+        width: vw(420)
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: vw(26) }}>
+          <WhiteArrowBullet />
+          <p style={labelStyle}>THE LARGEST PLAYER IS ADOBECC.</p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <WhiteArrowBullet />
+          <p style={labelStyle}>THE MARKET REMAINS LARGELY<br />CONSOLIDATED. (HHI&gt;2600)</p>
+        </div>
+      </div>
+      {/* Right: pie chart with labels - Figma: x=570, y=126, width=558, height=385 */}
+      <img
+        src={`${BASE_URL}images/vectorvault/software-providers-pie.png`}
+        alt="Software Providers Market Share"
+        style={{
+          position: 'absolute',
+          left: vw(570),
+          top: vw(126),
+          width: vw(558),
+          height: vw(385),
+          imageRendering: 'auto'
+        }}
+      />
+    </motion.section>
+  );
+}
+
+const CREATIVE_SPEND_LABELS = [
+  { name: 'USA', x: '78%', y: '45%', align: 'left' },
+  { name: 'OTHERS', x: '30%', y: '2%', align: 'left' },
+  { name: 'NETHERLANDS', x: '-15%', y: '12%', align: 'left' },
+  { name: 'AUSTRALIA', x: '-15%', y: '22%', align: 'left' },
+  { name: 'FRANCE', x: '-15%', y: '32%', align: 'left' },
+  { name: 'CANADA', x: '-15%', y: '42%', align: 'left' },
+  { name: 'JAPAN', x: '-15%', y: '52%', align: 'left' },
+  { name: 'GERMANY', x: '-5%', y: '65%', align: 'left' },
+  { name: 'CHINA', x: '15%', y: '78%', align: 'left' },
+  { name: 'UNITED KINGDOM', x: '38%', y: '92%', align: 'left' }
+];
+
+function CreativeSoftwareSpendSection() {
+  const labelStyle: React.CSSProperties = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: vw(11),
+    color: COLORS.text,
+    lineHeight: '2',
+    WebkitFontSmoothing: 'none',
+    textRendering: 'optimizeSpeed'
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        position: 'relative',
+        marginLeft: vw(87),
+        marginTop: vw(171),
+        minHeight: vw(540)
+      }}
+    >
+      <PixelArtHeading text="CREATIVE SOFTWARE SPEND" marginBottom={vw(50)} />
+      {/* Left: pie chart with labels - Figma: x=89, y=2147 → relative: left=2, top=123, width=525, height=416 */}
+      <img
+        src={`${BASE_URL}images/vectorvault/creative-software-spend.png`}
+        alt="Creative Software Spend by Country"
+        style={{
+          position: 'absolute',
+          left: vw(2),
+          top: vw(123),
+          width: vw(525),
+          height: vw(416),
+          imageRendering: 'auto'
+        }}
+      />
+      {/* Right: bullet text - Figma: x=644, y=2411 → relative: left=557, top=387 */}
+      <div style={{
+        position: 'absolute',
+        left: vw(557),
+        top: vw(387),
+        width: vw(514)
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <WhiteArrowBullet />
+          <p style={labelStyle}>
+            THE USA SPENDS MORE ON<br />
+            CREATIVE SOFTWARE(S)! THAN THE<br />
+            REST OF THE WORLD COMBINED!
+          </p>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function JobsToBeDonesection() {
+  // Figma exact colors from MCP:
+  // - Stroke: #8488F4, Weight: 10, Corner radius: 5%
+  // - Fill: #000000
+  // - Header: #5B5FC7 (blue)
+  // - Cell: #1A1D23 (dark)
+  const JTBD_COLORS = {
+    border: '#8488F4',
+    headerBg: '#5B5FC7',
+    cellBg: '#1A1D23',
+    tableBg: '#000000'
+  };
+
+  const cellStyle: React.CSSProperties = {
+    backgroundColor: JTBD_COLORS.cellBg,
+    color: COLORS.text,
+    fontFamily: "'Press Start 2P', sans-serif",
+    fontSize: vw(9),
+    padding: `${vw(20)} ${vw(16)}`,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    borderRight: `2px solid ${JTBD_COLORS.border}`,
+    borderBottom: `2px solid ${JTBD_COLORS.border}`,
+    verticalAlign: 'middle',
+    lineHeight: '1.8'
+  };
+
+  // Lighter text style for columns 3, 4, 5 (situation, motivation, outcome)
+  const lightCellStyle: React.CSSProperties = {
+    ...cellStyle,
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontWeight: 400
+  };
+
+  const headerStyle: React.CSSProperties = {
+    backgroundColor: JTBD_COLORS.headerBg,
+    color: COLORS.text,
+    fontFamily: "'Press Start 2P', sans-serif",
+    fontSize: vw(9),
+    padding: `${vw(20)} ${vw(16)}`,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    borderRight: `2px solid ${JTBD_COLORS.border}`,
+    borderBottom: `2px solid ${JTBD_COLORS.border}`,
+    verticalAlign: 'middle',
+    lineHeight: '1.6'
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        marginLeft: vw(62),
+        marginTop: vw(192),
+        position: 'relative'
+      }}
+    >
+      {/* Heading - Figma: x=14, y=0 */}
+      <div style={{ marginLeft: vw(14) }}>
+        <PixelArtHeading text="JOBS TO BE DONE" marginBottom={vw(61)} />
+      </div>
+      {/* Table container - Figma: Stroke #8488F4, Fill #000000 */}
+      <div
+        style={{
+          width: vw(1156),
+          backgroundColor: JTBD_COLORS.tableBg,
+          border: `${vw(3)} solid ${JTBD_COLORS.border}`,
+          borderRadius: vw(12),
+          padding: vw(11),
+          boxSizing: 'border-box'
+        }}
+      >
+        <table
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            tableLayout: 'fixed',
+            borderLeft: `2px solid ${JTBD_COLORS.border}`,
+            borderTop: `2px solid ${JTBD_COLORS.border}`
+          }}
+        >
+          <thead>
+            <tr>
+              {jtbdHeaders.map((header, index) => (
+                <th key={index} style={headerStyle}>
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {jtbdData.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {/* First column - entire cell is colored based on stakeholder */}
+                <td style={{
+                  ...cellStyle,
+                  backgroundColor: row.stakeholderColor,
+                  color: COLORS.text
+                }}>
+                  {row.stakeholder}
+                </td>
+                <td style={cellStyle}>{row.caption}</td>
+                <td style={lightCellStyle}>{row.situation}</td>
+                <td style={lightCellStyle}>{row.motivation}</td>
+                <td style={lightCellStyle}>{row.outcome}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </motion.section>
+  );
+}
+
+function UserPersonasSection() {
+  // Figma positions: Card at x=81/658, y=3651, width=543, height=225
+  // Avatar frame: x=18, y=35 relative to card, width=184, height=157 (ARUN) / width=147, height=144 (SANA)
+  // Progress bar area: x=223, y=42 relative to card
+  // Name: y=113, Role: y=156
+  const personaData = [
+    { name: 'ARUN', role: 'ASPIRING ANIMATOR', imgUrl: `${BASE_URL}images/vectorvault/personas/arun-profile.png`, avatarWidth: 184, avatarHeight: 157 },
+    { name: 'SANA', role: 'FREELANCER', imgUrl: `${BASE_URL}images/vectorvault/personas/sana-profile.png`, avatarWidth: 147, avatarHeight: 144 }
+  ];
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        marginLeft: vw(71),
+        marginTop: vw(18),
+        position: 'relative'
+      }}
+    >
+      {/* Figma: Heading at x=71, y=3521, marginBottom to cards = 93px */}
+      <PixelArtHeading text="USER PERSONA" marginBottom={vw(93)} />
+      
+      {/* Figma: Cards container at x=81 (relative 10px from section), gap=34px */}
+      <div
+        style={{
+          display: 'flex',
+          gap: vw(34),
+          marginLeft: vw(10)
+        }}
+      >
+        {personaData.map((persona, index) => (
+          <div
+            key={index}
+            style={{
+              position: 'relative',
+              width: vw(543),
+              height: vw(225),
+              border: '1px solid white',
+              borderRadius: vw(12),
+              backgroundColor: '#000',
+              boxSizing: 'border-box'
+            }}
+          >
+            {/* Avatar frame - Figma: x=18, y=35 relative to card */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(18),
+                top: vw(35),
+                width: vw(persona.avatarWidth),
+                height: vw(persona.avatarHeight),
+                borderRadius: vw(12),
+                border: `${vw(3)} solid ${COLORS.cyan}`,
+                overflow: 'hidden'
+              }}
+            >
+              <img
+                src={persona.imgUrl}
+                alt={persona.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+            
+            {/* Heart + Progress bar - Figma: x=223, y=42 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(223),
+                top: vw(42),
+                display: 'flex',
+                alignItems: 'center',
+                gap: vw(8)
+              }}
+            >
+              <svg width={vw(30)} height={vw(26)} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4081" />
+              </svg>
+              <div
+                style={{
+                  width: vw(125),
+                  height: vw(28),
+                  backgroundColor: '#4A4A4A',
+                  overflow: 'hidden',
+                  display: 'flex'
+                }}
+              >
+                <div
+                  style={{
+                    width: '75%',
+                    height: '100%',
+                    background: `linear-gradient(90deg, ${COLORS.pink}, #FF80FF)`
+                  }}
+                />
+              </div>
+            </div>
+            
+            {/* Name - Figma: y=113 relative to card */}
+            <h3
+              style={{
+                position: 'absolute',
+                left: vw(223),
+                top: vw(100),
+                fontFamily: "'Press Start 2P', sans-serif",
+                fontSize: vw(30),
+                color: COLORS.text,
+                margin: 0,
+                letterSpacing: vw(2)
+              }}
+            >
+              {persona.name}
+            </h3>
+            
+            {/* Role - Figma: y=156 relative to card */}
+            <p
+              style={{
+                position: 'absolute',
+                left: vw(223),
+                top: vw(145),
+                fontFamily: "'Press Start 2P', sans-serif",
+                fontSize: vw(14),
+                color: COLORS.roleGray,
+                margin: 0,
+                letterSpacing: vw(1)
+              }}
+            >
+              {persona.role}
+            </p>
+          </div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+function DetailedPersonaCard() {
+  // Figma: x=73, y=3911, width=1149, height=647
+  // Colors from Figma:
+  // - Green headers (A SHORT DESCRIPTION, KEY ATTRIBUTES, OPPORTUNITIES): #00E676
+  // - Cyan header (NEEDS): #00BCD4
+  // - Magenta header (CHALLENGES): #E040E0
+  
+  const HEADER_COLORS = {
+    green: '#00E676',
+    cyan: '#00BCD4',
+    magenta: '#E040E0'
+  };
+
+  const sectionHeaderStyle = (bgColor: string): React.CSSProperties => ({
+    backgroundColor: bgColor,
+    padding: `${vw(12)} ${vw(20)}`,
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: vw(10),
+    color: COLORS.text,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    letterSpacing: vw(2)
+  });
+
+  const bulletTextStyle: React.CSSProperties = {
+    fontFamily: "'Press Start 2P', monospace",
+    fontSize: vw(9),
+    color: COLORS.text,
+    lineHeight: '2.2',
+    margin: 0
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        marginLeft: vw(73),
+        marginTop: vw(35),
+        width: vw(1149),
+        minHeight: vw(647),
+        backgroundColor: COLORS.background,
+        border: `${vw(2)} solid white`,
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      {/* Row 1: Avatar Card | Short Description */}
+      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+        {/* Left: Avatar + Name + Role - smaller box */}
+        <div
+          style={{
+            width: '35%',
+            padding: `${vw(20)} ${vw(24)}`,
+            borderRight: '1px solid rgba(255,255,255,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: vw(16)
+          }}
+        >
+          <div
+            style={{
+              width: vw(90),
+              height: vw(90),
+              borderRadius: vw(8),
+              border: `${vw(3)} solid ${COLORS.cyan}`,
+              overflow: 'hidden',
+              flexShrink: 0
+            }}
+          >
+            <img
+              src={`${BASE_URL}images/vectorvault/personas/arun-profile.png`}
+              alt="ARUN"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: vw(6) }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: vw(6) }}>
+              <svg width={vw(20)} height={vw(18)} viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4081" />
+              </svg>
+              <div style={{ width: vw(90), height: vw(18), backgroundColor: '#4A4A4A', display: 'flex' }}>
+                <div style={{ width: '75%', height: '100%', background: `linear-gradient(90deg, ${COLORS.pink}, #FF80FF)` }} />
+              </div>
+            </div>
+            <h3 style={{ fontFamily: "'Press Start 2P', monospace", fontSize: vw(16), color: COLORS.text, margin: 0 }}>
+              ARUN
+            </h3>
+            <p style={{ fontFamily: "'Press Start 2P', monospace", fontSize: vw(8), color: COLORS.roleGray, margin: 0 }}>
+              ASPIRING ANIMATOR
+            </p>
+            <div style={{ display: 'flex', gap: vw(6), marginTop: vw(2) }}>
+              <span style={{ fontSize: vw(18) }}>🎮</span>
+              <span style={{ fontSize: vw(18) }}>💊</span>
+              <span style={{ fontSize: vw(18) }}>🎵</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Short Description */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div style={sectionHeaderStyle(HEADER_COLORS.green)}>A SHORT DESCRIPTION</div>
+          <div style={{ padding: `${vw(16)} ${vw(20)}`, flex: 1 }}>
+            <p style={bulletTextStyle}>• {arunPersonaDetail.shortDescription}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: Key Attributes - Full Width */}
+      <div style={{ borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+        <div style={sectionHeaderStyle(HEADER_COLORS.green)}>KEY ATTRIBUTES</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', padding: `${vw(16)} ${vw(20)}`, gap: vw(8) }}>
+          {arunPersonaDetail.keyAttributes.map((attr, index) => (
+            <p key={index} style={bulletTextStyle}>• {attr.label}: {attr.value}</p>
+          ))}
+        </div>
+      </div>
+
+      {/* Row 3: Needs (CYAN) | Challenges (MAGENTA) - Side by Side 50/50 */}
+      <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+        <div style={{ width: '50%', borderRight: '1px solid rgba(255,255,255,0.2)' }}>
+          <div style={sectionHeaderStyle(HEADER_COLORS.cyan)}>NEEDS</div>
+          <div style={{ padding: `${vw(16)} ${vw(20)}` }}>
+            {arunPersonaDetail.needs.map((need, index) => (
+              <p key={index} style={{ ...bulletTextStyle, marginBottom: vw(6) }}>○ {need}</p>
+            ))}
+          </div>
+        </div>
+        <div style={{ width: '50%' }}>
+          <div style={sectionHeaderStyle(HEADER_COLORS.magenta)}>CHALLENGES</div>
+          <div style={{ padding: `${vw(16)} ${vw(20)}` }}>
+            {arunPersonaDetail.challenges.map((challenge, index) => (
+              <p key={index} style={{ ...bulletTextStyle, marginBottom: vw(6) }}>• {challenge}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4: Opportunities - Full Width */}
+      <div>
+        <div style={sectionHeaderStyle(HEADER_COLORS.green)}>OPPORTUNITIES</div>
+        <div style={{ padding: `${vw(16)} ${vw(20)}` }}>
+          {arunPersonaDetail.opportunities.map((opp, index) => (
+            <p key={index} style={{ ...bulletTextStyle, marginBottom: vw(6) }}>• {opp}</p>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function HowThisWorksSection() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        position: 'relative',
+        marginTop: vw(97),
+        marginLeft: '-0.625vw'
+      }}
+    >
+      <PixelArtHeading text="HOW THIS WORKS" marginBottom={vw(119)} />
+      
+      <img
+        src={`${BASE_URL}images/vectorvault/how-this-works-cityscape.png`}
+        alt="VectorVault Isometric Cityscape"
+        style={{
+          width: vw(963),
+          height: vw(607),
+          marginLeft: vw(167),
+          imageRendering: 'pixelated',
+          objectFit: 'contain'
+        }}
+      />
+      
+      <div
+        style={{
+          width: vw(963),
+          marginLeft: vw(167),
+          marginTop: vw(14),
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <button
+          style={{
+            width: vw(243),
+            height: vw(44),
+            backgroundColor: COLORS.buttonGreen,
+            borderRadius: vw(6),
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Press Start 2P', sans-serif",
+              fontSize: vw(16),
+              color: COLORS.text,
+              textTransform: 'lowercase'
+            }}
+          >
+            view prototype
+          </span>
+        </button>
+        
+        {/* Green arrow between buttons */}
+        <img
+          src={`${BASE_URL}images/vectorvault/arrow_grreen.png`}
+          alt=""
+          style={{
+            width: vw(24),
+            height: vw(24),
+            marginTop: vw(12),
+            marginBottom: vw(12),
+            transform: 'rotate(90deg)',
+            imageRendering: 'pixelated'
+          }}
+        />
+        
+        <button
+          style={{
+            width: vw(148),
+            height: vw(79),
+            backgroundColor: '#333333',
+            borderRadius: vw(8),
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="white"
+          >
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </button>
+      </div>
+    </motion.section>
+  );
+}
+
+function GameOverFooter() {
+  return (
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: vw(208),
+        paddingBottom: vw(26),
+        backgroundColor: COLORS.background
+      }}
+    >
+      <img
+        src={`${BASE_URL}images/vectorvault/headings/game-over.png`}
+        alt="GAME OVER"
+        style={{
+          height: vw(58),
+          width: 'auto',
+          marginBottom: vw(26),
+          imageRendering: 'pixelated'
+        }}
+      />
+      
+      <p
+        style={{
+          ...PIXEL_TEXT_STYLE,
+          fontSize: vw(16),
+          textTransform: 'uppercase',
+          letterSpacing: '0.2em',
+          marginBottom: vw(90)
+        }}
+      >
+        THANK YOU FOR PLAYING
+      </p>
+      
+      <div
+        style={{
+          width: vw(1428),
+          height: vw(155),
+          marginLeft: vw(-65),
+          overflow: 'hidden'
+        }}
+      >
+        <img
+          src={`${BASE_URL}images/vectorvault/footer_landscape.png`}
+          alt="Pixel art landscape with treasure chest"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            imageRendering: 'pixelated'
+          }}
+        />
+      </div>
+    </motion.footer>
+  );
+}
+
+export default VectorVaultCaseStudyPage;
