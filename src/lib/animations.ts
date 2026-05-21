@@ -61,23 +61,26 @@ export const headerAppear = {
 
 // ─── Scroll-Triggered Animations ────────────────────────────────────
 // About section elements use will-change:transform with scroll triggers
+// Ease-out curve for scroll reveals (fast start, smooth deceleration — no "hang")
+export const SCROLL_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 export const scrollAppear = {
   sectionHeader: {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: FRAMER_EASE },
+    transition: { duration: 0.8, ease: SCROLL_EASE },
     viewport: { once: true, margin: '0px 0px -30px 0px' as const },
   },
   textBlock: {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: FRAMER_EASE },
+    transition: { duration: 0.8, ease: SCROLL_EASE },
     viewport: { once: true, margin: '0px 0px -30px 0px' as const },
   },
   imageBlock: {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: FRAMER_EASE },
+    transition: { duration: 0.8, ease: SCROLL_EASE },
     viewport: { once: true, margin: '0px 0px -30px 0px' as const },
   },
 };
@@ -112,51 +115,25 @@ export const projectCardAppear = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '0px 0px -30px 0px' },
   transition: (index: number) => ({
-    duration: 0.7,
+    duration: 0.8,
     delay: index * 0.08,
-    ease: FRAMER_EASE,
+    ease: SCROLL_EASE,
   }),
 };
 
 // ─── Projects Section Animations ────────────────────────────────────
-export const projectSectionAppear = {
-  title: {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: FRAMER_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-  image: {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay: 0.1, ease: FRAMER_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-  text: {
-    initial: { opacity: 0, y: 15 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay: 0.15, ease: FRAMER_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-  button: {
-    initial: { opacity: 0, y: 10 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay: 0.2, ease: FRAMER_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-  floatingImage: (index: number) => ({
-    initial: { opacity: 0, scale: 0.92 },
-    whileInView: { opacity: 1, scale: 1 },
-    transition: { duration: 0.6, delay: 0.15 + index * 0.08, ease: FRAMER_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  }),
+export const projectBlockAppear = {
+  initial: { opacity: 0, y: 25 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 1.0, ease: SCROLL_EASE },
+  viewport: { once: true, margin: '0px 0px -30px 0px' as const },
 };
 
 // ─── Info Bar Animation ────────────────────────────────────────────
 export const infoBarAppear = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
-  transition: { duration: 0.6, ease: FRAMER_EASE },
+  transition: { duration: 0.8, ease: SCROLL_EASE },
   viewport: { once: true },
 };
 
