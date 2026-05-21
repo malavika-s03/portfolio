@@ -6,6 +6,8 @@ import { PageTransition } from '@/components/layout/PageTransition';
 import { HomePage } from '@/pages/Home';
 import { ProjectPage } from '@/pages/Project';
 import { YuluCaseStudyPage } from '@/pages/YuluCaseStudy';
+import { VectorVaultCaseStudyPage } from '@/pages/VectorVaultCaseStudy';
+import { DistrictCaseStudyPage } from '@/pages/DistrictCaseStudy';
 import { NotFoundPage } from '@/pages/NotFound';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/project/yulu" element={<YuluCaseStudyPage />} />
+              <Route path="/project/vector-vault" element={<VectorVaultCaseStudyPage />} />
+              <Route path="/project/district" element={<DistrictCaseStudyPage />} />
               <Route path="/project/:slug" element={<ProjectPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

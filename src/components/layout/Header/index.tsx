@@ -9,7 +9,7 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
-  const isYuluPage = location.pathname === '/project/yulu';
+  const isProjectPage = location.pathname.startsWith('/project/');
 
   return (
     <>
@@ -20,7 +20,7 @@ export function Header() {
         transition={headerAppear.transition}
       >
         <div className="w-full relative" style={{ height: '4.69vw' }}>
-            {!isYuluPage && (
+            {!isProjectPage && (
               <Link
                 to="/"
                 className="absolute font-medium uppercase text-foreground hover:opacity-70 transition-opacity"

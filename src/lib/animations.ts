@@ -169,15 +169,11 @@ export const pageVariants = {
   enter: {
     opacity: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       ease: 'linear' as const,
     },
   },
   exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.3,
-      ease: 'linear' as const,
-    },
+    opacity: 1,
   },
 };
