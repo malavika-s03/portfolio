@@ -14,7 +14,7 @@ export function Hero() {
             style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
             initial={heroNameAppear.initial}
             animate={heroNameAppear.animate}
-            transition={heroNameAppear.transition(0.3)}
+            transition={heroNameAppear.transition(0.2)}
           >
             MALAVIKA
           </motion.p>
@@ -23,7 +23,7 @@ export function Hero() {
             style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
             initial={heroNameAppear.initial}
             animate={heroNameAppear.animate}
-            transition={heroNameAppear.transition(0.4)}
+            transition={heroNameAppear.transition(0.5)}
           >
             SURESH
           </motion.p>
