@@ -11,11 +11,22 @@ import {
   competitorStrategyTable2,
   coreFeatureComparisonData,
   goalMetricData,
+  productDescriptionTagline,
   productDescription,
-  pricingStrategy,
-  socialMediaContent,
+  positionStatement,
+  socialMediaItems,
+  socialMediaConstraint,
+  socialMediaNote,
+  socialMediaFollowUpHeading,
+  socialMediaFollowUpSubheading,
+  socialMediaFollowUpItems,
+  riceData,
   customerIncentives,
-  marketingMessage,
+  addressingConstraintText,
+  marketingMessageHeadline,
+  marketingMessageBody,
+  marketingMessagePoints,
+  marketingMessageSubpoints,
   roadmapData,
   type SwotAnalysis,
 } from './data';
@@ -59,15 +70,16 @@ export function DistrictCaseStudyPage() {
       <HeroSection />
       <CompanyOverviewSection />
       <SwotAnalysisSection />
-      {/* SegmentationClassificationSection removed - not in Figma design */}
       <PortersFiveForcesSection />
       <CompetitorAnalysisSection />
       <CoreFeatureComparisonSection />
       <GoalMetricSection />
       <ProductDescriptionSection />
-      <PricingStrategySection />
       <SocialMediaSection />
+      <SocialMediaFollowUpSection />
+      <RiceSection />
       <CustomerIncentivesSection />
+      <AddressingConstraintSection />
       <MarketingMessageSection />
       <RoadmapSection />
     </main>
@@ -176,26 +188,45 @@ function BulletList({ items, bulletColor }: { items: string[]; bulletColor?: str
   );
 }
 
+function NumberBadge({ number }: { number: string }) {
+  return (
+    <div
+      style={{
+        width: vw(55),
+        height: vw(55),
+        background: 'linear-gradient(135deg, #C026D3 0%, #6D28D9 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 700,
+        fontSize: vw(18),
+        color: '#FFFFFF',
+      }}
+    >
+      {number}
+    </div>
+  );
+}
+
 function SparkleIcon({ size = 32 }: { size?: number }) {
   const id = useId();
-  
+
   return (
     <svg width={vw(size)} height={vw(size)} viewBox="0 0 64 64" fill="none" style={{ flexShrink: 0 }}>
-      {/* Main large 4-point star */}
-      <path 
-        d="M32 0 L36 24 L64 32 L36 40 L32 64 L28 40 L0 32 L28 24 Z" 
+      <path
+        d="M32 0 L36 24 L64 32 L36 40 L32 64 L28 40 L0 32 L28 24 Z"
         fill={`url(#main-${id})`}
       />
-      {/* Small upper-right star */}
-      <path 
-        d="M8 0 L9.5 6 L16 8 L9.5 10 L8 16 L6.5 10 L0 8 L6.5 6 Z" 
+      <path
+        d="M8 0 L9.5 6 L16 8 L9.5 10 L8 16 L6.5 10 L0 8 L6.5 6 Z"
         fill={`url(#small-${id})`}
         transform="translate(44 2) scale(0.7)"
         opacity="0.9"
       />
-      {/* Small lower-left star */}
-      <path 
-        d="M8 0 L9.5 6 L16 8 L9.5 10 L8 16 L6.5 10 L0 8 L6.5 6 Z" 
+      <path
+        d="M8 0 L9.5 6 L16 8 L9.5 10 L8 16 L6.5 10 L0 8 L6.5 6 Z"
         fill={`url(#small2-${id})`}
         transform="translate(4 44) scale(0.5)"
         opacity="0.7"
@@ -225,17 +256,11 @@ function SparkleIcon({ size = 32 }: { size?: number }) {
 function PhoneMockup({
   width = 265,
   height = 571,
-  screenColor = '#0f0520',
-  accentColor = COLORS.accent,
   imageSrc,
-  children,
 }: {
   width?: number;
   height?: number;
-  screenColor?: string;
-  accentColor?: string;
   imageSrc?: string;
-  children?: React.ReactNode;
 }) {
   return (
     <div
@@ -251,7 +276,7 @@ function PhoneMockup({
         boxShadow: `0 0 ${vw(20)} rgba(124, 58, 237, 0.3)`,
       }}
     >
-      {imageSrc ? (
+      {imageSrc && (
         <img
           src={imageSrc}
           alt=""
@@ -262,52 +287,6 @@ function PhoneMockup({
             objectPosition: 'top center',
           }}
         />
-      ) : (
-        <>
-          {/* Status bar */}
-          <div
-            style={{
-              height: vw(28),
-              backgroundColor: screenColor,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: vw(4),
-            }}
-          >
-            <div style={{ width: vw(60), height: vw(6), borderRadius: vw(3), backgroundColor: '#222' }} />
-          </div>
-          {/* Screen content */}
-          <div
-            style={{
-              flex: 1,
-              backgroundColor: screenColor,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: `calc(100% - ${vw(28)})`,
-              padding: vw(12),
-              gap: vw(10),
-            }}
-          >
-            {children || (
-              <>
-                <div style={{ width: '60%', height: vw(8), backgroundColor: accentColor, borderRadius: vw(4), opacity: 0.6 }} />
-                <div style={{ width: '80%', height: vw(6), backgroundColor: '#2a1845', borderRadius: vw(3) }} />
-                <div style={{ width: '70%', height: vw(6), backgroundColor: '#2a1845', borderRadius: vw(3) }} />
-                <div style={{ width: vw(50), height: vw(50), borderRadius: vw(12), backgroundColor: '#1a0e2e', marginTop: vw(8), border: `1px solid ${accentColor}30` }} />
-                <div style={{ width: '90%', height: vw(6), backgroundColor: '#2a1845', borderRadius: vw(3), marginTop: vw(8) }} />
-                <div style={{ width: '85%', height: vw(6), backgroundColor: '#2a1845', borderRadius: vw(3) }} />
-                <div style={{ width: '60%', height: vw(6), backgroundColor: '#2a1845', borderRadius: vw(3) }} />
-                <div style={{ display: 'flex', gap: vw(8), marginTop: vw(12), width: '90%' }}>
-                  <div style={{ flex: 1, height: vw(30), borderRadius: vw(6), backgroundColor: '#1a0e2e', border: `1px solid ${accentColor}30` }} />
-                  <div style={{ flex: 1, height: vw(30), borderRadius: vw(6), backgroundColor: '#1a0e2e', border: `1px solid ${accentColor}30` }} />
-                </div>
-              </>
-            )}
-          </div>
-        </>
       )}
     </div>
   );
@@ -329,7 +308,6 @@ function HeroSection() {
         backgroundColor: COLORS.background,
       }}
     >
-      {/* Left decorative purple bar - Figma: x:55, y:37, w:78, h:287 - bright magenta gradient */}
       <div
         style={{
           position: 'absolute',
@@ -342,7 +320,6 @@ function HeroSection() {
         }}
       />
 
-      {/* Right decorative magenta accent - Figma: x:1253, y:558, w:10, h:81 - gradient #D322FF to #63007C */}
       <div
         style={{
           position: 'absolute',
@@ -354,7 +331,6 @@ function HeroSection() {
         }}
       />
 
-      {/* Title - Figma: x:196, y:42, Oswald font */}
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -374,7 +350,6 @@ function HeroSection() {
         District- Product Management Case Study
       </motion.h1>
 
-      {/* Left sparkle - Figma: x:291, y:217, size:71x111 */}
       <div
         style={{
           position: 'absolute',
@@ -387,7 +362,6 @@ function HeroSection() {
         <SparkleIcon size={71} />
       </div>
 
-      {/* Problem Statement heading - Figma: starts at y:251, WHITE text */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -409,7 +383,6 @@ function HeroSection() {
         Problem Statement
       </motion.h2>
 
-      {/* Right sparkle - Figma: x:901, y:217, size:71x110 */}
       <div
         style={{
           position: 'absolute',
@@ -422,7 +395,6 @@ function HeroSection() {
         <SparkleIcon size={71} />
       </div>
 
-      {/* Problem statement body - Figma: exact line breaks as in design */}
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -452,24 +424,10 @@ function HeroSection() {
 /* ── Section 2: Company Overview ───────────── */
 
 function CompanyOverviewSection() {
-  // ═══════════════════════════════════════════════════════════════════════════
-  // FIGMA COORDINATES (absolute positions on canvas):
-  // ═══════════════════════════════════════════════════════════════════════════
-  // Design width: 1280px
-  // Hero ends at: y=710
-  //
-  // DISTRICT PHONE:    x=121,  y=629,  w=265,  h=571  (ends x=386, y=1200)
-  // DISTRICT TEXT:     x=489,  y=738,  w=277,  h=270  (Figma text group width)
-  // BMS PHONE:         x=886,  y=842,  w=299,  h=646  (ends x=1185, y=1488)
-  // BOOKMYSHOW TEXT:   x=501,  y=1117, w=288,  h=285  (Figma text group width)
-  //
-  // SECTION HEIGHT: y=1488 (BMS phone end) - y=710 (hero end) + padding = 850px
-  // ═══════════════════════════════════════════════════════════════════════════
-  
   const sectionStartY = 710;
   const districtTextWidth = 277;
   const bmsTextWidth = 288;
-  
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -483,12 +441,11 @@ function CompanyOverviewSection() {
         overflow: 'visible',
       }}
     >
-      {/* District phone - Figma: x=121, y=629, w=265, h=571 */}
       <div
         style={{
           position: 'absolute',
           left: vw(121),
-          top: vw(629 - sectionStartY), // = -81px (overlaps into hero)
+          top: vw(629 - sectionStartY),
           width: vw(265),
           height: vw(571),
         }}
@@ -496,12 +453,11 @@ function CompanyOverviewSection() {
         <PhoneMockup width={265} height={571} imageSrc={`${BASE_URL}images/district/phones/district-app.jpg`} />
       </div>
 
-      {/* DISTRICT heading and bullets - Figma: x=489, y=738, w=277 */}
       <div
         style={{
           position: 'absolute',
           left: vw(489),
-          top: vw(738 - sectionStartY), // = 28px
+          top: vw(738 - sectionStartY),
           width: vw(districtTextWidth),
         }}
       >
@@ -511,12 +467,11 @@ function CompanyOverviewSection() {
         </div>
       </div>
 
-      {/* BMS phone - Figma: x=886, y=842, w=299, h=646 */}
       <div
         style={{
           position: 'absolute',
           left: vw(886),
-          top: vw(842 - sectionStartY), // = 132px
+          top: vw(842 - sectionStartY),
           width: vw(299),
           height: vw(646),
         }}
@@ -524,12 +479,11 @@ function CompanyOverviewSection() {
         <PhoneMockup width={299} height={646} imageSrc={`${BASE_URL}images/district/phones/bookmyshow-app.jpg`} />
       </div>
 
-      {/* BOOKMYSHOW heading and bullets - Figma: x=501, y=1117, w=288 */}
       <div
         style={{
           position: 'absolute',
           left: vw(501),
-          top: vw(1117 - sectionStartY), // = 407px
+          top: vw(1117 - sectionStartY),
           width: vw(bmsTextWidth),
         }}
       >
@@ -543,21 +497,10 @@ function CompanyOverviewSection() {
 }
 
 /* ── Section 3: SWOT Analysis ────────────────── */
-// ═══════════════════════════════════════════════════════════════════════════
-// FIGMA SOURCE OF TRUTH (file 53fS8w3jMxFC6GfgllEvwo, node 1:2):
-// Frame: 1253px × 705px
-// Titles: y=46, h=35px (Oswald bold uppercase white)
-// Labels: y=128, h=12px (Inter regular white)
-// Boxes: y=160, w=239, h=238 (purple solid bg #5B2877, no border)
-// Box gap horizontal: 34px | Column gap: 92px | Row gap: 42px
-// Left padding: 45px | Top padding: 46px
-// Decorative line: top-right corner pink/magenta
-// ═══════════════════════════════════════════════════════════════════════════
 
 function SwotBox({ title, items }: { title: string; items: string[] }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {/* Label */}
       <div
         style={{
           fontFamily: "'Inter', sans-serif",
@@ -570,7 +513,6 @@ function SwotBox({ title, items }: { title: string; items: string[] }) {
       >
         {title}
       </div>
-      {/* Box */}
       <div
         style={{
           backgroundColor: '#5B2877',
@@ -608,11 +550,9 @@ function SwotColumn({ data }: { data: SwotAnalysis }) {
 
   return (
     <div>
-      {/* Column sub-title - smaller than main section heading */}
       <div style={{ marginBottom: vw(24) }}>
         <SubHeading size={28}>{data.heading}</SubHeading>
       </div>
-      {/* Grid - Figma: 239px boxes, 34px gap, 42px row gap (includes label) */}
       <div
         style={{
           display: 'grid',
@@ -645,7 +585,6 @@ function SwotAnalysisSection() {
         position: 'relative',
       }}
     >
-      {/* Decorative line - Figma: top-right corner pink/magenta */}
       <div
         style={{
           position: 'absolute',
@@ -656,11 +595,9 @@ function SwotAnalysisSection() {
           backgroundColor: '#D322FF',
         }}
       />
-      {/* Main section title */}
       <div style={{ marginBottom: vw(30) }}>
         <SectionHeading>SWOT Analysis</SectionHeading>
       </div>
-      {/* Two columns - Figma: District left, BMS right, 92px gap */}
       <div style={{ display: 'flex', gap: vw(92) }}>
         <SwotColumn data={districtSwot} />
         <SwotColumn data={bookMyShowSwot} />
@@ -669,25 +606,9 @@ function SwotAnalysisSection() {
   );
 }
 
-/* ── Section 5: Porter's Five Forces ────────── */
-// ═══════════════════════════════════════════════════════════════════════════
-// FIGMA SOURCE OF TRUTH (file 53fS8w3jMxFC6GfgllEvwo, node 2:2):
-// Frame: 1258px × 708px
-// 5 cards: w=203, h=448, y=203
-// Card x positions: 48, 289, 530, 766, 1007
-// Gap between cards: ~38px | Left/right padding: 48px
-// Headers above cards at y~150
-// ═══════════════════════════════════════════════════════════════════════════
+/* ── Section 4: Porter's Five Forces ────────── */
 
 function PortersFiveForcesSection() {
-  // ═══════════════════════════════════════════════════════════════════════════
-  // FIGMA SOURCE OF TRUTH (file 7qsPBSvlpw8Xr9NX010w2t):
-  // Main frame: 1280px × 11727px (EXACTLY matches BASE_WIDTH = 1280)
-  // Cards: w=203, h=448 | x positions: 48, 289, 530, 766, 1007
-  // Gap between cards: ~38px | Left/right padding: ~48px
-  // Pink bar: w=10, h=81 at right edge
-  // Text glyph heights: 9-14px range → use directly as font sizes
-  // ═══════════════════════════════════════════════════════════════════════════
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
@@ -702,7 +623,6 @@ function PortersFiveForcesSection() {
         position: 'relative',
       }}
     >
-      {/* Decorative pink bar - Figma: w=10, h=81 */}
       <div
         style={{
           position: 'absolute',
@@ -714,12 +634,10 @@ function PortersFiveForcesSection() {
         }}
       />
 
-      {/* Title - using SectionHeading for consistency */}
       <div style={{ marginBottom: vw(24) }}>
         <SectionHeading>Porter&apos;s Five Forces</SectionHeading>
       </div>
 
-      {/* 5 columns - Figma: cards w=203, gap=38 */}
       <div style={{ display: 'flex', gap: vw(38) }}>
         {portersFiveForces.map((force, i) => (
           <div
@@ -730,7 +648,6 @@ function PortersFiveForcesSection() {
               flexDirection: 'column',
             }}
           >
-            {/* Column header */}
             <div
               style={{
                 fontFamily: "'Inter', sans-serif",
@@ -746,7 +663,6 @@ function PortersFiveForcesSection() {
               {force.title}
             </div>
 
-            {/* Purple card */}
             <div
               style={{
                 backgroundColor: '#5B2877',
@@ -756,7 +672,6 @@ function PortersFiveForcesSection() {
                 flexDirection: 'column',
               }}
             >
-              {/* Level rating */}
               <div
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -772,7 +687,6 @@ function PortersFiveForcesSection() {
                 {force.level}
               </div>
 
-              {/* District section */}
               <div style={{ marginBottom: vw(18), textAlign: 'center' }}>
                 <div
                   style={{
@@ -798,7 +712,6 @@ function PortersFiveForcesSection() {
                 </div>
               </div>
 
-              {/* BookMyShow section */}
               <div style={{ textAlign: 'center' }}>
                 <div
                   style={{
@@ -831,30 +744,9 @@ function PortersFiveForcesSection() {
   );
 }
 
-/* ── Section 6: Competitor Analysis ──────────── */
-// ═══════════════════════════════════════════════════════════════════════════
-// FIGMA SOURCE OF TRUTH (file 53fS8w3jMxFC6OfgllEvwo):
-// Frame: 1309×736px (scaled to 1280 base width)
-// Scale factor: 1280/1309 = 0.978
-// 
-// LAYOUT FROM FIGMA:
-// - Title at top: "COMPETITOR ANALYSIS" - Inter/Oswald Bold, white
-// - Table below with 4 columns
-// - Column widths (from Figma): Label=~211px, BMS=~300px, District=~300px, Notes=~301px
-//   Scaled percentages: 16%, 27%, 27%, 27% (with some flex for borders)
-// - Pink bar: x=1262, y=599.5, w=10.26, h=84.41 (right edge decoration)
-// 
-// COLORS FROM FIGMA:
-// - Background: #1E1E1E (dark)
-// - Table header bg: Deep purple (#2A0E45)
-// - Label column bg: Same as header (#2A0E45) for consistency
-// - Content cell bg: Very dark purple (#1A0830)
-// - Borders: Purple tint (#4A1870)
-// - All text: White (#FFFFFF)
-// ═══════════════════════════════════════════════════════════════════════════
+/* ── Section 5: Competitor Analysis ──────────── */
 
 function CompetitorAnalysisSection() {
-  // Table header cells - purple background, centered uppercase white text
   const thStyle: React.CSSProperties = {
     backgroundColor: '#2A0E45',
     color: '#FFFFFF',
@@ -869,7 +761,6 @@ function CompetitorAnalysisSection() {
     verticalAlign: 'middle',
   };
 
-  // Content cells - dark purple background, white text, left-aligned
   const tdStyle: React.CSSProperties = {
     backgroundColor: '#1A0830',
     color: '#E8E8E8',
@@ -883,7 +774,6 @@ function CompetitorAnalysisSection() {
     lineHeight: 1.55,
   };
 
-  // Label column cells - purple background matching header, bolder text
   const labelCellStyle: React.CSSProperties = {
     backgroundColor: '#2A0E45',
     color: '#FFFFFF',
@@ -897,15 +787,12 @@ function CompetitorAnalysisSection() {
     lineHeight: 1.55,
   };
 
-  // Figma column widths scaled: Label=16%, BMS=27%, District=27%, Notes=27%
-  // These match the visual proportions from the Figma screenshot
-  // Both tables in Figma have their own header row
   const renderTable = (data: typeof competitorStrategyTable1, isFirstTable: boolean = false) => (
-    <table 
-      style={{ 
-        width: '100%', 
-        borderCollapse: 'collapse', 
-        border: `1px solid #4A1870`, 
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        border: `1px solid #4A1870`,
         marginTop: isFirstTable ? 0 : vw(30),
         tableLayout: 'fixed',
       }}
@@ -937,16 +824,14 @@ function CompetitorAnalysisSection() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      style={{ 
-        paddingLeft: vw(70), 
-        paddingRight: vw(47), 
-        paddingTop: vw(50), 
-        paddingBottom: vw(30), 
+      style={{
+        paddingLeft: vw(70),
+        paddingRight: vw(47),
+        paddingTop: vw(50),
+        paddingBottom: vw(30),
         position: 'relative',
       }}
     >
-      {/* Pink decorative bar - Figma: x=1262 (right edge), y=599.5, w=10.26, h=84.41 */}
-      {/* Scaled to 1280 base: right=0, top=585, w=10, h=82 */}
       <div
         style={{
           position: 'absolute',
@@ -957,11 +842,9 @@ function CompetitorAnalysisSection() {
           background: 'linear-gradient(180deg, #D322FF 0%, #9B11BE 100%)',
         }}
       />
-      
-      {/* Section title - Figma: Inter Bold, 42px, white, uppercase */}
+
       <SectionHeading>Competitor Analysis</SectionHeading>
-      
-      {/* Tables container - Figma shows continuous table with no gap between sections */}
+
       <div style={{ marginTop: vw(35) }}>
         {renderTable(competitorStrategyTable1, true)}
         {renderTable(competitorStrategyTable2, false)}
@@ -969,6 +852,8 @@ function CompetitorAnalysisSection() {
     </motion.section>
   );
 }
+
+/* ── Section 6: Core Feature Comparison ──────── */
 
 function CoreFeatureComparisonSection() {
   const thStyle: React.CSSProperties = {
@@ -1051,6 +936,8 @@ function CoreFeatureComparisonSection() {
   );
 }
 
+/* ── Section 7: Goal/Metric ──────────────────── */
+
 function GoalMetricSection() {
   const thStyle: React.CSSProperties = {
     backgroundColor: COLORS.tableHeader,
@@ -1106,7 +993,7 @@ function GoalMetricSection() {
   );
 }
 
-/* ── Section 7: Product Description ──────────── */
+/* ── Section 8: Product Description + Position Statement ── */
 
 function ProductDescriptionSection() {
   return (
@@ -1115,48 +1002,45 @@ function ProductDescriptionSection() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(50), paddingBottom: vw(30) }}
+      style={{
+        paddingLeft: vw(87),
+        paddingRight: vw(87),
+        paddingTop: vw(50),
+        paddingBottom: vw(30),
+        position: 'relative',
+      }}
     >
       <SectionHeading>Product Description</SectionHeading>
-      <div style={{ marginTop: vw(25), maxWidth: vw(1000) }}>
-        {productDescription.split('\n\n').map((para, i) => (
-          <div key={i} style={{ marginBottom: vw(20) }}>
-            <BodyText size={13} lineHeight={1.8} color={COLORS.textSecondary}>
-              {para}
-            </BodyText>
-          </div>
-        ))}
+      <div style={{ marginTop: vw(10) }}>
+        <BodyText size={16} lineHeight={1.6} color={COLORS.text} style={{ fontStyle: 'italic' }}>
+          {productDescriptionTagline}
+        </BodyText>
       </div>
-    </motion.section>
-  );
-}
-
-/* ── Section 8: Pricing Strategy ──────────────── */
-
-function PricingStrategySection() {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(30), paddingBottom: vw(30) }}
-    >
-      <SectionHeading>Pricing Strategy</SectionHeading>
       <div style={{ marginTop: vw(25), maxWidth: vw(1000) }}>
-        {pricingStrategy.split('\n\n').map((para, i) => (
-          <div key={i} style={{ marginBottom: vw(20) }}>
-            <BodyText size={13} lineHeight={1.8} color={COLORS.textSecondary}>
-              {para.split('\n').map((line, j) => (
-                <span key={j}>
-                  {line}
-                  {j < para.split('\n').length - 1 && <br />}
-                </span>
-              ))}
-            </BodyText>
-          </div>
-        ))}
+        <BodyText size={13} lineHeight={1.8} color={COLORS.textSecondary}>
+          {productDescription}
+        </BodyText>
       </div>
+
+      <div style={{ marginTop: vw(50) }}>
+        <SectionHeading>Position Statement</SectionHeading>
+      </div>
+      <div style={{ marginTop: vw(20), maxWidth: vw(1000) }}>
+        <BodyText size={13} lineHeight={1.8} color={COLORS.textSecondary}>
+          {positionStatement}
+        </BodyText>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width: vw(10),
+          height: vw(81),
+          background: 'linear-gradient(180deg, #D322FF 0%, #9B11BE 100%)',
+        }}
+      />
     </motion.section>
   );
 }
@@ -1170,39 +1054,210 @@ function SocialMediaSection() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(50), paddingBottom: vw(30) }}
+      style={{
+        paddingLeft: vw(87),
+        paddingRight: vw(87),
+        paddingTop: vw(50),
+        paddingBottom: vw(30),
+        position: 'relative',
+      }}
     >
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: vw(60),
+          width: vw(10),
+          height: vw(81),
+          background: 'linear-gradient(180deg, #D322FF 0%, #9B11BE 100%)',
+        }}
+      />
+
       <SectionHeading>Social Media</SectionHeading>
-      <div style={{ display: 'flex', gap: vw(35), marginTop: vw(35) }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: vw(18) }}>
-          {socialMediaContent.map((post, i) => (
-            <div
-              key={i}
-              style={{
-                border: `1px solid ${COLORS.tableBorder}`,
-                padding: vw(20),
-                backgroundColor: COLORS.tableRowDark,
-                borderRadius: vw(6),
-              }}
-            >
-              <SubHeading size={14}>{post.heading}</SubHeading>
-              <div style={{ marginTop: vw(10) }}>
-                <BodyText size={12} lineHeight={1.65} color={COLORS.textSecondary}>
-                  {post.body}
+
+      <div style={{ display: 'flex', gap: vw(40), marginTop: vw(35) }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: vw(24) }}>
+            {socialMediaItems.map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: vw(16) }}>
+                <NumberBadge number={item.number} />
+                <BodyText size={14} lineHeight={1.6} color={COLORS.text}>
+                  {item.heading}
                 </BodyText>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div style={{ marginTop: vw(30) }}>
+            <BodyText size={13} lineHeight={1.6} color={COLORS.accent} style={{ fontWeight: 600 }}>
+              {socialMediaConstraint}
+            </BodyText>
+          </div>
+
+          <div style={{ marginTop: vw(16) }}>
+            <BodyText size={12} lineHeight={1.7} color={COLORS.textSecondary}>
+              {socialMediaNote}
+            </BodyText>
+          </div>
         </div>
-        <div style={{ flexShrink: 0 }}>
-          <PhoneMockup width={200} height={430} imageSrc={`${BASE_URL}images/district/phones/district-app.jpg`} />
+
+        <div style={{ display: 'flex', gap: vw(16), alignItems: 'flex-start', flexShrink: 0 }}>
+          <PhoneMockup width={314} height={456} imageSrc={`${BASE_URL}images/district/phones/social-media-phone.png`} />
+          <PhoneMockup width={76} height={281} imageSrc={`${BASE_URL}images/district/phones/social-media-phone-small.png`} />
         </div>
       </div>
     </motion.section>
   );
 }
 
-/* ── Section 10: Customer Incentives ────────── */
+/* ── Section 10: Social Media Follow-up ─────── */
+
+function SocialMediaFollowUpSection() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        paddingLeft: vw(87),
+        paddingRight: vw(87),
+        paddingTop: vw(30),
+        paddingBottom: vw(30),
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: vw(60),
+          width: vw(10),
+          height: vw(81),
+          background: 'linear-gradient(180deg, #D322FF 0%, #9B11BE 100%)',
+        }}
+      />
+
+      <div style={{ display: 'flex', gap: vw(40) }}>
+        <div style={{ flex: 1 }}>
+          <h2
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 700,
+              fontSize: vw(32),
+              color: COLORS.text,
+              lineHeight: 1.3,
+              margin: 0,
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {socialMediaFollowUpHeading}
+          </h2>
+          <h3
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 700,
+              fontSize: vw(28),
+              color: COLORS.text,
+              margin: 0,
+              marginTop: vw(20),
+            }}
+          >
+            {socialMediaFollowUpSubheading}
+          </h3>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: vw(20), marginTop: vw(30) }}>
+            {socialMediaFollowUpItems.map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: vw(16) }}>
+                <NumberBadge number={item.number} />
+                <BodyText size={13} lineHeight={1.6} color={COLORS.textSecondary}>
+                  {item.body}
+                </BodyText>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ flexShrink: 0 }}>
+          <PhoneMockup width={298} height={644} imageSrc={`${BASE_URL}images/district/phones/event-details-phone.png`} />
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+/* ── Section 11: RICE ────────────────────────── */
+
+function RiceSection() {
+  const thStyle: React.CSSProperties = {
+    backgroundColor: COLORS.tableHeader,
+    color: COLORS.text,
+    fontFamily: "'Inter', sans-serif",
+    fontWeight: 700,
+    fontSize: vw(14),
+    padding: `${vw(16)} ${vw(16)}`,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: '0.04em',
+    border: `1px solid ${COLORS.tableBorder}`,
+  };
+
+  const tdStyle: React.CSSProperties = {
+    backgroundColor: COLORS.tableRowDark,
+    color: COLORS.textSecondary,
+    fontFamily: "'Inter', sans-serif",
+    fontWeight: 400,
+    fontSize: vw(12),
+    padding: `${vw(16)} ${vw(16)}`,
+    textAlign: 'center',
+    border: `1px solid ${COLORS.tableBorder}`,
+    verticalAlign: 'middle',
+    lineHeight: 1.55,
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(50), paddingBottom: vw(50) }}
+    >
+      <div style={{ textAlign: 'center', marginBottom: vw(30) }}>
+        <h2 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, fontSize: vw(42), color: COLORS.text, margin: 0 }}>
+          RICE
+        </h2>
+      </div>
+
+      <table style={{ width: '100%', borderCollapse: 'collapse', border: `1px solid ${COLORS.tableBorder}` }}>
+        <thead>
+          <tr>
+            <th style={{ ...thStyle, width: '18%', textAlign: 'left' }}>Feature</th>
+            <th style={{ ...thStyle, width: '18%' }}>Reach (per month)</th>
+            <th style={{ ...thStyle, width: '13%' }}>Impact</th>
+            <th style={{ ...thStyle, width: '15%' }}>Confidence</th>
+            <th style={{ ...thStyle, width: '13%' }}>Effort</th>
+            <th style={{ ...thStyle, width: '15%' }}>RICE Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {riceData.map((row, i) => (
+            <tr key={i}>
+              <td style={{ ...tdStyle, textAlign: 'left', color: COLORS.text, fontWeight: 500 }}>{row.feature}</td>
+              <td style={tdStyle}>{row.reach}</td>
+              <td style={tdStyle}>{row.impact}</td>
+              <td style={tdStyle}>{row.confidence}</td>
+              <td style={tdStyle}>{row.effort}</td>
+              <td style={tdStyle}>{row.score}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </motion.section>
+  );
+}
+
+/* ── Section 12: Customer Incentives ────────── */
 
 function CustomerIncentivesSection() {
   return (
@@ -1211,29 +1266,49 @@ function CustomerIncentivesSection() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(50), paddingBottom: vw(30) }}
+      style={{
+        paddingLeft: vw(87),
+        paddingRight: vw(87),
+        paddingTop: vw(50),
+        paddingBottom: vw(30),
+        position: 'relative',
+      }}
     >
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: vw(10),
+          height: vw(81),
+          background: 'linear-gradient(180deg, #D322FF 0%, #9B11BE 100%)',
+        }}
+      />
+
       <SectionHeading>Customer Incentives</SectionHeading>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: vw(14), marginTop: vw(35) }}>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: vw(30), marginTop: vw(35) }}>
         {customerIncentives.map((item, i) => (
-          <div
-            key={i}
-            style={{
-              border: `1px solid ${COLORS.tableBorder}`,
-              overflow: 'hidden',
-              borderRadius: vw(4),
-              gridColumn: i === customerIncentives.length - 1 && i % 2 === 0 ? '1 / -1' : undefined,
-            }}
-          >
-            <div style={{ backgroundColor: COLORS.tableHeader, padding: `${vw(10)} ${vw(14)}` }}>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: vw(12), color: COLORS.text, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: vw(20) }}>
+            <NumberBadge number={item.number} />
+            <div>
+              <div
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(16),
+                  color: COLORS.text,
+                  marginBottom: vw(8),
+                }}
+              >
                 {item.title}
-              </span>
-            </div>
-            <div style={{ backgroundColor: COLORS.tableRowDark, padding: `${vw(12)} ${vw(14)}` }}>
-              <BodyText size={11} lineHeight={1.65} color={COLORS.textSecondary}>
-                {item.description}
-              </BodyText>
+              </div>
+              {item.lines.map((line, j) => (
+                <BodyText key={j} size={14} lineHeight={1.6} color={COLORS.textSecondary}>
+                  {line}
+                </BodyText>
+              ))}
             </div>
           </div>
         ))}
@@ -1242,7 +1317,42 @@ function CustomerIncentivesSection() {
   );
 }
 
-/* ── Section 11: Marketing Message ──────────── */
+/* ── Section 13: Addressing Constraint ─────── */
+
+function AddressingConstraintSection() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      style={{
+        paddingLeft: vw(87),
+        paddingRight: vw(87),
+        paddingTop: vw(30),
+        paddingBottom: vw(30),
+      }}
+    >
+      <div style={{ marginBottom: vw(20) }}>
+        <BodyText size={14} lineHeight={1.6} color={COLORS.text} style={{ fontWeight: 600 }}>
+          {addressingConstraintText}
+        </BodyText>
+      </div>
+      <img
+        src={`${BASE_URL}images/district/addressing-constraint.png`}
+        alt="Social media posts showing user frustration with competitor ticket booking"
+        style={{
+          width: '100%',
+          maxWidth: vw(1132),
+          height: 'auto',
+          borderRadius: vw(8),
+        }}
+      />
+    </motion.section>
+  );
+}
+
+/* ── Section 14: Marketing Message ──────────── */
 
 function MarketingMessageSection() {
   return (
@@ -1253,107 +1363,109 @@ function MarketingMessageSection() {
       viewport={{ once: true }}
       style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(50), paddingBottom: vw(30) }}
     >
-      <SectionHeading>Example Marketing Message</SectionHeading>
-      <div
-        style={{
-          marginTop: vw(25),
-          padding: vw(24),
-          border: `1px solid ${COLORS.tableBorder}`,
-          backgroundColor: COLORS.tableRowDark,
-          borderLeft: `${vw(4)} solid ${COLORS.accent}`,
-          maxWidth: vw(1000),
-          borderRadius: `0 ${vw(6)} ${vw(6)} 0`,
-        }}
-      >
-        <BodyText size={13} lineHeight={1.85} color={COLORS.textSecondary} style={{ fontStyle: 'italic' }}>
-          {marketingMessage.split('\n\n').map((para, i) => (
-            <span key={i}>
-              {i > 0 && <><br /><br /></>}
-              {para}
-            </span>
-          ))}
+      <SectionHeading>Example Marketing Message:</SectionHeading>
+
+      <div style={{ marginTop: vw(20) }}>
+        <BodyText size={18} lineHeight={1.5} color={COLORS.text} style={{ fontWeight: 700 }}>
+          {marketingMessageHeadline}
         </BodyText>
+      </div>
+
+      <div style={{ marginTop: vw(16), maxWidth: vw(1000) }}>
+        <BodyText size={13} lineHeight={1.8} color={COLORS.textSecondary}>
+          {marketingMessageBody}
+        </BodyText>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: vw(28), marginTop: vw(30) }}>
+        {marketingMessagePoints.map((point, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: vw(20) }}>
+            <NumberBadge number={point.number} />
+            <div style={{ maxWidth: vw(900) }}>
+              <BodyText size={14} lineHeight={1.7} color={COLORS.textSecondary}>
+                <span style={{ fontWeight: 700, color: COLORS.text }}>{point.heading}</span>{' '}
+                {point.body}
+              </BodyText>
+
+              {i === 1 && (
+                <div style={{ marginTop: vw(16), display: 'flex', flexDirection: 'column', gap: vw(8) }}>
+                  {marketingMessageSubpoints.map((sub, j) => (
+                    <BodyText key={j} size={13} lineHeight={1.7} color={COLORS.textSecondary}>
+                      <span style={{ fontWeight: 700, color: COLORS.text }}>{sub.label}</span>{' '}
+                      {sub.text}
+                    </BodyText>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </motion.section>
   );
 }
 
-/* ── Section 12: Road Map ─────────────────── */
+/* ── Section 15: Road Map ─────────────────── */
 
 function RoadmapSection() {
-  const phaseColors = [
-    'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
-    'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-    'linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%)',
-    'linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%)',
-    'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
-    'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-  ];
-  const dotColors = ['#a78bfa', '#c4b5fd', '#ddd6fe', '#ede9fe', '#a78bfa', '#c4b5fd'];
-
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      style={{ paddingLeft: vw(87), paddingRight: vw(87), paddingTop: vw(60), paddingBottom: vw(80) }}
+      style={{ paddingLeft: vw(65), paddingRight: vw(64), paddingTop: vw(50), paddingBottom: vw(80) }}
     >
-      <div style={{ textAlign: 'center', marginBottom: vw(40) }}>
+      <div style={{ textAlign: 'center', marginBottom: vw(35) }}>
         <h2 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800, fontSize: vw(42), color: COLORS.text, margin: 0, letterSpacing: '-0.01em' }}>
           Six month Road map
         </h2>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: vw(14) }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateRows: 'repeat(3, auto)',
+          gridAutoFlow: 'column',
+          columnGap: vw(38),
+          rowGap: vw(22),
+        }}
+      >
         {roadmapData.map((phase, i) => (
-          <div key={i} style={{ border: `1px solid ${COLORS.tableBorder}`, overflow: 'hidden', borderRadius: vw(4) }}>
+          <div
+            key={i}
+            style={{
+              border: `${vw(2)} solid #9333EA`,
+              borderRadius: vw(12),
+              overflow: 'hidden',
+            }}
+          >
             <div
               style={{
-                background: phaseColors[i] || COLORS.tableHeader,
-                padding: `${vw(12)} ${vw(14)}`,
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                backgroundColor: '#5B2877',
+                padding: `${vw(12)} ${vw(18)}`,
               }}
             >
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: vw(11), color: COLORS.text, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                {phase.month}
-              </span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: vw(9), color: 'rgba(255,255,255,0.85)', letterSpacing: '0.02em' }}>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: vw(13), color: COLORS.text }}>
                 {phase.title}
               </span>
             </div>
-            <div style={{ backgroundColor: COLORS.tableRowDark, padding: `${vw(14)} ${vw(14)}`, minHeight: vw(140) }}>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: vw(8) }}>
-                {phase.items.map((item, j) => (
-                  <li
-                    key={j}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: vw(7),
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: vw(10),
-                      color: COLORS.textSecondary,
-                      lineHeight: 1.55,
-                    }}
-                  >
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        width: vw(4),
-                        height: vw(4),
-                        borderRadius: '50%',
-                        backgroundColor: dotColors[i] || COLORS.accentLight,
-                        marginTop: vw(4),
-                        flexShrink: 0,
-                      }}
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div style={{ backgroundColor: '#1E0A35', padding: `${vw(16)} ${vw(18)}`, minHeight: vw(120) }}>
+              {phase.lines.map((line, j) => (
+                <div
+                  key={j}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: vw(11),
+                    color: COLORS.textSecondary,
+                    lineHeight: 1.55,
+                    marginBottom: j < phase.lines.length - 1 ? vw(8) : 0,
+                  }}
+                >
+                  {line}
+                </div>
+              ))}
             </div>
           </div>
         ))}

@@ -421,132 +421,202 @@ export const goalMetricData: GoalMetricRow[] = [
   },
 ];
 
-export const productDescription = `District is the ultimate 'going-out' app by Zomato. It was launched as its first-ever super app for all things 'going-out', integrating movies, events, dining, nightlife, and activities into a single platform. Building on Zomato's massive user base of 20+ million monthly active users, District aims to become the go-to platform for urban Indians planning their outings.
+export const productDescriptionTagline = 'Events, Eats, Experiences. District by Zomato. Your one-stop shop for a great time out';
 
-District is Zomato's bid to consolidate all 'going-out' experiences under one roof. The app leverages Zomato's acquisition of Insider (now rebranded) and PayTM's entertainment division to offer a comprehensive entertainment and dining ecosystem. With AI-powered recommendations and social features, District differentiates itself from competitors by understanding user preferences and enabling group planning for outings.`;
+export const productDescription = `District by Zomato is your all-in-one guide to unforgettable experiences. Discover and book tickets to events, from concerts and plays to workshops and more, all while seamlessly connecting with Zomato's restaurant network. Find nearby dining options, pre-order food, and plan your perfect night out, all in one place.`;
 
-export const pricingStrategy = `District employs a freemium model with premium features:
+export const positionStatement = `District by Zomato can position itself as a one-stop solution for a seamless "going out" experience and building user loyalty. The focus on user experience, targeted marketing efforts, and strategic customer incentives will drive adoption and growth. The continuous collection of user feedback is crucial to ensure District's offering remains relevant and caters to evolving customer needs in the competitive event booking landscape.`;
 
-• Free tier: Basic discovery, event browsing, restaurant listings
-• District Plus: ₹299/month - priority booking, exclusive deals, no convenience fees
-• District Black: ₹599/month - all Plus benefits + VIP access, concierge service, premium lounge access
-
-Revenue streams include:
-• Commission on ticket/booking sales (8-15%)
-• Restaurant listing and promotion fees
-• Sponsored placements and advertising
-• Premium subscription revenue
-• Data monetization through anonymized insights`;
-
-export interface SocialMediaPost {
+export interface NumberedItem {
+  number: string;
   heading: string;
   body: string;
 }
 
-export const socialMediaContent: SocialMediaPost[] = [
+export const socialMediaItems: NumberedItem[] = [
   {
-    heading: 'New to being a parent? We put value in this too, we understand you',
-    body: 'Targeted content for new parents looking for family-friendly outings and experiences.',
+    number: '01',
+    heading: 'Relatability with customers through engaging in meme culture',
+    body: '',
   },
   {
-    heading: 'Help us get better',
-    body: 'User feedback campaign to improve recommendations and app experience.',
+    number: '02',
+    heading: 'Cross collaboration between different verticals of Zomato',
+    body: '',
+  },
+];
+
+export const socialMediaConstraint = 'Constraint addressed: Limited Marketing budget. Organic content has minimal costs.';
+
+export const socialMediaNote = 'Considering the macro economic environment organic acquisitions should naturally grow as people are looking to go out and theatre/events are opening up.';
+
+export const socialMediaFollowUpHeading = 'New to being a parent?\nWe are new to this too,\nwe understand you.';
+export const socialMediaFollowUpSubheading = 'Help us get better';
+
+export const socialMediaFollowUpItems: NumberedItem[] = [
+  {
+    number: '01',
+    heading: '',
+    body: 'Listing if the event is kid friendly. Showing amenities at the venue(feeding room, Diaper station etc)',
+  },
+  {
+    number: '02',
+    heading: '',
+    body: 'Feedback option : To understand user needs and to drop a complaint if anything is not functional or broken.',
   },
 ];
 
 export interface IncentiveItem {
+  number: string;
   title: string;
-  description: string;
+  lines: string[];
 }
 
 export const customerIncentives: IncentiveItem[] = [
   {
-    title: 'Referral program',
-    description: 'Get ₹200 credit for each friend who signs up and makes their first booking.',
+    number: '01',
+    title: 'Bundle features and events together',
+    lines: [
+      'For example, existing Zomato Gold members get exclusive access to events organised by District OR',
+      'Users who reserve a table at a Sports Bar during a football match get exclusive merchandise',
+    ],
   },
   {
-    title: 'First booking discount',
-    description: '50% off on your first movie ticket or event booking (up to ₹150).',
+    number: '02',
+    title: 'Referral programs',
+    lines: [
+      'Refer a friend, and both get ₹150 credits for their next booking',
+      'Book 4+ tickets, get 1 free (Ideal for group events or family outings)',
+    ],
   },
   {
-    title: 'Weekly streaks',
-    description: 'Book 3 outings in a week and unlock bonus rewards and exclusive deals.',
-  },
-  {
-    title: 'Birthday specials',
-    description: 'Free dessert at partner restaurants + complimentary movie upgrade on your birthday month.',
-  },
-  {
-    title: 'Group rewards',
-    description: 'Plan outings with 4+ friends through District and everyone gets 10% off.',
+    number: '03',
+    title: 'Exclusive Partnerships & Collaborations',
+    lines: [
+      'Collaborate with event organizers for exclusive giveaways like free backstage passes',
+    ],
   },
 ];
 
-export const marketingMessage = `"Tired of hopping between apps to plan your weekend? Movies on one app, dinner on another, events somewhere else? District brings it all together. One app, one plan, one amazing night out. 
+export const marketingMessageHeadline = '"Tired of frustrating ticket booking experiences? We heard you!"';
 
-From blockbuster movies to hidden-gem restaurants, live concerts to adventure activities — District has it all. And with smart recommendations that actually get you, planning your perfect outing takes seconds, not hours.
+export const marketingMessageBody = 'By directly addressing past frustrations, highlighting unique advantages, and implementing targeted marketing and incentives, District can overcome user resistance and establish itself as a trusted and preferred event booking platform.';
 
-Download District. Your weekends will thank you."`;
+export const marketingMessagePoints: NumberedItem[] = [
+  {
+    number: '01',
+    heading: 'Empathy:',
+    body: 'Showing empathy for frustrated users. Use of language that resonates with their experiences (e.g., "We understand the frustration of long queues, website crashes, and missing out on tickets").',
+  },
+  {
+    number: '02',
+    heading: '"We\'re Different" Messaging:',
+    body: 'Clearly articulate how District is different and designed to address those pain points. Focus on specific improvements:',
+  },
+];
+
+export const marketingMessageSubpoints = [
+  { label: 'Scalability:', text: '"Built on robust infrastructure to handle high traffic volumes."' },
+  { label: 'Fairness:', text: '"Implementing measures to prevent bots and ensure fair access to tickets."' },
+  { label: 'User Experience:', text: '"Simplified booking process with a user-friendly interface."' },
+];
 
 export interface RoadmapPhase {
-  month: string;
   title: string;
-  items: string[];
+  lines: string[];
 }
 
 export const roadmapData: RoadmapPhase[] = [
   {
-    month: 'Month 1',
-    title: 'Foundation',
-    items: [
-      'Market research & user interviews',
-      'Define MVP feature set',
-      'Design system & brand identity',
+    title: 'Month 1: Foundation (Mobile-First)',
+    lines: [
+      'Mobile: App strengthening (core features, Zomato rewards integration).',
+      'Web: Website development begins (basic browsing, SEO).',
+      'Marketing: Pre-launch buzz (Zomato users), social media launch, PR.',
     ],
   },
   {
-    month: 'Month 2',
-    title: 'Core Development',
-    items: [
-      'Build core booking engine',
-      'Integrate movie & event APIs',
-      'User authentication & profiles',
+    title: 'Month 2: Rewards & Engagement (Web Beta)',
+    lines: [
+      'Mobile: Transferable rewards launched, in-app feedback.',
+      'Web: Beta website launch (core booking), user testing.',
+      'Marketing: User acquisition campaigns (mobile-focused), contests, influencer marketing.',
     ],
   },
   {
-    month: 'Month 3',
-    title: 'Integration',
-    items: [
-      'Restaurant partner onboarding',
-      'Payment gateway integration',
-      'Push notification system',
+    title: 'Month 3: Enhanced Experience (Web Launch)',
+    lines: [
+      'Mobile: Restaurant offers with nearby events and vice versa.',
+      'Web: Official website launch (full functionality, restaurant integration).',
+      'Marketing: Targeted local event/restaurant campaigns, local partnerships, user feedback.',
     ],
   },
   {
-    month: 'Month 4',
-    title: 'Social Features',
-    items: [
-      'Group planning functionality',
-      'Social discovery feed',
-      'Friend activity & recommendations',
+    title: 'Month 4: Personalized Discovery (Mobile & Web)',
+    lines: [
+      'Mobile: Personalized recommendations, curated lists.',
+      'Web: Personalized recommendations, website optimization.',
+      'Marketing: Retargeting campaigns, content marketing.',
     ],
   },
   {
-    month: 'Month 5',
-    title: 'Beta Launch',
-    items: [
-      'Closed beta in Mumbai & Delhi',
-      'User feedback collection',
-      'Performance optimization',
+    title: 'Month 5: Exclusive Content (Mobile & Web)',
+    lines: [
+      'Mobile & Web: Exclusive local event ticketing (pilot programs).',
+      'Marketing: Exclusive event promotion, influencer/media partnerships.',
     ],
   },
   {
-    month: 'Month 6',
-    title: 'Public Launch',
-    items: [
-      'Pan-India rollout (Tier 1 cities)',
-      'Marketing campaign launch',
-      'Loyalty program activation',
+    title: 'Month 6: Scaling & Growth (Mobile & Web)',
+    lines: [
+      'Mobile & Web: Scale exclusive events, new feature exploration, platform optimization.',
+      'Marketing: Scale successful campaigns, expand target markets, brand loyalty focus.',
     ],
   },
 ];
+
+export interface RiceRow {
+  feature: string;
+  reach: string;
+  impact: string;
+  confidence: string;
+  effort: string;
+  score: string;
+}
+
+export const riceData: RiceRow[] = [
+  {
+    feature: 'Event Pairing with Restaurant Suggestions and offers',
+    reach: '200,000 (Active Event Bookers)',
+    impact: '2',
+    confidence: '75%',
+    effort: '1.5/3',
+    score: '200',
+  },
+  {
+    feature: 'Transferable Rewards (Zomato <-> District)',
+    reach: '600,000 (Existing Zomato Users + District Users)',
+    impact: '3',
+    confidence: '80%',
+    effort: '2/3',
+    score: '720',
+  },
+  {
+    feature: 'Enhanced Event Discovery (Personalized Recommendations, Curated Lists)',
+    reach: '300,000 (General Users)',
+    impact: '2',
+    confidence: '80%',
+    effort: '2/3',
+    score: '240',
+  },
+  {
+    feature: 'Exclusive Ticketing for Famous Local Events (Only on District)',
+    reach: '150,000 (Targeting Specific Local Events)',
+    impact: '3',
+    confidence: '60%',
+    effort: '2/3',
+    score: '135',
+  },
+];
+
+export const addressingConstraintText = 'Addressing Constraint: Potential resistance from users who may be hesitant to switch platforms or try new services.';
