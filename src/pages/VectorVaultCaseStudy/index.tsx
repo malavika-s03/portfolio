@@ -64,28 +64,31 @@ const PIXEL_TEXT_STYLE = {
   imageRendering: 'pixelated' as const
 };
 
-const HEADING_IMAGES: Record<string, { path: string; nativeHeight: number }> = {
+const HEADING_IMAGES: Record<string, { path: string; nativeHeight: number; nativeWidth?: number }> = {
   'VECTORVAULT': { path: 'headings/vectorvault-title.png', nativeHeight: 60 },
   'WHY VECTORVAULT ?': { path: 'headings/why-vectorvault.png', nativeHeight: 53 },
   'SOFTWARE PROVIDERS': { path: 'headings/software-providers.png', nativeHeight: 39 },
   'CREATIVE SOFTWARE SPEND': { path: 'headings/creative-software-spend.png', nativeHeight: 39 },
   'JOBS TO BE DONE': { path: 'headings/jobs-to-be-done.png', nativeHeight: 37 },
   'USER PERSONA': { path: 'headings/user-persona.png', nativeHeight: 37 },
-  'HOW THIS WORKS': { path: 'headings/how-this-works.png', nativeHeight: 105 },
+  'HOW THIS WORKS': { path: 'headings/how-this-works.png', nativeHeight: 37 },
   'GAME OVER': { path: 'headings/game-over.png', nativeHeight: 58 }
 };
 
 const PixelArtHeading = ({ text, marginBottom = '0' }: { text: string; marginBottom?: string }) => {
   const imageData = HEADING_IMAGES[text];
-  
+
   if (imageData) {
+    const sizeStyle = imageData.nativeWidth
+      ? { width: vw(imageData.nativeWidth), height: 'auto' as const }
+      : { height: vw(imageData.nativeHeight), width: 'auto' as const };
+
     return (
       <img
         src={`${BASE_URL}images/vectorvault/${imageData.path}`}
         alt={text}
         style={{
-          height: vw(imageData.nativeHeight),
-          width: 'auto',
+          ...sizeStyle,
           marginBottom,
           imageRendering: 'pixelated'
         }}
@@ -873,94 +876,42 @@ function HowThisWorksSection() {
       style={{
         position: 'relative',
         marginTop: vw(97),
-        marginLeft: '-0.625vw'
+        marginLeft: vw(87)
       }}
     >
       <PixelArtHeading text="HOW THIS WORKS" marginBottom={vw(119)} />
-      
+
       <img
         src={`${BASE_URL}images/vectorvault/how-this-works-cityscape.png`}
         alt="VectorVault Isometric Cityscape"
         style={{
           width: vw(963),
           height: vw(607),
-          marginLeft: vw(167),
+          marginLeft: vw(72),
           imageRendering: 'pixelated',
           objectFit: 'contain'
         }}
       />
-      
+
       <div
         style={{
           width: vw(963),
-          marginLeft: vw(167),
+          marginLeft: vw(72),
           marginTop: vw(14),
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
+          justifyContent: 'center'
         }}
       >
-        <button
+        <img
+          src={`${BASE_URL}images/vectorvault/view-prototype-btn.png`}
+          alt="View Prototype"
           style={{
             width: vw(243),
-            height: vw(44),
-            backgroundColor: COLORS.buttonGreen,
-            borderRadius: vw(6),
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Press Start 2P', sans-serif",
-              fontSize: vw(16),
-              color: COLORS.text,
-              textTransform: 'lowercase'
-            }}
-          >
-            view prototype
-          </span>
-        </button>
-        
-        {/* Green arrow between buttons */}
-        <img
-          src={`${BASE_URL}images/vectorvault/arrow_grreen.png`}
-          alt=""
-          style={{
-            width: vw(24),
-            height: vw(24),
-            marginTop: vw(12),
-            marginBottom: vw(12),
-            transform: 'rotate(90deg)',
-            imageRendering: 'pixelated'
+            height: vw(142),
+            imageRendering: 'pixelated',
+            cursor: 'pointer'
           }}
         />
-        
-        <button
-          style={{
-            width: vw(148),
-            height: vw(79),
-            backgroundColor: '#333333',
-            borderRadius: vw(8),
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="white"
-          >
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </button>
       </div>
     </motion.section>
   );
@@ -996,14 +947,17 @@ function GameOverFooter() {
       
       <p
         style={{
-          ...PIXEL_TEXT_STYLE,
+          fontFamily: "'Press Start 2P', monospace",
           fontSize: vw(16),
+          color: COLORS.text,
           textTransform: 'uppercase',
           letterSpacing: '0.2em',
-          marginBottom: vw(90)
+          marginBottom: vw(90),
+          WebkitFontSmoothing: 'none' as const,
+          textRendering: 'optimizeSpeed' as const
         }}
       >
-        THANK YOU FOR PLAYING
+        THANK YOU FOR PLAYING!
       </p>
       
       <div
