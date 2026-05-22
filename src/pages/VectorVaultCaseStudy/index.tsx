@@ -174,8 +174,7 @@ function HeroAndIntroSection() {
         backgroundColor: COLORS.background
       }}
     >
-      {/* Hero illustration - anchored to right edge, fills 54.77% of viewport width 
-          (701/1280 = visible portion in Figma design) */}
+      {/* Hero illustration — Figma: x=579, y=17, visible 701x618 within 1280 frame */}
       <motion.img
         src={`${BASE_URL}images/vectorvault/hero-illustration.png`}
         alt="VectorVault Hero"
@@ -184,12 +183,10 @@ function HeroAndIntroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         style={{
           position: 'absolute',
-          right: 0,
+          left: vw(579),
           top: vw(17),
           width: vw(701),
           height: vw(618),
-          objectFit: 'cover',
-          objectPosition: 'left center',
           imageRendering: 'pixelated'
         }}
       />
@@ -294,7 +291,7 @@ function WhyVectorVaultSection() {
         position: 'relative',
         width: '100%',
         marginTop: vw(9),
-        minHeight: vw(280)
+        minHeight: vw(498)
       }}
     >
       {/* Heading - Figma: x=87, y=598 */}
@@ -319,8 +316,22 @@ function WhyVectorVaultSection() {
         </p>
       </div>
 
-      {/* Bullet points below heading - Figma: x=87, y~180 from section top */}
-      <div style={{ position: 'absolute', left: vw(87), top: vw(150) }}>
+      {/* YouTube screenshot - Figma: x=640, y=787 → section-relative top=174 */}
+      <img
+        src={`${BASE_URL}images/vectorvault/youtube-screenshot.png`}
+        alt="YouTube tutorial search screenshot"
+        style={{
+          position: 'absolute',
+          left: vw(640),
+          top: vw(174),
+          width: vw(595),
+          height: vw(324),
+          objectFit: 'cover'
+        }}
+      />
+
+      {/* Bullet points below heading - Figma: x=87, y=833 → section-relative top=220 */}
+      <div style={{ position: 'absolute', left: vw(87), top: vw(220) }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: vw(30) }}>
           <GreenArrowBullet />
           <p style={bulletStyle}>
@@ -362,7 +373,7 @@ function SoftwareProvidersSection() {
       style={{
         position: 'relative',
         marginLeft: vw(85),
-        marginTop: vw(307),
+        marginTop: vw(89),
         minHeight: vw(450)
       }}
     >
@@ -580,8 +591,8 @@ function UserPersonasSection() {
   // Progress bar area: x=223, y=42 relative to card
   // Name: y=113, Role: y=156
   const personaData = [
-    { name: 'ARUN', role: 'ASPIRING ANIMATOR', imgUrl: `${BASE_URL}images/vectorvault/personas/arun-profile.png`, avatarWidth: 184, avatarHeight: 157 },
-    { name: 'SANA', role: 'FREELANCER', imgUrl: `${BASE_URL}images/vectorvault/personas/sana-profile.png`, avatarWidth: 147, avatarHeight: 144 }
+    { name: 'ARUN', role: 'ASPIRING ANIMATOR', imgUrl: `${BASE_URL}images/vectorvault/personas/arun-profile.png`, avatarWidth: 184, avatarHeight: 157, avatarX: 18, avatarY: 35, healthBarX: 223, healthBarY: 42, nameX: 223, nameY: 100, roleX: 223, roleY: 145 },
+    { name: 'SANA', role: 'FREELANCER', imgUrl: `${BASE_URL}images/vectorvault/personas/sana-profile.png`, avatarWidth: 147, avatarHeight: 144, avatarX: 30, avatarY: 45, healthBarX: 210, healthBarY: 45, nameX: 225, nameY: 113, roleX: 223, roleY: 155 }
   ];
 
   return (
@@ -592,7 +603,7 @@ function UserPersonasSection() {
       viewport={{ once: true }}
       style={{
         marginLeft: vw(71),
-        marginTop: vw(18),
+        marginTop: vw(150),
         position: 'relative'
       }}
     >
@@ -620,12 +631,12 @@ function UserPersonasSection() {
               boxSizing: 'border-box'
             }}
           >
-            {/* Avatar frame - Figma: x=18, y=35 relative to card */}
+            {/* Avatar frame */}
             <div
               style={{
                 position: 'absolute',
-                left: vw(18),
-                top: vw(35),
+                left: vw(persona.avatarX),
+                top: vw(persona.avatarY),
                 width: vw(persona.avatarWidth),
                 height: vw(persona.avatarHeight),
                 borderRadius: vw(12),
@@ -643,46 +654,27 @@ function UserPersonasSection() {
                 }}
               />
             </div>
-            
-            {/* Heart + Progress bar - Figma: x=223, y=42 */}
-            <div
+
+            {/* Health bar - pixel art asset */}
+            <img
+              src={`${BASE_URL}images/vectorvault/health-bar.png`}
+              alt="Health"
               style={{
                 position: 'absolute',
-                left: vw(223),
-                top: vw(42),
-                display: 'flex',
-                alignItems: 'center',
-                gap: vw(8)
+                left: vw(persona.healthBarX),
+                top: vw(persona.healthBarY),
+                width: vw(161),
+                height: vw(41),
+                imageRendering: 'pixelated'
               }}
-            >
-              <svg width={vw(30)} height={vw(26)} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4081" />
-              </svg>
-              <div
-                style={{
-                  width: vw(125),
-                  height: vw(28),
-                  backgroundColor: '#4A4A4A',
-                  overflow: 'hidden',
-                  display: 'flex'
-                }}
-              >
-                <div
-                  style={{
-                    width: '75%',
-                    height: '100%',
-                    background: `linear-gradient(90deg, ${COLORS.pink}, #FF80FF)`
-                  }}
-                />
-              </div>
-            </div>
-            
-            {/* Name - Figma: y=113 relative to card */}
+            />
+
+            {/* Name */}
             <h3
               style={{
                 position: 'absolute',
-                left: vw(223),
-                top: vw(100),
+                left: vw(persona.nameX),
+                top: vw(persona.nameY),
                 fontFamily: "'Press Start 2P', sans-serif",
                 fontSize: vw(30),
                 color: COLORS.text,
@@ -692,13 +684,13 @@ function UserPersonasSection() {
             >
               {persona.name}
             </h3>
-            
-            {/* Role - Figma: y=156 relative to card */}
+
+            {/* Role */}
             <p
               style={{
                 position: 'absolute',
-                left: vw(223),
-                top: vw(145),
+                left: vw(persona.roleX),
+                top: vw(persona.roleY),
                 fontFamily: "'Press Start 2P', sans-serif",
                 fontSize: vw(14),
                 color: COLORS.roleGray,
@@ -796,14 +788,15 @@ function DetailedPersonaCard() {
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: vw(6) }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: vw(6) }}>
-              <svg width={vw(20)} height={vw(18)} viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF4081" />
-              </svg>
-              <div style={{ width: vw(90), height: vw(18), backgroundColor: '#4A4A4A', display: 'flex' }}>
-                <div style={{ width: '75%', height: '100%', background: `linear-gradient(90deg, ${COLORS.pink}, #FF80FF)` }} />
-              </div>
-            </div>
+            <img
+              src={`${BASE_URL}images/vectorvault/health-bar.png`}
+              alt="Health"
+              style={{
+                width: vw(96),
+                height: vw(29),
+                imageRendering: 'pixelated'
+              }}
+            />
             <h3 style={{ fontFamily: "'Press Start 2P', monospace", fontSize: vw(16), color: COLORS.text, margin: 0 }}>
               ARUN
             </h3>

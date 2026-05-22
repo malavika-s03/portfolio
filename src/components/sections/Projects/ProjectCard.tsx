@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import type { Project } from '@/types';
-import { projectBlockAppear } from '@/lib/animations';
+import { projectSectionAppear } from '@/lib/animations';
 
 interface ProjectCardProps {
   project: Project;
@@ -26,18 +26,20 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
   const projectLink = project.slug === 'yulu' ? '/project/yulu' : `/project/${project.slug}`;
 
   return (
-    <motion.div className="relative w-full" style={{ minHeight: '43.75vw' }} {...projectBlockAppear}>
-      <h3
+    <div className="relative w-full" style={{ minHeight: '43.75vw' }}>
+      <motion.h3
         className={`font-medium tracking-[-0.014em] ${titleColor} ${isReversed ? 'text-right' : 'text-left'}`}
         style={{ fontSize: '3.75vw', lineHeight: '7.03vw', padding: `2.5vw 3.98vw 0` }}
+        {...projectSectionAppear.title}
       >
         {project.title}
-      </h3>
+      </motion.h3>
 
       <div className={`flex ${isReversed ? 'flex-row-reverse' : 'flex-row'}`} style={{ padding: `1.875vw 3.98vw 0` }}>
-        <div
+        <motion.div
           className="relative w-[50%]"
           style={project.slug === 'peakmind' ? { marginLeft: '-8.05vw' } : undefined}
+          {...projectSectionAppear.image}
         >
           <img
             src={project.thumbnail}
@@ -49,26 +51,29 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
           {project.floatingImages?.map((src, i) => {
             const pos = FLOATING_POSITIONS[i];
             if (!pos) return null;
+            const animProps = projectSectionAppear.floatingImage(i);
             return (
-              <img
+              <motion.img
                 key={i}
                 src={src}
                 alt=""
                 loading="lazy"
                 className="absolute object-contain"
                 style={pos}
+                {...animProps}
               />
             );
           })}
-        </div>
+        </motion.div>
 
         <div className="w-[50%] flex flex-col" style={{ padding: isReversed ? `1.56vw 1.56vw 0 0` : `1.56vw 0 0 4.69vw` }}>
-          <p
+          <motion.p
             className={`font-normal ${descColor}`}
             style={{ fontSize: '1.56vw', lineHeight: '1.90vw', maxWidth: '36.72vw' }}
+            {...projectSectionAppear.text}
           >
             {project.description}
-          </p>
+          </motion.p>
 
           {project.overlayText && (
             <p
@@ -79,7 +84,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
             </p>
           )}
 
-          <div style={{ marginTop: '1.875vw' }}>
+          <motion.div style={{ marginTop: '1.875vw' }} {...projectSectionAppear.button}>
             <Link
               to={projectLink}
               className={`inline-flex items-center justify-center ${btnBg} rounded-full font-medium hover:opacity-80 transition-opacity no-underline`}
@@ -87,10 +92,10 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
             >
               VIew Project →
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
