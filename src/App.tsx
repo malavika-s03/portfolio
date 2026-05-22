@@ -8,6 +8,7 @@ import { ProjectPage } from '@/pages/Project';
 import { YuluCaseStudyPage } from '@/pages/YuluCaseStudy';
 import { VectorVaultCaseStudyPage } from '@/pages/VectorVaultCaseStudy';
 import { DistrictCaseStudyPage } from '@/pages/DistrictCaseStudy';
+import { ZohoCaseStudyPage } from '@/pages/ZohoCaseStudy';
 import { NotFoundPage } from '@/pages/NotFound';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/project/yulu" element={<YuluCaseStudyPage />} />
               <Route path="/project/vector-vault" element={<VectorVaultCaseStudyPage />} />
               <Route path="/project/district" element={<DistrictCaseStudyPage />} />
+              <Route path="/project/zoho" element={<ZohoCaseStudyPage />} />
               <Route path="/project/:slug" element={<ProjectPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
