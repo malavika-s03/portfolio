@@ -40,7 +40,7 @@ export const projects: Project[] = [
   {
     id: 4,
     title: "ZOHO BOOKS CAMPAIGN",
-    slug: "zoho-books",
+    slug: "zoho",
     thumbnail: `${BASE}/zoho-smart-reconcile.png`,
     category: "Campaign",
     description: "Hello, I'm a Multane specialist in creating digital experiences. With 10+ years of experience, I bring ideas to life with the right tools, one pixel at a time.",
