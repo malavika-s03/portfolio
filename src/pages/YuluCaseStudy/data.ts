@@ -178,7 +178,7 @@ export const competitors: CompetitorData[] = [
     range: "60 km",
     gpsTracking: true,
     lockSystem: "QR code Scanning",
-    rating: "",
+    rating: "4.4",
     availability: "5 Cities",
   },
   {
@@ -188,17 +188,17 @@ export const competitors: CompetitorData[] = [
     range: "120 km",
     gpsTracking: true,
     lockSystem: "QR code Scanning",
-    rating: "",
+    rating: "4.2",
     availability: "15 Cities",
   },
   {
     name: "EVeez",
     poweredBy: "Battery",
     batterySwap: true,
-    range: "60 - 100 km",
+    range: "80 -100 km",
     gpsTracking: true,
     lockSystem: "QR code Scanning",
-    rating: "",
+    rating: "4.5",
     availability: "6 Cities",
   },
   {
@@ -206,9 +206,9 @@ export const competitors: CompetitorData[] = [
     poweredBy: "Human",
     batterySwap: false,
     range: "",
-    gpsTracking: false,
+    gpsTracking: true,
     lockSystem: "QR code Scanning",
-    rating: "",
+    rating: "4.3",
     availability: "6 Cities",
   },
 ];
@@ -221,4 +221,38 @@ export const competitorRowLabels = [
   "Lock system",
   "Rating",
   "Availability",
+];
+
+export interface StrengthItem {
+  title: string;
+  description: string;
+  color: string;
+}
+
+export const yuluStrengths: StrengthItem[] = [
+  {
+    title: "Battery Swapping",
+    description: "Real-time swaps eliminate range anxiety for users.",
+    color: "#f59e0b",
+  },
+  {
+    title: "Affordability",
+    description: "Yulu's cost-effective pricing attracts budget-conscious users.",
+    color: "#8b5cf6",
+  },
+  {
+    title: "No License Required",
+    description: "Yulu's service is accessible to those without a driving license.",
+    color: "#eab308",
+  },
+  {
+    title: "Eco-Friendly Focus",
+    description: "Yulu's zero-emission bikes appeal to environmentally conscious consumers.",
+    color: "#22c55e",
+  },
+  {
+    title: "Convenience",
+    description: "Yulu's extensive zone coverage ensures easy access for commuters.",
+    color: "#22bddc",
+  },
 ];
