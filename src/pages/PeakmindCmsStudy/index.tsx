@@ -1380,9 +1380,424 @@ function FeatureDeepDiveSection() {
             </div>
           </div>
 
-          {/* CaseManagementFeature — Task 8 */}
-          {/* SafetyFeature — Task 8 */}
-          {/* BottomCards — Task 8 */}
+          {/* ── CaseManagement Feature ── */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(408),
+            }}
+          >
+            {/* Left side: text content at x=0 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: vw(524),
+              }}
+            >
+              {/* Heading at y=44.4 */}
+              <h3
+                style={{
+                  position: 'absolute',
+                  top: vw(44.4),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(30),
+                  lineHeight: vw(36),
+                  color: '#1a1a1a',
+                  width: vw(524),
+                }}
+              >
+                {caseManagementFeature.heading}
+              </h3>
+
+              {/* Description at y=104.6 */}
+              <p
+                style={{
+                  position: 'absolute',
+                  top: vw(104.6),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(16),
+                  lineHeight: vw(24),
+                  color: '#737373',
+                  width: vw(524),
+                }}
+              >
+                {caseManagementFeature.description}
+              </p>
+
+              {/* 6 purple pills in 2×3 grid starting at y=200 */}
+              {caseManagementFeature.pills.map((pill, idx) => {
+                const col = idx % 2;
+                const row = Math.floor(idx / 2);
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      position: 'absolute',
+                      top: vw(200 + row * 48),
+                      left: vw(col === 0 ? 0 : 268),
+                      width: vw(256),
+                      height: vw(36),
+                      backgroundColor: '#f0e7fc',
+                      borderRadius: vw(8),
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 500,
+                        fontSize: vw(14),
+                        lineHeight: vw(20),
+                        color: '#1a1a1a',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {pill}
+                    </span>
+                  </div>
+                );
+              })}
+
+              {/* Callout box at y=356 */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: vw(356),
+                  left: 0,
+                  width: vw(524),
+                  height: vw(52),
+                  backgroundColor: 'rgba(240,231,252,0.5)',
+                  borderLeft: `${vw(4)} solid #5f21b7`,
+                  borderRadius: vw(8),
+                  paddingTop: vw(16),
+                  paddingBottom: vw(16),
+                  paddingLeft: vw(20),
+                  paddingRight: vw(16),
+                  boxSizing: 'border-box',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: vw(14),
+                    lineHeight: vw(20),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  <span style={{ fontWeight: 600 }}>{caseManagementFeature.callout.bold}</span>
+                  <span style={{ fontWeight: 400 }}>{caseManagementFeature.callout.text}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Right side: image card at x=572, y=27.77 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(572),
+                top: vw(27.77),
+              }}
+            >
+              <FeatureImageCard
+                icon={caseManagementFeature.imageIcon}
+                label={caseManagementFeature.imageLabel}
+              />
+            </div>
+          </div>
+
+          {/* ── Safety Feature ── */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(475.95),
+            }}
+          >
+            {/* Left side: image card at x=0, y=61.75 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: vw(61.75),
+              }}
+            >
+              <FeatureImageCard
+                icon={safetyFeature.imageIcon}
+                label={safetyFeature.imageLabel}
+              />
+            </div>
+
+            {/* Right side: text content at x=572 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(572),
+                top: 0,
+                width: vw(524),
+              }}
+            >
+              {/* Heading at y=44.4 */}
+              <h3
+                style={{
+                  position: 'absolute',
+                  top: vw(44.4),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(30),
+                  lineHeight: vw(36),
+                  color: '#1a1a1a',
+                  width: vw(524),
+                }}
+              >
+                {safetyFeature.heading}
+              </h3>
+
+              {/* Description at y=104.6 */}
+              <p
+                style={{
+                  position: 'absolute',
+                  top: vw(104.6),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(16),
+                  lineHeight: vw(24),
+                  color: '#737373',
+                  width: vw(524),
+                }}
+              >
+                {safetyFeature.description}
+              </p>
+
+              {/* 4 numbered step cards starting at y=200, gap 12px */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: vw(200),
+                  left: 0,
+                  width: vw(524),
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: vw(12),
+                }}
+              >
+                {safetyFeature.steps.map((step, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      backgroundColor: '#fafafa',
+                      borderRadius: vw(8),
+                      padding: vw(12),
+                      width: vw(524),
+                      minHeight: vw(60),
+                      boxSizing: 'border-box',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: vw(12),
+                    }}
+                  >
+                    {/* Number circle */}
+                    <div
+                      style={{
+                        width: vw(32),
+                        height: vw(32),
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(245,158,11,0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 600,
+                          fontSize: vw(14),
+                          color: '#f59e0b',
+                        }}
+                      >
+                        {idx + 1}
+                      </span>
+                    </div>
+                    {/* Text column */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 600,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: '#1a1a1a',
+                        }}
+                      >
+                        {step.title}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: vw(12),
+                          lineHeight: vw(16),
+                          color: '#737373',
+                        }}
+                      >
+                        {step.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Bottom Cards ── */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(349.587),
+              display: 'flex',
+              gap: vw(32),
+            }}
+          >
+            {bottomCards.map((card, cardIdx) => (
+              <div
+                key={cardIdx}
+                style={{
+                  position: 'absolute',
+                  left: vw(cardIdx === 0 ? 0 : 564),
+                  top: 0,
+                  width: vw(532),
+                  height: vw(349.587),
+                  backgroundColor: '#fafafa',
+                  border: '0.8px solid #e5e5e5',
+                  borderRadius: vw(8),
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* Icon box at (32, 32) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(32),
+                    width: vw(48),
+                    height: vw(48),
+                    borderRadius: vw(8),
+                    backgroundColor: card.iconBg,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img
+                    src={`${BASE_URL}images/peakmind-cms/${card.icon}`}
+                    alt=""
+                    style={{ width: vw(24), height: vw(24) }}
+                  />
+                </div>
+
+                {/* Title at (32, 96) */}
+                <h3
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(96),
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 700,
+                    fontSize: vw(24),
+                    lineHeight: vw(32),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  {card.title}
+                </h3>
+
+                {/* Description at (32, 143.99) */}
+                <p
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(143.99),
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: vw(16),
+                    lineHeight: vw(24),
+                    color: '#737373',
+                    maxWidth: vw(467),
+                  }}
+                >
+                  {card.description}
+                </p>
+
+                {/* Check list */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(cardIdx === 0 ? 239.99 : 215.99),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: vw(8),
+                  }}
+                >
+                  {card.items.map((item, itemIdx) => (
+                    <div
+                      key={itemIdx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 0,
+                      }}
+                    >
+                      <img
+                        src={`${BASE_URL}images/peakmind-cms/${card.checkIcon}`}
+                        alt=""
+                        style={{
+                          width: vw(16),
+                          height: vw(16),
+                          flexShrink: 0,
+                          marginTop: vw(2),
+                        }}
+                      />
+                      <span
+                        style={{
+                          marginLeft: vw(8),
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: '#1a1a1a',
+                        }}
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
