@@ -7,7 +7,6 @@ import {
   researchData,
   designGoalText,
   strategyItems,
-  wireframesFooterText,
   finalExperienceCallouts,
   keyLearningsText,
 } from './data';
@@ -77,7 +76,7 @@ function HeroSection() {
       style={{
         ...notebookBg(9.25),
         paddingTop: vw(80),
-        paddingBottom: vw(500),
+        paddingBottom: vw(40),
       }}
     >
       <motion.div
@@ -90,7 +89,7 @@ function HeroSection() {
         <h1
           style={{
             fontFamily: CAVEAT,
-            fontSize: vw(60),
+            fontSize: vw(72),
             lineHeight: vw(72),
             color: COLORS.heading,
           }}
@@ -109,7 +108,7 @@ function HeroSection() {
         <p
           style={{
             fontFamily: CAVEAT,
-            fontSize: vw(24),
+            fontSize: vw(30),
             lineHeight: vw(36),
             color: COLORS.body,
             marginTop: vw(8),
@@ -122,22 +121,28 @@ function HeroSection() {
           className="flex justify-center gap-4"
           style={{ marginTop: vw(24), gap: vw(16) }}
         >
-          {heroData.tags.map((tag, i) => (
-            <span
-              key={tag}
-              style={{
-                fontFamily: CAVEAT,
-                fontSize: vw(16),
-                lineHeight: vw(24),
-                color: i % 2 === 0 ? COLORS.purple : COLORS.orange,
-                border: `1.5px solid ${i % 2 === 0 ? COLORS.purple : COLORS.orange}`,
-                borderRadius: vw(24),
-                padding: `${vw(6)} ${vw(16)}`,
-              }}
-            >
-              {tag}
-            </span>
-          ))}
+          {heroData.tags.map((tag, i) => {
+            const rotations = ['-1deg', '1deg', '-0.5deg'];
+            const colors = [COLORS.purple, COLORS.orange, COLORS.purple];
+            return (
+              <span
+                key={tag}
+                style={{
+                  fontFamily: CAVEAT,
+                  fontSize: vw(18),
+                  lineHeight: vw(28),
+                  color: COLORS.body,
+                  border: `1.6px solid ${colors[i]}`,
+                  borderRadius: vw(24),
+                  padding: `${vw(8)} ${vw(20)}`,
+                  transform: `rotate(${rotations[i]})`,
+                  display: 'inline-block',
+                }}
+              >
+                {tag}
+              </span>
+            );
+          })}
         </div>
 
         <div
@@ -345,16 +350,15 @@ function ResearchInsightsSection() {
           {researchData.stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center">
               <div
-                className="relative flex items-center justify-center"
-                style={{ width: vw(112), height: vw(112) }}
+                className="flex items-center justify-center"
+                style={{
+                  width: vw(112),
+                  height: vw(112),
+                  borderRadius: '50%',
+                  border: `3px solid ${s.color}`,
+                }}
               >
-                <img
-                  src={`${IMG}/stat-circle-${s.color === COLORS.purple ? 'purple' : 'orange'}.png`}
-                  alt=""
-                  className="absolute inset-0 w-full h-full"
-                />
                 <span
-                  className="relative"
                   style={{
                     fontFamily: CAVEAT,
                     fontSize: vw(26),
@@ -458,19 +462,18 @@ function DesignGoalStrategySection() {
                 style={{ gap: vw(16) }}
               >
                 <div
-                  className="relative flex items-center justify-center shrink-0"
-                  style={{ width: vw(56), height: vw(56) }}
+                  className="flex items-center justify-center shrink-0"
+                  style={{
+                    width: vw(48),
+                    height: vw(48),
+                    borderRadius: '50%',
+                    border: `2px solid ${item.color}`,
+                  }}
                 >
-                  <img
-                    src={`${IMG}/circle-${item.color === COLORS.purple ? 'purple' : 'orange'}.png`}
-                    alt=""
-                    className="absolute inset-0 w-full h-full"
-                  />
                   <span
-                    className="relative"
                     style={{
                       fontFamily: CAVEAT,
-                      fontSize: vw(24),
+                      fontSize: vw(22),
                       fontWeight: 700,
                       color: item.color,
                     }}
@@ -504,48 +507,14 @@ function WireframesSection() {
       className="relative w-full"
       style={{
         ...notebookBg(9.25),
-        paddingTop: vw(40),
-        paddingBottom: vw(60),
       }}
     >
-      <div className="mx-auto" style={{ width: vw(896) }}>
-        <h2
-          className="text-center"
-          style={{
-            fontFamily: CAVEAT,
-            fontSize: vw(60),
-            lineHeight: vw(60),
-            color: COLORS.heading,
-          }}
-        >
-          Wireframes
-        </h2>
-        <div
-          style={{
-            backgroundColor: COLORS.cardBg,
-            borderRadius: vw(8),
-            padding: `${vw(24)} ${vw(24)}`,
-            marginTop: vw(32),
-          }}
-        >
-          <img
-            src={`${IMG}/wireframes-section.png`}
-            alt="Wireframe explorations for PeakMind break page redesign"
-            className="w-full h-auto"
-          />
-        </div>
-        <p
-          className="text-center"
-          style={{
-            fontFamily: CAVEAT,
-            fontSize: vw(20),
-            lineHeight: vw(28),
-            color: COLORS.body,
-            marginTop: vw(24),
-          }}
-        >
-          {wireframesFooterText}
-        </p>
+      <div className="mx-auto" style={{ width: vw(1144) }}>
+        <img
+          src={`${IMG}/wireframes-section.png`}
+          alt="Wireframe explorations for PeakMind break page redesign"
+          className="w-full h-auto"
+        />
       </div>
     </section>
   );
