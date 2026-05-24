@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { COLORS, heroContent } from './data';
+import { COLORS, heroContent, projectOverview } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -171,10 +171,292 @@ function HeroSection() {
 
 /* ── Stub sections ───────────────────────────── */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _BASE_URL = BASE_URL; // suppress unused warning
+function ProjectOverviewSection() {
+  const { problem, solution } = projectOverview;
 
-function ProjectOverviewSection() { return null; }
+  return (
+    <section
+      style={{
+        width: '100%',
+        backgroundColor: COLORS.white,
+        paddingTop: vw(96),
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Container: 1144px wide with 60px horizontal padding */}
+      <div
+        style={{
+          width: vw(1144),
+          margin: '0 auto',
+          paddingLeft: vw(60),
+          paddingRight: vw(60),
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* Heading */}
+        <h2
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(36),
+            lineHeight: vw(40),
+            color: '#1a1a1a',
+            textAlign: 'center',
+            margin: 0,
+            marginBottom: vw(64),
+          }}
+        >
+          Project Overview
+        </h2>
+
+        {/* Two-column layout */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: vw(440),
+          }}
+        >
+          {/* Left column — The Problem */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: vw(480),
+            }}
+          >
+            {/* Red badge pill */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                backgroundColor: 'rgba(212,24,61,0.1)',
+                borderRadius: vw(9999),
+                height: vw(28),
+                paddingLeft: vw(12),
+                paddingRight: vw(12),
+                gap: vw(8),
+              }}
+            >
+              <img
+                src={`${BASE_URL}images/peakmind-cms/problem-icon.svg`}
+                alt=""
+                style={{ width: vw(16), height: vw(16) }}
+              />
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: vw(14),
+                  color: '#d4183d',
+                }}
+              >
+                {problem.label}
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h3
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: vw(24),
+                color: '#1a1a1a',
+                margin: 0,
+                marginTop: vw(24),
+                marginBottom: vw(32),
+                lineHeight: 1.3,
+              }}
+            >
+              {problem.heading}
+            </h3>
+
+            {/* Numbered list */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: vw(16),
+              }}
+            >
+              {problem.items.map((item, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: vw(12),
+                  }}
+                >
+                  {/* Numbered circle */}
+                  <div
+                    style={{
+                      flexShrink: 0,
+                      width: vw(24),
+                      height: vw(24),
+                      borderRadius: '50%',
+                      backgroundColor: '#f5f5f5',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 500,
+                        fontSize: vw(14),
+                        color: '#737373',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {idx + 1}
+                    </span>
+                  </div>
+                  {/* Item text */}
+                  <span
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: vw(16),
+                      lineHeight: vw(24),
+                      color: '#1a1a1a',
+                    }}
+                  >
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right column — The Solution */}
+          <div
+            style={{
+              position: 'absolute',
+              left: vw(544),
+              top: 0,
+              width: vw(480),
+            }}
+          >
+            {/* Green badge pill */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                backgroundColor: 'rgba(16,185,129,0.1)',
+                borderRadius: vw(9999),
+                height: vw(28),
+                paddingLeft: vw(12),
+                paddingRight: vw(12),
+                gap: vw(8),
+              }}
+            >
+              <img
+                src={`${BASE_URL}images/peakmind-cms/solution-icon.svg`}
+                alt=""
+                style={{ width: vw(16), height: vw(16) }}
+              />
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: vw(14),
+                  color: '#10b981',
+                }}
+              >
+                {solution.label}
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h3
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 600,
+                fontSize: vw(24),
+                color: '#1a1a1a',
+                margin: 0,
+                marginTop: vw(24),
+                marginBottom: vw(24),
+                lineHeight: 1.3,
+              }}
+            >
+              {solution.heading}
+            </h3>
+
+            {/* Description */}
+            <p
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(16),
+                lineHeight: vw(24),
+                color: '#737373',
+                margin: 0,
+                marginBottom: vw(28),
+                width: vw(480),
+              }}
+            >
+              {solution.description}
+            </p>
+
+            {/* Capability pills — 2×3 grid */}
+            <div
+              style={{
+                position: 'relative',
+                width: vw(480),
+                height: vw(132),
+              }}
+            >
+              {solution.capabilities.map((cap, idx) => {
+                const col = idx % 2;
+                const row = Math.floor(idx / 2);
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      position: 'absolute',
+                      left: col === 0 ? 0 : vw(246),
+                      top: vw(row * 48),
+                      width: vw(234),
+                      height: vw(36),
+                      backgroundColor: '#f0e7fc',
+                      borderRadius: vw(8),
+                      paddingLeft: vw(12),
+                      paddingRight: vw(12),
+                      boxSizing: 'border-box',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: vw(8),
+                    }}
+                  >
+                    <img
+                      src={`${BASE_URL}images/peakmind-cms/checkmark-purple.svg`}
+                      alt=""
+                      style={{ width: vw(16), height: vw(16), flexShrink: 0 }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 500,
+                        fontSize: vw(14),
+                        color: '#1a1a1a',
+                      }}
+                    >
+                      {cap}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 function DesignSystemSection() { return null; }
 function UsersWorkflowsSection() { return null; }
 function FeatureDeepDiveSection() { return null; }
