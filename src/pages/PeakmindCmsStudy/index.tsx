@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles } from './data';
+import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, caseManagementFeature, safetyFeature, bottomCards } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -1021,4 +1021,370 @@ function UsersWorkflowsSection() {
     </section>
   );
 }
-function FeatureDeepDiveSection() { return null; }
+/* ── FeatureDeepDive — helper ─────────────────── */
+
+function FeatureImageCard({ icon, label }: { icon: string; label: string }) {
+  return (
+    <div
+      style={{
+        width: vw(524),
+        backgroundColor: '#fafafa',
+        border: '0.8px solid #e5e5e5',
+        borderRadius: vw(8),
+        paddingTop: vw(24.8),
+        paddingLeft: vw(24.8),
+        paddingRight: vw(24.8),
+        paddingBottom: vw(0.8),
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Inner purple box */}
+      <div
+        style={{
+          backgroundColor: '#f0e7fc',
+          borderRadius: vw(8),
+          height: vw(266.85),
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <img
+          src={`${BASE_URL}images/peakmind-cms/${icon}`}
+          alt=""
+          style={{ width: vw(64), height: vw(64) }}
+        />
+      </div>
+      {/* Label below inner box */}
+      <p
+        style={{
+          marginTop: vw(16),
+          marginBottom: 0,
+          textAlign: 'center',
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 400,
+          fontSize: vw(14),
+          lineHeight: vw(20),
+          color: '#737373',
+        }}
+      >
+        {label}
+      </p>
+    </div>
+  );
+}
+
+/* ── FeatureDeepDive ─────────────────────────── */
+
+function FeatureDeepDiveSection() {
+  return (
+    <section
+      style={{
+        width: '100%',
+        backgroundColor: '#ffffff',
+        borderTop: '0.8px solid #e5e5e5',
+        borderBottom: '0.8px solid #e5e5e5',
+        paddingTop: vw(96),
+        paddingLeft: vw(24),
+        paddingRight: vw(24),
+        paddingBottom: vw(96),
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Content container: 1096px wide */}
+      <div
+        style={{
+          width: vw(1096),
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* ── Header (84px tall) ── */}
+        <h2
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(36),
+            lineHeight: vw(40),
+            color: '#1a1a1a',
+            textAlign: 'center',
+            margin: 0,
+          }}
+        >
+          {featureDeepDiveIntro.heading}
+        </h2>
+        {/* Subtitle at 56px from heading top → 16px margin after 40px line-height */}
+        <p
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: vw(20),
+            lineHeight: vw(28),
+            color: '#737373',
+            textAlign: 'center',
+            margin: 0,
+            marginTop: vw(16),
+          }}
+        >
+          {featureDeepDiveIntro.subtitle}
+        </p>
+
+        {/* 64px gap then features container */}
+        <div
+          style={{
+            marginTop: vw(64),
+            display: 'flex',
+            flexDirection: 'column',
+            gap: vw(96),
+          }}
+        >
+          {/* ── Planner Feature ── */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(404),
+            }}
+          >
+            {/* Left side: text content at x=0 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: vw(524),
+              }}
+            >
+              {/* Heading at y=44.4 */}
+              <h3
+                style={{
+                  position: 'absolute',
+                  top: vw(44.4),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(30),
+                  lineHeight: vw(36),
+                  color: '#1a1a1a',
+                  width: vw(524),
+                }}
+              >
+                {plannerFeature.heading}
+              </h3>
+
+              {/* Description at y=140.6 */}
+              <p
+                style={{
+                  position: 'absolute',
+                  top: vw(140.6),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(16),
+                  lineHeight: vw(24),
+                  color: '#737373',
+                  width: vw(524),
+                }}
+              >
+                {plannerFeature.description}
+              </p>
+
+              {/* List starting at y=236, gap 12px between items */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: vw(236),
+                  left: 0,
+                  width: vw(524),
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: vw(12),
+                }}
+              >
+                {plannerFeature.items.map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 0,
+                    }}
+                  >
+                    {/* Green check icon at (0, 2px) */}
+                    <img
+                      src={`${BASE_URL}images/peakmind-cms/feature-check-green.svg`}
+                      alt=""
+                      style={{
+                        width: vw(20),
+                        height: vw(20),
+                        flexShrink: 0,
+                        marginTop: vw(2),
+                      }}
+                    />
+                    {/* Text at 32px offset */}
+                    <span
+                      style={{
+                        marginLeft: vw(12),
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: vw(16),
+                        lineHeight: vw(24),
+                        color: '#1a1a1a',
+                      }}
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side: image card at x=572, y=25.77 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(572),
+                top: vw(25.77),
+              }}
+            >
+              <FeatureImageCard
+                icon={plannerFeature.imageIcon}
+                label={plannerFeature.imageLabel}
+              />
+            </div>
+          </div>
+
+          {/* ── Analytics Feature ── */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(369.6),
+            }}
+          >
+            {/* Left side: image card at x=0, y=8.57 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: vw(8.57),
+              }}
+            >
+              <FeatureImageCard
+                icon={analyticsFeature.imageIcon}
+                label={analyticsFeature.imageLabel}
+              />
+            </div>
+
+            {/* Right side: text content at x=572 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(572),
+                top: 0,
+                width: vw(524),
+              }}
+            >
+              {/* Heading at y=44.4 */}
+              <h3
+                style={{
+                  position: 'absolute',
+                  top: vw(44.4),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(30),
+                  lineHeight: vw(36),
+                  color: '#1a1a1a',
+                  width: vw(524),
+                }}
+              >
+                {analyticsFeature.heading}
+              </h3>
+
+              {/* Description at y=104.6 */}
+              <p
+                style={{
+                  position: 'absolute',
+                  top: vw(104.6),
+                  left: 0,
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(16),
+                  lineHeight: vw(24),
+                  color: '#737373',
+                  width: vw(524),
+                }}
+              >
+                {analyticsFeature.description}
+              </p>
+
+              {/* UX Challenges sub-card at y=200 */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: vw(200),
+                  left: 0,
+                  width: vw(524),
+                  height: vw(169.6),
+                  backgroundColor: '#fafafa',
+                  border: '0.8px solid #e5e5e5',
+                  borderRadius: vw(8),
+                  padding: vw(16.8),
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* Sub-card heading */}
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 600,
+                    fontSize: vw(16),
+                    lineHeight: vw(24),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  UX Challenges
+                </p>
+                {/* 8px gap then bullet list */}
+                <div
+                  style={{
+                    marginTop: vw(8),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: vw(8),
+                  }}
+                >
+                  {analyticsFeature.challenges.map((challenge, idx) => (
+                    <p
+                      key={idx}
+                      style={{
+                        margin: 0,
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: vw(14),
+                        lineHeight: vw(20),
+                        color: '#737373',
+                      }}
+                    >
+                      {`• ${challenge}`}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CaseManagementFeature — Task 8 */}
+          {/* SafetyFeature — Task 8 */}
+          {/* BottomCards — Task 8 */}
+        </div>
+      </div>
+    </section>
+  );
+}
