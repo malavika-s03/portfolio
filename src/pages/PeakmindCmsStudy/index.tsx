@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures } from './data';
+import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -838,5 +838,187 @@ function DesignSystemSection() {
     </section>
   );
 }
-function UsersWorkflowsSection() { return null; }
+function UsersWorkflowsSection() {
+  return (
+    <section
+      style={{
+        width: '100%',
+        backgroundColor: '#ffffff',
+        borderTop: '0.8px solid #e5e5e5',
+        borderBottom: '0.8px solid #e5e5e5',
+        paddingTop: vw(96),
+        paddingBottom: vw(96),
+        paddingLeft: vw(24),
+        paddingRight: vw(24),
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Content container: 1096px wide */}
+      <div
+        style={{
+          width: vw(1096),
+          position: 'relative',
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* ── Header group: 84px tall ── */}
+        {/* Heading */}
+        <h2
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(36),
+            lineHeight: vw(40),
+            color: '#1a1a1a',
+            textAlign: 'center',
+            margin: 0,
+          }}
+        >
+          Understanding Users &amp; Workflows
+        </h2>
+
+        {/* Subtitle: 56px below heading top → after 40px line-height, marginTop = 16px */}
+        <div
+          style={{
+            width: vw(768),
+            marginLeft: vw(164),
+            marginTop: vw(16),
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: vw(20),
+              lineHeight: vw(28),
+              color: '#737373',
+              textAlign: 'center',
+              margin: 0,
+            }}
+          >
+            Designing for multiple user roles with different needs and access levels
+          </p>
+        </div>
+
+        {/* 64px gap below header group */}
+        {/* ── 3 user role cards ── */}
+        <div
+          style={{
+            position: 'relative',
+            width: vw(1096),
+            height: vw(341.6),
+            marginTop: vw(64),
+          }}
+        >
+          {userRoles.map((role, idx) => {
+            const cardX = [0, 376, 752];
+            return (
+              <div
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  left: vw(cardX[idx]),
+                  top: 0,
+                  width: vw(344),
+                  height: vw(341.6),
+                  backgroundColor: '#fafafa',
+                  border: '0.8px solid #e5e5e5',
+                  borderRadius: vw(8),
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* Icon container at (32px, 32px) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(32),
+                    width: vw(64),
+                    height: vw(64),
+                    borderRadius: vw(8),
+                    backgroundColor: role.bgColor,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img
+                    src={`${BASE_URL}images/peakmind-cms/${role.icon}`}
+                    alt=""
+                    style={{ width: vw(32), height: vw(32) }}
+                  />
+                </div>
+
+                {/* Title at (32px, 120px) */}
+                <p
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(120),
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 600,
+                    fontSize: vw(20),
+                    lineHeight: vw(28),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  {role.title}
+                </p>
+
+                {/* Bullet list starting at (32px, 172px) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: vw(32),
+                    top: vw(172),
+                    width: vw(278.4),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: vw(12),
+                  }}
+                >
+                  {role.items.map((item, itemIdx) => (
+                    <div
+                      key={itemIdx}
+                      style={{
+                        position: 'relative',
+                        paddingLeft: vw(18),
+                      }}
+                    >
+                      {/* Colored dot at (0, 8px relative to item top) */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          top: vw(8),
+                          width: vw(6),
+                          height: vw(6),
+                          borderRadius: '50%',
+                          backgroundColor: role.color,
+                        }}
+                      />
+                      {/* Text */}
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: '#737373',
+                        }}
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
 function FeatureDeepDiveSection() { return null; }
