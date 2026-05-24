@@ -23,7 +23,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
   const titleColor = isDark ? 'text-[#fffefe]' : 'text-black';
   const descColor = isDark ? 'text-[#fffbfb]' : 'text-black';
   const btnBg = isDark ? 'bg-white text-black' : 'bg-black text-white';
-  const projectLink = project.slug === 'yulu' ? '/project/yulu' : `/project/${project.slug}`;
+  const projectLink = project.customRoute || `/project/${project.slug}`;
 
   return (
     <div className="relative w-full" style={{ minHeight: '43.75vw' }}>
@@ -38,7 +38,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
       <div className={`flex ${isReversed ? 'flex-row-reverse' : 'flex-row'}`} style={{ padding: `1.875vw 3.98vw 0` }}>
         <motion.div
           className="relative w-[50%]"
-          style={project.slug === 'peakmind' ? { marginLeft: '-8.05vw' } : undefined}
+          style={project.slug === 'peakmind-student' ? { marginLeft: '-8.05vw' } : undefined}
           {...projectSectionAppear.image}
         >
           <img
@@ -46,7 +46,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
             alt={project.title}
             loading="lazy"
             className="w-full h-auto object-cover"
-            style={project.slug === 'yulu' ? { maxHeight: '31.56vw' } : project.slug === 'peakmind' ? { maxHeight: '39.06vw' } : undefined}
+            style={project.slug === 'yulu' ? { maxHeight: '31.56vw' } : project.slug === 'peakmind-student' ? { maxHeight: '39.06vw' } : undefined}
           />
           {project.floatingImages?.map((src, i) => {
             const pos = FLOATING_POSITIONS[i];
