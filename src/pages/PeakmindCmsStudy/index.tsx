@@ -18,14 +18,20 @@ export function PeakmindCmsStudyPage() {
         width: 0 !important;
         height: 0 !important;
       }
-      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
     `;
     document.head.appendChild(style);
+    const link = document.createElement('link');
+    link.id = 'peakmind-cms-font';
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000&display=swap';
+    document.head.appendChild(link);
     return () => {
       document.documentElement.style.scrollbarWidth = '';
       document.body.style.scrollbarWidth = '';
       const el = document.getElementById('peakmind-cms-scrollbar-hide');
       if (el) el.remove();
+      const fontEl = document.getElementById('peakmind-cms-font');
+      if (fontEl) fontEl.remove();
     };
   }, []);
 
