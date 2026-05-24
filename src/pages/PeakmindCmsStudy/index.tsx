@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { COLORS, heroContent, projectOverview } from './data';
+import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -457,6 +457,386 @@ function ProjectOverviewSection() {
     </section>
   );
 }
-function DesignSystemSection() { return null; }
+function DesignSystemSection() {
+  // Section padding-left: 24px, content width: 1096px
+  // Section starts at y=1283 of page (after HeroSection + ProjectOverviewSection)
+
+  // Tab widths from Figma specs
+  const tabWidths: Record<string, number> = {
+    overview: 86,
+    colors: 65,
+    typography: 105,
+    components: 114,
+    patterns: 79,
+  };
+  const tabPositions: Record<string, number> = {
+    overview: 0,
+    colors: 118,
+    typography: 215,
+    components: 352,
+    patterns: 498,
+  };
+
+  return (
+    <section
+      style={{
+        width: '100%',
+        backgroundColor: COLORS.white,
+        paddingLeft: vw(24),
+        paddingTop: vw(96),
+        paddingBottom: vw(96),
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Content container: 1096px wide */}
+      <div
+        style={{
+          width: vw(1096),
+          position: 'relative',
+          boxSizing: 'border-box',
+        }}
+      >
+        {/* ── A) "Design System Evolution" header ── */}
+        <h2
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(36),
+            lineHeight: vw(40),
+            color: '#1a1a1a',
+            textAlign: 'center',
+            margin: 0,
+          }}
+        >
+          Design System Evolution
+        </h2>
+
+        {/* Subtitle: 56px below heading top → marginTop = 56 - 40 = 16px after heading */}
+        <div
+          style={{
+            width: vw(768),
+            marginLeft: vw(164),
+            marginTop: vw(16),
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: vw(20),
+              lineHeight: vw(28),
+              color: '#737373',
+              textAlign: 'center',
+              margin: 0,
+            }}
+          >
+            Transforming a student-focused wellness brand into a scalable professional platform for schools
+          </p>
+        </div>
+
+        {/* ── B) 6 evolution cards in 3×2 grid ── */}
+        {/* Starts 176px below section top. Section top = heading y=0. So marginTop from subtitle = 176 - 40 - 16 - 28 = 92px */}
+        <div
+          style={{
+            position: 'relative',
+            width: vw(1096),
+            height: vw(313.2), // 2 rows: 144.6 + 24 + 144.6
+            marginTop: vw(92),
+          }}
+        >
+          {designSystemCards.map((card, idx) => {
+            const col = idx % 3;
+            const row = Math.floor(idx / 3);
+            const colPositions = [0, 373.33, 746.66];
+            return (
+              <div
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  left: vw(colPositions[col]),
+                  top: vw(row === 0 ? 0 : 168.6),
+                  width: vw(349.325),
+                  height: vw(144.6),
+                  backgroundColor: COLORS.white,
+                  border: `0.8px solid #e5e5e5`,
+                  borderRadius: vw(8),
+                  paddingTop: vw(24.8),
+                  paddingLeft: vw(24.8),
+                  paddingRight: vw(24.8),
+                  paddingBottom: vw(0.8),
+                  boxSizing: 'border-box',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 600,
+                    fontSize: vw(18),
+                    lineHeight: vw(27),
+                    color: '#1a1a1a',
+                    margin: 0,
+                  }}
+                >
+                  {card.title}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: vw(14),
+                    lineHeight: vw(20),
+                    color: '#737373',
+                    margin: 0,
+                    marginTop: vw(8),
+                    maxWidth: vw(300),
+                  }}
+                >
+                  {card.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── C) Tab bar (starts at y=553.2 within section) ── */}
+        {/* After header (40px) + subtitle offset (16px) + subtitle (28px) + gap (92px) + cards (313.2px) = 489.2px
+            553.2 - 489.2 = 64px gap before tab bar */}
+        <div
+          style={{
+            position: 'relative',
+            width: vw(1096),
+            height: vw(40.8),
+            borderBottom: `0.8px solid #e5e5e5`,
+            marginTop: vw(64),
+          }}
+        >
+          {designSystemTabs.map((tab) => {
+            const isActive = tab === 'overview';
+            return (
+              <div
+                key={tab}
+                style={{
+                  position: 'absolute',
+                  left: vw(tabPositions[tab]),
+                  top: 0,
+                  width: vw(tabWidths[tab]),
+                  height: vw(40.8),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderBottom: isActive ? `2px solid #5f21b7` : 'none',
+                  boxSizing: 'border-box',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 500,
+                    fontSize: vw(16),
+                    lineHeight: vw(24),
+                    color: isActive ? '#5f21b7' : '#737373',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {tab}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── D) Design Principles (starts at y=642 within section) ── */}
+        {/* 642 - (553.2 + 40.8) = 48px gap */}
+        <div
+          style={{
+            marginTop: vw(48),
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 600,
+              fontSize: vw(30),
+              lineHeight: vw(36),
+              color: '#1a1a1a',
+              margin: 0,
+            }}
+          >
+            Design Principles
+          </h3>
+
+          {/* 3 cards row */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(221.6),
+              marginTop: vw(24),
+            }}
+          >
+            {designPrinciples.map((principle, idx) => {
+              const cardPositions = [0, 373.33, 746.66];
+              const cardWidths = [349.325, 349.337, 349.325];
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    position: 'absolute',
+                    left: vw(cardPositions[idx]),
+                    top: 0,
+                    width: vw(cardWidths[idx]),
+                    height: vw(221.6),
+                    backgroundColor: COLORS.white,
+                    border: `0.8px solid #e5e5e5`,
+                    borderRadius: vw(8),
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  {/* Icon box at (24px, 24px) */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: vw(24),
+                      top: vw(24),
+                      width: vw(48),
+                      height: vw(48),
+                      backgroundColor: '#f0e7fc',
+                      borderRadius: vw(8),
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img
+                      src={`${BASE_URL}images/peakmind-cms/${principle.icon}`}
+                      alt=""
+                      style={{ width: vw(24), height: vw(24) }}
+                    />
+                  </div>
+
+                  {/* Title at (24px, 88.4px) */}
+                  <p
+                    style={{
+                      position: 'absolute',
+                      left: vw(24),
+                      top: vw(88.4),
+                      margin: 0,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 600,
+                      fontSize: vw(18),
+                      lineHeight: vw(28),
+                      color: '#1a1a1a',
+                    }}
+                  >
+                    {principle.title}
+                  </p>
+
+                  {/* Description at (24px, 124px) */}
+                  <p
+                    style={{
+                      position: 'absolute',
+                      left: vw(24),
+                      top: vw(124),
+                      margin: 0,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: vw(16),
+                      lineHeight: vw(24),
+                      color: '#737373',
+                      maxWidth: vw(300),
+                    }}
+                  >
+                    {principle.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── E) Key Features (starts 48px after Design Principles) ── */}
+        <div
+          style={{
+            marginTop: vw(48),
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 600,
+              fontSize: vw(30),
+              lineHeight: vw(36),
+              color: '#1a1a1a',
+              margin: 0,
+            }}
+          >
+            Key Features
+          </h3>
+
+          {/* 6 items in 2 columns, 3 rows */}
+          <div
+            style={{
+              position: 'relative',
+              width: vw(1096),
+              height: vw(104), // 3 rows × 40px = 120, but rows at 0, 40, 80 with 24px text height
+              marginTop: vw(24),
+            }}
+          >
+            {keyFeatures.map((feature, idx) => {
+              const col = idx % 2;
+              const row = Math.floor(idx / 2);
+              const colX = col === 0 ? 0 : 556;
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    position: 'absolute',
+                    left: vw(colX),
+                    top: vw(row * 40),
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: vw(12),
+                  }}
+                >
+                  {/* Orange circle with check */}
+                  <div
+                    style={{
+                      flexShrink: 0,
+                      width: vw(20),
+                      height: vw(20),
+                      borderRadius: '50%',
+                      backgroundColor: '#ff6d24',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img
+                      src={`${BASE_URL}images/peakmind-cms/feature-check-orange.svg`}
+                      alt=""
+                      style={{ width: vw(12), height: vw(12) }}
+                    />
+                  </div>
+                  {/* Feature text */}
+                  <span
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: vw(16),
+                      lineHeight: vw(24),
+                      color: '#1a1a1a',
+                    }}
+                  >
+                    {feature}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 function UsersWorkflowsSection() { return null; }
 function FeatureDeepDiveSection() { return null; }
