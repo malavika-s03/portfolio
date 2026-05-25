@@ -10,6 +10,7 @@ import { VectorVaultCaseStudyPage } from '@/pages/VectorVaultCaseStudy';
 import { DistrictCaseStudyPage } from '@/pages/DistrictCaseStudy';
 import { ZohoCaseStudyPage } from '@/pages/ZohoCaseStudy';
 import { PeakmindCaseStudyPage } from '@/pages/PeakmindCaseStudy';
+import { PeakmindCmsStudyPage } from '@/pages/PeakmindCmsStudy';
 import { NotFoundPage } from '@/pages/NotFound';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/project/district" element={<DistrictCaseStudyPage />} />
               <Route path="/project/zoho" element={<ZohoCaseStudyPage />} />
               <Route path="/work/peakmind-student" element={<PeakmindCaseStudyPage />} />
+              <Route path="/work/peakmind-cms" element={<PeakmindCmsStudyPage />} />
               <Route path="/project/:slug" element={<ProjectPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
