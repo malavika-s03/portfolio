@@ -5,7 +5,7 @@ export const COLORS = {
   orange: '#f97316',
   cardBg: 'rgba(255,255,255,0.5)',
   pageBg: '#eeccae',
-  lineColor: '#e1c3a8',
+  lineColor: '#d9b89a',
 };
 
 export const heroData = {
@@ -21,14 +21,15 @@ export const problemText =
 export interface PersonaCard {
   title: string;
   description: string;
+  titleColor: string;
 }
 
 export const researchData = {
   intro: 'Research revealed three major student types using the platform:',
   personas: [
-    { title: 'Students in Crisis', description: 'needed immediate emotional relief' },
-    { title: 'Routine Builders', description: 'wanted structure and habit tracking' },
-    { title: 'Curious Explorers', description: 'preferred low-pressure discovery' },
+    { title: 'Students in Crisis', description: 'needed immediate emotional relief', titleColor: '#f97316' },
+    { title: 'Routine Builders', description: 'wanted structure and habit tracking', titleColor: '#7c3aed' },
+    { title: 'Curious Explorers', description: 'preferred low-pressure discovery', titleColor: '#f97316' },
   ] as PersonaCard[],
   findingsText:
     'Key findings showed that students preferred anonymous support and quick, low-effort interactions.',

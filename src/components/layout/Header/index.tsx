@@ -9,18 +9,18 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
-  const isProjectPage = location.pathname.startsWith('/project/');
+  const isProjectPage = location.pathname.startsWith('/project/') || location.pathname.startsWith('/work/');
 
   return (
     <>
-      <motion.header
-        className="absolute top-0 left-0 right-0 z-50"
-        initial={headerAppear.initial}
-        animate={headerAppear.animate}
-        transition={headerAppear.transition}
-      >
-        <div className="w-full relative" style={{ height: '4.69vw' }}>
-            {!isProjectPage && (
+      {!isProjectPage && (
+        <motion.header
+          className="absolute top-0 left-0 right-0 z-50"
+          initial={headerAppear.initial}
+          animate={headerAppear.animate}
+          transition={headerAppear.transition}
+        >
+          <div className="w-full relative" style={{ height: '4.69vw' }}>
               <Link
                 to="/"
                 className="absolute font-medium uppercase text-foreground hover:opacity-70 transition-opacity"
@@ -28,23 +28,23 @@ export function Header() {
               >
                 HOME
               </Link>
-            )}
 
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="absolute cursor-pointer hover:opacity-70 transition-opacity p-0 bg-transparent border-none"
-              aria-label="Toggle menu"
-              style={{ left: '91.02vw', top: '2.97vw' }}
-            >
-              <div className="grid grid-cols-2" style={{ gap: '0.39vw' }}>
-                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
-                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
-                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
-                <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
-              </div>
-            </button>
-        </div>
-      </motion.header>
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="absolute cursor-pointer hover:opacity-70 transition-opacity p-0 bg-transparent border-none"
+                aria-label="Toggle menu"
+                style={{ left: '91.02vw', top: '2.97vw' }}
+              >
+                <div className="grid grid-cols-2" style={{ gap: '0.39vw' }}>
+                  <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                  <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                  <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                  <span className="bg-foreground rounded-full" style={{ width: '0.625vw', height: '0.625vw' }} />
+                </div>
+              </button>
+          </div>
+        </motion.header>
+      )}
 
       <AnimatePresence>
         {isMenuOpen && (
