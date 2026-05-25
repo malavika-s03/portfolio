@@ -31,10 +31,11 @@ export const projects: Project[] = [
   {
     id: 3,
     title: "WORK EXPERIENCE : PEAKMIND",
-    slug: "peakmind",
+    slug: "peakmind-student",
+    customRoute: "/work/peakmind-student",
     thumbnail: `${BASE}/peakmind-phones.png`,
     category: "Work Experience",
-    description: "Hello, I'm a Multane specialist in creating digital experiences. With 10+ years of experience, I bring ideas to life with the right tools, one pixel at a time.",
+    description: "Redesigned the break page experience of a student wellness app to improve emotional safety & engagement.",
     year: "2024",
   },
   {
