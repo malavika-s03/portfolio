@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { COLORS, heroContent, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, caseManagementFeature, safetyFeature, bottomCards } from './data';
+import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -113,10 +113,11 @@ function HeroSection() {
         width: '100%',
         backgroundColor: COLORS.heroBg,
         height: vw(550),
-        overflow: 'hidden',
+        overflow: 'visible',
         paddingLeft: vw(24),
         paddingTop: vw(40),
         boxSizing: 'border-box',
+        position: 'relative',
       }}
     >
       {/* Inner container: 896px wide, 340.4px tall */}
@@ -170,6 +171,178 @@ function HeroSection() {
         >
           {heroContent.subtitle}
         </motion.p>
+
+        {/* Gallery widget at x=556, y=15 within container */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          style={{
+            position: 'absolute',
+            left: vw(556),
+            top: vw(15),
+            width: vw(515.6),
+          }}
+        >
+          {/* 3 gallery cards row */}
+          <div
+            style={{
+              display: 'flex',
+              gap: vw(16),
+              width: vw(515.6),
+            }}
+          >
+            {heroGallery.items.map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  width: vw(161.2),
+                  backgroundColor: COLORS.white,
+                  borderRadius: vw(8),
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                }}
+              >
+                <img
+                  src={`${BASE_URL}images/peakmind-cms/${item.image}`}
+                  alt={item.title}
+                  style={{
+                    width: vw(159.6),
+                    height: vw(128),
+                    objectFit: 'cover',
+                    display: 'block',
+                    marginLeft: vw(0.8),
+                    marginTop: vw(0.8),
+                  }}
+                />
+                <div style={{ padding: `${vw(12)} ${vw(12)}` }}>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 600,
+                      fontSize: vw(14),
+                      lineHeight: vw(20),
+                      color: COLORS.text,
+                    }}
+                  >
+                    {item.title}
+                  </p>
+                  <p
+                    style={{
+                      margin: 0,
+                      marginTop: vw(4),
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: vw(12),
+                      lineHeight: vw(16),
+                      color: COLORS.textSecondary,
+                    }}
+                  >
+                    {item.subtitle}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats row at y=217.59 within gallery container */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: vw(32),
+              marginTop: vw(24),
+            }}
+          >
+            {heroGallery.stats.map((stat, idx) => (
+              <div key={idx} style={{ textAlign: 'center' }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 700,
+                    fontSize: vw(24),
+                    lineHeight: vw(32),
+                    color: COLORS.purple,
+                  }}
+                >
+                  {stat.value}
+                </p>
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: vw(12),
+                    lineHeight: vw(16),
+                    color: COLORS.textSecondary,
+                  }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Gallery heading below inner container — at page x=567, y=420 within hero section */}
+      <div
+        style={{
+          width: vw(515.6),
+          marginLeft: vw(543),
+          marginTop: vw(40),
+          textAlign: 'center',
+        }}
+      >
+        <h2
+          style={{
+            margin: 0,
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(28),
+            lineHeight: vw(36),
+            color: COLORS.text,
+          }}
+        >
+          {heroGallery.heading}
+        </h2>
+        <p
+          style={{
+            margin: 0,
+            marginTop: vw(0),
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: vw(16),
+            lineHeight: vw(24),
+            color: COLORS.textSecondary,
+          }}
+        >
+          {heroGallery.subtitle}
+        </p>
+        {/* 5 dot navigation */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: vw(8),
+            marginTop: vw(0),
+          }}
+        >
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              style={{
+                width: i === 2 ? vw(32) : vw(8),
+                height: vw(8),
+                borderRadius: vw(4),
+                backgroundColor: i === 2 ? COLORS.purple : '#d9d9d9',
+              }}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -186,6 +359,7 @@ function ProjectOverviewSection() {
         width: '100%',
         backgroundColor: COLORS.white,
         paddingTop: vw(96),
+        paddingBottom: vw(96),
         boxSizing: 'border-box',
       }}
     >
@@ -220,7 +394,7 @@ function ProjectOverviewSection() {
           style={{
             position: 'relative',
             width: '100%',
-            height: vw(440),
+            height: vw(312),
           }}
         >
           {/* Left column — The Problem */}
@@ -271,7 +445,7 @@ function ProjectOverviewSection() {
                 color: '#1a1a1a',
                 margin: 0,
                 marginTop: vw(24),
-                marginBottom: vw(32),
+                marginBottom: vw(24),
                 lineHeight: 1.3,
               }}
             >
@@ -401,7 +575,7 @@ function ProjectOverviewSection() {
                 lineHeight: vw(24),
                 color: '#737373',
                 margin: 0,
-                marginBottom: vw(28),
+                marginBottom: vw(24),
                 width: vw(480),
               }}
             >
@@ -489,7 +663,7 @@ function DesignSystemSection() {
         width: '100%',
         backgroundColor: COLORS.white,
         paddingLeft: vw(24),
-        paddingTop: vw(96),
+        paddingTop: vw(56),
         paddingBottom: vw(96),
         boxSizing: 'border-box',
       }}
@@ -547,7 +721,7 @@ function DesignSystemSection() {
             position: 'relative',
             width: vw(1096),
             height: vw(313.2), // 2 rows: 144.6 + 24 + 144.6
-            marginTop: vw(92),
+            marginTop: vw(64),
           }}
         >
           {designSystemCards.map((card, idx) => {
@@ -698,12 +872,12 @@ function DesignSystemSection() {
                     boxSizing: 'border-box',
                   }}
                 >
-                  {/* Icon box at (24px, 24px) */}
+                  {/* Icon box at (24.8px, 24.8px) */}
                   <div
                     style={{
                       position: 'absolute',
-                      left: vw(24),
-                      top: vw(24),
+                      left: vw(24.8),
+                      top: vw(24.8),
                       width: vw(48),
                       height: vw(48),
                       backgroundColor: '#f0e7fc',
@@ -720,12 +894,12 @@ function DesignSystemSection() {
                     />
                   </div>
 
-                  {/* Title at (24px, 88.4px) */}
+                  {/* Title at (24.8px, 89.2px) */}
                   <p
                     style={{
                       position: 'absolute',
-                      left: vw(24),
-                      top: vw(88.4),
+                      left: vw(24.8),
+                      top: vw(89.2),
                       margin: 0,
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 600,
@@ -737,12 +911,12 @@ function DesignSystemSection() {
                     {principle.title}
                   </p>
 
-                  {/* Description at (24px, 124px) */}
+                  {/* Description at (24.8px, 124.8px) */}
                   <p
                     style={{
                       position: 'absolute',
-                      left: vw(24),
-                      top: vw(124),
+                      left: vw(24.8),
+                      top: vw(124.8),
                       margin: 0,
                       fontFamily: "'DM Sans', sans-serif",
                       fontWeight: 400,
@@ -933,12 +1107,12 @@ function UsersWorkflowsSection() {
                   boxSizing: 'border-box',
                 }}
               >
-                {/* Icon container at (32px, 32px) */}
+                {/* Icon container at (32.8px, 32.8px) */}
                 <div
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(32),
+                    left: vw(32.8),
+                    top: vw(32.8),
                     width: vw(64),
                     height: vw(64),
                     borderRadius: vw(8),
@@ -955,12 +1129,12 @@ function UsersWorkflowsSection() {
                   />
                 </div>
 
-                {/* Title at (32px, 120px) */}
+                {/* Title at (32.8px, 120.8px) */}
                 <p
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(120),
+                    left: vw(32.8),
+                    top: vw(120.8),
                     margin: 0,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 600,
@@ -972,12 +1146,12 @@ function UsersWorkflowsSection() {
                   {role.title}
                 </p>
 
-                {/* Bullet list starting at (32px, 172px) */}
+                {/* Bullet list starting at (32.8px, 172.8px) */}
                 <div
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(172),
+                    left: vw(32.8),
+                    top: vw(172.8),
                     width: vw(278.4),
                     display: 'flex',
                     flexDirection: 'column',
@@ -1027,60 +1201,6 @@ function UsersWorkflowsSection() {
     </section>
   );
 }
-/* ── FeatureDeepDive — helper ─────────────────── */
-
-function FeatureImageCard({ icon, label }: { icon: string; label: string }) {
-  return (
-    <div
-      style={{
-        width: vw(524),
-        backgroundColor: '#fafafa',
-        border: '0.8px solid #e5e5e5',
-        borderRadius: vw(8),
-        paddingTop: vw(24.8),
-        paddingLeft: vw(24.8),
-        paddingRight: vw(24.8),
-        paddingBottom: vw(0.8),
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* Inner purple box */}
-      <div
-        style={{
-          backgroundColor: '#f0e7fc',
-          borderRadius: vw(8),
-          height: vw(266.85),
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <img
-          src={`${BASE_URL}images/peakmind-cms/${icon}`}
-          alt=""
-          style={{ width: vw(64), height: vw(64) }}
-        />
-      </div>
-      {/* Label below inner box */}
-      <p
-        style={{
-          marginTop: vw(16),
-          marginBottom: 0,
-          textAlign: 'center',
-          fontFamily: "'DM Sans', sans-serif",
-          fontWeight: 400,
-          fontSize: vw(14),
-          lineHeight: vw(20),
-          color: '#737373',
-        }}
-      >
-        {label}
-      </p>
-    </div>
-  );
-}
-
 /* ── FeatureDeepDive ─────────────────────────── */
 
 function FeatureDeepDiveSection() {
@@ -1247,17 +1367,26 @@ function FeatureDeepDiveSection() {
               </div>
             </div>
 
-            {/* Right side: image card at x=572, y=25.77 */}
+            {/* Right side: planner mockup at x=560, y=0, w=538, h=450 */}
             <div
               style={{
                 position: 'absolute',
-                left: vw(572),
-                top: vw(25.77),
+                left: vw(560),
+                top: 0,
+                width: vw(538),
+                height: vw(450),
               }}
             >
-              <FeatureImageCard
-                icon={plannerFeature.imageIcon}
-                label={plannerFeature.imageLabel}
+              <img
+                src={`${BASE_URL}images/peakmind-cms/planner-mockup.png`}
+                alt="Planner calendar view"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  borderRadius: vw(12),
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+                }}
               />
             </div>
           </div>
@@ -1270,18 +1399,154 @@ function FeatureDeepDiveSection() {
               height: vw(369.6),
             }}
           >
-            {/* Left side: image card at x=0, y=8.57 */}
+            {/* Left side: Student Wellbeing Metrics card at x=0, y=0, w=512 */}
             <div
               style={{
                 position: 'absolute',
                 left: 0,
-                top: vw(8.57),
+                top: 0,
+                width: vw(512),
+                height: vw(346.375),
+                backgroundColor: COLORS.white,
+                borderRadius: vw(12),
+                boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+                boxSizing: 'border-box',
               }}
             >
-              <FeatureImageCard
-                icon={analyticsFeature.imageIcon}
-                label={analyticsFeature.imageLabel}
-              />
+              <h4
+                style={{
+                  position: 'absolute',
+                  left: vw(24.8),
+                  top: vw(24.8),
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(20),
+                  lineHeight: vw(28),
+                  color: COLORS.text,
+                }}
+              >
+                {analyticsMetrics.title}
+              </h4>
+
+              {/* Progress bars */}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: vw(24.8),
+                  top: vw(76.8),
+                  width: vw(462.4),
+                }}
+              >
+                {analyticsMetrics.bars.map((bar, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      marginTop: idx > 0 ? vw(16) : 0,
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 400,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: COLORS.text,
+                        }}
+                      >
+                        {bar.label}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 600,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: bar.color,
+                        }}
+                      >
+                        {bar.value}%
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        marginTop: vw(4),
+                        width: '100%',
+                        height: vw(8),
+                        backgroundColor: '#f0f0f0',
+                        borderRadius: vw(4),
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${bar.value}%`,
+                          height: '100%',
+                          backgroundColor: bar.color,
+                          borderRadius: vw(4),
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Stat boxes */}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: vw(24.8),
+                  top: vw(228.8),
+                  width: vw(462.4),
+                  display: 'flex',
+                  gap: vw(16),
+                }}
+              >
+                {analyticsMetrics.stats.map((stat, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      flex: 1,
+                      backgroundColor: stat.bg,
+                      borderRadius: vw(8),
+                      paddingTop: vw(28.8),
+                      paddingBottom: vw(16),
+                      paddingLeft: vw(12),
+                      paddingRight: vw(12),
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: 0,
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 700,
+                        fontSize: vw(24),
+                        lineHeight: vw(32),
+                        color: COLORS.text,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {stat.value}
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        marginTop: vw(4),
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: vw(12),
+                        lineHeight: vw(16),
+                        color: COLORS.textSecondary,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Right side: text content at x=572 */}
@@ -1510,19 +1775,6 @@ function FeatureDeepDiveSection() {
               </div>
             </div>
 
-            {/* Right side: image card at x=572, y=27.77 */}
-            <div
-              style={{
-                position: 'absolute',
-                left: vw(572),
-                top: vw(27.77),
-              }}
-            >
-              <FeatureImageCard
-                icon={caseManagementFeature.imageIcon}
-                label={caseManagementFeature.imageLabel}
-              />
-            </div>
           </div>
 
           {/* ── Safety Feature ── */}
@@ -1530,21 +1782,159 @@ function FeatureDeepDiveSection() {
             style={{
               position: 'relative',
               width: vw(1096),
-              height: vw(475.95),
+              height: vw(482.325),
             }}
           >
-            {/* Left side: image card at x=0, y=61.75 */}
+            {/* Left side: Incident Report card at x=0, w=512, h=482.325 */}
             <div
               style={{
                 position: 'absolute',
                 left: 0,
-                top: vw(61.75),
+                top: vw(0),
+                width: vw(512),
+                backgroundColor: COLORS.white,
+                borderRadius: vw(12),
+                boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+                boxSizing: 'border-box',
               }}
             >
-              <FeatureImageCard
-                icon={safetyFeature.imageIcon}
-                label={safetyFeature.imageLabel}
-              />
+              {/* Header */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: vw(12),
+                  paddingTop: vw(24.8),
+                  paddingLeft: vw(24.8),
+                  paddingRight: vw(24.8),
+                }}
+              >
+                <div
+                  style={{
+                    width: vw(40),
+                    height: vw(40),
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(245,158,11,0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <svg width={vw(20)} height={vw(20)} viewBox="0 0 20 20" fill="none">
+                    <path d="M10 2L2 18h16L10 2z" fill="#f59e0b" stroke="#f59e0b" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M10 8v4M10 14h.01" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <div>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 700,
+                      fontSize: vw(18),
+                      lineHeight: vw(28),
+                      color: COLORS.text,
+                    }}
+                  >
+                    {incidentReport.title}
+                  </p>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontWeight: 400,
+                      fontSize: vw(14),
+                      lineHeight: vw(20),
+                      color: COLORS.textSecondary,
+                    }}
+                  >
+                    {incidentReport.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              {/* Incident entries */}
+              <div
+                style={{
+                  paddingTop: vw(24),
+                  paddingLeft: vw(24.8),
+                  paddingRight: vw(24.8),
+                  paddingBottom: vw(24.8),
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: vw(16),
+                }}
+              >
+                {incidentReport.entries.map((entry, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      backgroundColor: COLORS.white,
+                      border: `1px solid ${entry.borderColor}`,
+                      borderRadius: vw(8),
+                      padding: vw(16.8),
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 600,
+                          fontSize: vw(14),
+                          lineHeight: vw(20),
+                          color: COLORS.text,
+                        }}
+                      >
+                        Incident {entry.id}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontWeight: 500,
+                          fontSize: vw(12),
+                          lineHeight: vw(16),
+                          color: entry.statusColor,
+                          backgroundColor: entry.statusBg,
+                          paddingLeft: vw(8),
+                          paddingRight: vw(8),
+                          paddingTop: vw(4),
+                          paddingBottom: vw(4),
+                          borderRadius: vw(4),
+                        }}
+                      >
+                        {entry.status}
+                      </span>
+                    </div>
+                    <p
+                      style={{
+                        margin: 0,
+                        marginTop: vw(8),
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: vw(14),
+                        lineHeight: vw(20),
+                        color: COLORS.text,
+                      }}
+                    >
+                      {entry.description}
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        marginTop: vw(8),
+                        fontFamily: "'DM Sans', sans-serif",
+                        fontWeight: 400,
+                        fontSize: vw(12),
+                        lineHeight: vw(16),
+                        color: COLORS.textSecondary,
+                      }}
+                    >
+                      {entry.time}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Right side: text content at x=572 */}
@@ -1699,12 +2089,12 @@ function FeatureDeepDiveSection() {
                   boxSizing: 'border-box',
                 }}
               >
-                {/* Icon box at (32, 32) */}
+                {/* Icon box at (32.8, 32.8) */}
                 <div
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(32),
+                    left: vw(32.8),
+                    top: vw(32.8),
                     width: vw(48),
                     height: vw(48),
                     borderRadius: vw(8),
@@ -1721,12 +2111,12 @@ function FeatureDeepDiveSection() {
                   />
                 </div>
 
-                {/* Title at (32, 96) */}
+                {/* Title at (32.8, 96.8) */}
                 <h3
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(96),
+                    left: vw(32.8),
+                    top: vw(96.8),
                     margin: 0,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 700,
@@ -1738,12 +2128,12 @@ function FeatureDeepDiveSection() {
                   {card.title}
                 </h3>
 
-                {/* Description at (32, 143.99) */}
+                {/* Description at (32.8, 144.79) */}
                 <p
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(143.99),
+                    left: vw(32.8),
+                    top: vw(144.79),
                     margin: 0,
                     fontFamily: "'DM Sans', sans-serif",
                     fontWeight: 400,
@@ -1760,8 +2150,8 @@ function FeatureDeepDiveSection() {
                 <div
                   style={{
                     position: 'absolute',
-                    left: vw(32),
-                    top: vw(cardIdx === 0 ? 239.99 : 215.99),
+                    left: vw(32.8),
+                    top: vw(cardIdx === 0 ? 240.79 : 216.79),
                     display: 'flex',
                     flexDirection: 'column',
                     gap: vw(8),

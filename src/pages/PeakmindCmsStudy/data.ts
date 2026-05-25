@@ -24,6 +24,68 @@ export const heroContent = {
     'A case management platform helping schools coordinate mental wellness programs, student support, and safety reporting.',
 };
 
+export const heroGallery = {
+  items: [
+    { image: 'gallery-1.png', title: 'Gratitude Wall', subtitle: 'Year 5 Project' },
+    { image: 'gallery-2.png', title: 'Kindness Week', subtitle: 'School-wide' },
+    { image: 'gallery-3.png', title: 'Mindfulness Art', subtitle: 'Year 3 Activity' },
+  ],
+  stats: [
+    { value: '124', label: 'Total Entries' },
+    { value: '8', label: 'Collections' },
+    { value: '15', label: 'Classes' },
+  ],
+  heading: 'Gallery',
+  subtitle: 'Curated wellbeing activity documentation',
+};
+
+export const analyticsMetrics = {
+  title: 'Student Wellbeing Metrics',
+  bars: [
+    { label: 'Participation Rate', value: 87, color: COLORS.purple },
+    { label: 'Completion Rate', value: 92, color: COLORS.orange },
+    { label: 'Engagement Score', value: 78, color: COLORS.purple },
+  ],
+  stats: [
+    { value: '245', label: 'Active Students', bg: 'rgba(95,33,183,0.06)' },
+    { value: '32', label: 'Activities This Week', bg: 'rgba(255,109,36,0.06)' },
+  ],
+};
+
+export const incidentReport = {
+  title: 'Incident Report',
+  subtitle: 'Quick and secure logging',
+  entries: [
+    {
+      id: '#2847',
+      status: 'Pending Review',
+      statusColor: '#f59e0b',
+      statusBg: 'rgba(245,158,11,0.1)',
+      borderColor: 'rgba(245,158,11,0.3)',
+      description: 'Playground incident - Student wellbeing check',
+      time: 'Reported: Today, 10:30 AM',
+    },
+    {
+      id: '#2846',
+      status: 'Resolved',
+      statusColor: '#10b981',
+      statusBg: 'rgba(16,185,129,0.1)',
+      borderColor: 'rgba(16,185,129,0.3)',
+      description: 'Classroom support request',
+      time: 'Reported: Today, 9:15 AM',
+    },
+    {
+      id: '#2845',
+      status: 'Closed',
+      statusColor: '#737373',
+      statusBg: 'rgba(115,115,115,0.08)',
+      borderColor: 'rgba(115,115,115,0.2)',
+      description: 'Staff escalation - Follow up required',
+      time: 'Reported: Yesterday, 2:45 PM',
+    },
+  ],
+};
+
 export const projectOverview = {
   problem: {
     label: 'The Problem',
