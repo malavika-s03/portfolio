@@ -9,7 +9,7 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
-  const isProjectPage = location.pathname.startsWith('/project/');
+  const isProjectPage = location.pathname.startsWith('/project/') || location.pathname.startsWith('/work/');
 
   return (
     <>
