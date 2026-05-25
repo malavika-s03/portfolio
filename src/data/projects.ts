@@ -32,7 +32,6 @@ export const projects: Project[] = [
     id: 3,
     title: "WORK EXPERIENCE : PEAKMIND",
     slug: "peakmind-student",
-    customRoute: "/work/peakmind-student",
     thumbnail: `${BASE}/peakmind-phones.png`,
     category: "Work Experience",
     description: "Redesigned the break page experience of a student wellness app to improve emotional safety & engagement.",

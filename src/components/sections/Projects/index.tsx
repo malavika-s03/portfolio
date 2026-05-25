@@ -139,7 +139,7 @@ function DarkProjectsSection() {
 function LightProjectsSection() {
   const peakmind = projects[2];
   const zoho = projects[3];
-  const peakmindLink = `/project/${peakmind.slug}`;
+  const peakmindLink = '/work/peakmind-student';
   const zohoLink = `/project/${zoho.slug}`;
 
   return (

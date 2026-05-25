@@ -2,7 +2,6 @@ export interface Project {
   id: number;
   title: string;
   slug: string;
-  customRoute?: string;
   thumbnail: string;
   category: string;
   description?: string;
