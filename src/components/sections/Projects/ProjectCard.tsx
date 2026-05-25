@@ -23,7 +23,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
   const titleColor = isDark ? 'text-[#fffefe]' : 'text-black';
   const descColor = isDark ? 'text-[#fffbfb]' : 'text-black';
   const btnBg = isDark ? 'bg-white text-black' : 'bg-black text-white';
-  const projectLink = project.customRoute || `/project/${project.slug}`;
+  const projectLink = `/project/${project.slug}`;
 
   return (
     <div className="relative w-full" style={{ minHeight: '43.75vw' }}>
