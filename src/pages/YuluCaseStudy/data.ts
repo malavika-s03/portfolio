@@ -148,15 +148,15 @@ export const rowLabels = [
 ];
 
 export const heuristicLabels = [
-  "Visibility of system status",
-  "Match between system & world",
-  "User control & freedom",
-  "Consistency & standards",
+  "Visibility of system",
+  "Flexibility and efficiency",
   "Error prevention",
-  "Recognition over recall",
-  "Flexibility & efficiency",
-  "Aesthetic & minimal design",
-  "Help users with errors",
+  "Recover from errors",
+  "Aesthetics and minimalist design",
+  "Consistency and standards",
+  "Help and documentation",
+  "User control and freedom",
+  "Recognition rather than recall",
 ];
 
 export interface CompetitorData {

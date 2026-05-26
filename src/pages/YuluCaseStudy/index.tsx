@@ -82,11 +82,7 @@ function HeroSection() {
                 lineHeight: 'normal'
               }}
             >
-              Throughout the semester, we have been working on the Yulu app's user experience, 
-              starting with identifying the critical gaps in user experience faced by customers 
-              through techniques such as affinity mapping, secondary research, and user journey 
-              mapping; these allowed us to create a preliminary set of problem statements which 
-              we refined later on as we conducted more study and used techniques such as contextual inquiries.
+              This user research project focused on studying and redesigning the Yulu app through primary research methods like contextual enquiry and usability testing, supported by secondary research including heuristic evaluation and competitor analysis. The insights gathered helped identify usability issues and informed a redesign proposal to improve the overall user experience.
             </p>
           </motion.div>
         </div>
@@ -353,9 +349,7 @@ function BlackSection() {
         className="absolute font-medium"
         style={{ left: '4.53vw', top: '13.2vw', width: '25vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
-        Throughout the semester, we have been working on the Yulu app's user experience,
-        starting with identifying the critical gaps in user experience faced by customers
-        through techniques such as affinity mapping, secondary research, and user journey mapping;
+        A heuristic evaluation of the redesigned Yulu app identified usability issues such as lack of system feedback, inconsistent terminology, and unclear icon usage. These insights guided improvements in navigation, interface clarity, and overall user experience.
       </motion.p>
 
       {/* Radar chart image: x=502, y=82, w=778, h=489 */}
@@ -397,9 +391,7 @@ function BlackSection() {
         className="absolute font-medium"
         style={{ left: '49.53vw', top: '53.36vw', width: '46.02vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
-        Throughout the semester, we have been working on the Yulu app's user experience,
-        starting with identifying the critical gaps in user experience faced by customers
-        through techniques such as affinity mapping, secondary research, and user journey mapping;
+        Usability testing with paper prototypes was conducted to evaluate the redesigned Yulu app during the early design stage. Participants were asked to perform key tasks such as booking a ride, accessing support, and finding transaction details using low-fidelity paper screens.
       </motion.p>
 
       {/* Usability text 2: x=638, y=838, w=581 */}
@@ -410,9 +402,7 @@ function BlackSection() {
         className="absolute font-medium"
         style={{ left: '49.84vw', top: '65.47vw', width: '45.39vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
-        Throughout the semester, we have been working on the Yulu app's user experience,
-        starting with identifying the critical gaps in user experience faced by customers
-        through techniques such as affinity mapping, secondary research, and user journey mapping;
+        The testing revealed issues related to booking clarity, cognitive overload, and feature discoverability. Feedback led to improvements such as adding a booking progress bar, relocating the coupon feature to the payment stage, improving visibility of balance and transaction history, and providing clearer location and vehicle condition information.
       </motion.p>
 
       {/* Contextual title: x=46, y=1012 */}
@@ -434,9 +424,7 @@ function BlackSection() {
         className="absolute font-medium"
         style={{ left: '3.59vw', top: '87.42vw', width: '44.06vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
-        Throughout the semester, we have been working on the Yulu app's user experience,
-        starting with identifying the critical gaps in user experience faced by customers
-        through techniques such as affinity mapping, secondary research, and user journey mapping;
+        Contextual enquiry for the Yulu app was conducted with first-time, occasional, and frequent users performing real-world tasks such as booking rides, scanning QR codes, accessing support, and managing payments. Key Learnings The study revealed issues related to unclear onboarding, confusing ride options, lack of system feedback, QR scanning difficulties, inaccurate bike information, and unclear pricing. Users also highlighted the need for better support, improved accessibility, clearer vehicle condition details, and more reliable navigation and payment experiences.
       </motion.p>
 
       {/* Scooter: pinned to right edge, sized to fit within section */}
@@ -501,9 +489,7 @@ function FeatureComparisonSection() {
           }}
         >
           <p className="font-medium text-black" style={{ fontSize: '1.5625vw', lineHeight: 'normal' }}>
-            Throughout the semester, we have been working on the Yulu app's user experience,
-            starting with identifying the critical gaps in user experience faced by customers
-            through techniques such as affinity mapping, secondary research, and user journey mapping;
+            Platforms like Yulu and Zypp provide battery-swapping support, while others focus more on operational reach or ride experience. This analysis helped identify opportunities to design a more balanced and user-friendly solution by combining accessibility, convenience, and sustainable mobility features into a single streamlined experience.
           </p>
         </div>
 
@@ -583,9 +569,7 @@ function YuluStrengthsSection() {
           }}
         >
           <p className="font-medium text-black" style={{ fontSize: '1.5625vw', lineHeight: 'normal' }}>
-            Throughout the semester, we have been working on the Yulu app's user experience,
-            starting with the critical gaps in user experience faced by customers through
-            techniques such as affinity mapping, secondary research, and user journey mapping;
+            The feature analysis highlighted Yulu's key strengths in creating an accessible and sustainable urban mobility experience. Features such as battery swapping reduce range anxiety, while affordable pricing makes the service attractive to budget-conscious users.
           </p>
         </div>
 
@@ -599,9 +583,7 @@ function YuluStrengthsSection() {
           }}
         >
           <p className="font-medium text-black" style={{ fontSize: '1.5625vw', lineHeight: 'normal' }}>
-            Throughout the semester, we have been working on the Yulu app's user experience,
-            starting with the critical gaps in user experience faced by customers through
-            techniques such as affinity mapping, secondary research, and user journey mapping;
+            The platform's eco-friendly approach, convenient city coverage, and no-license requirement further improve accessibility and ease of use for everyday commuters.
           </p>
         </div>
       </motion.div>
@@ -645,7 +627,9 @@ function FinalDesignSection() {
           style={{ marginTop: '4vw', gap: '1.64vw' }}
         >
           <a
-            href="#"
+            href="https://www.figma.com/design/QOsld9gNcTzuVTsrWzuUIa/Yulu?node-id=1-236&t=Yh1hBAo60VWkMaEE-0"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center font-medium"
             style={{
               width: '11.25vw',
@@ -658,10 +642,12 @@ function FinalDesignSection() {
               textDecoration: 'none',
             }}
           >
-            Open Prototype
+            View in Figma
           </a>
           <a
-            href="#"
+            href="https://docs.google.com/document/d/19sb3g5PcVzDwsgHiDJ3eJtZ5kBRI291fYohc7HY1nxc/edit?tab=t.0"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center font-medium"
             style={{
               width: '10.94vw',
