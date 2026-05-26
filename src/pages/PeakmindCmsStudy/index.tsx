@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards, heroSlides, classroomContent } from './data';
+import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards, heroSlides, classroomContent, colorPalette, typographyData, componentsData, patternsData } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -1133,6 +1133,8 @@ function ProjectOverviewSection() {
   );
 }
 function DesignSystemSection() {
+  const [activeTab, setActiveTab] = useState('overview');
+
   // Section padding-left: 24px, content width: 1096px
   // Section starts at y=1283 of page (after HeroSection + ProjectOverviewSection)
 
@@ -1286,10 +1288,11 @@ function DesignSystemSection() {
           }}
         >
           {designSystemTabs.map((tab) => {
-            const isActive = tab === 'overview';
+            const isActive = tab === activeTab;
             return (
               <div
                 key={tab}
+                onClick={() => setActiveTab(tab)}
                 style={{
                   position: 'absolute',
                   left: vw(tabPositions[tab]),
@@ -1301,6 +1304,7 @@ function DesignSystemSection() {
                   justifyContent: 'center',
                   borderBottom: isActive ? `2px solid #5f21b7` : 'none',
                   boxSizing: 'border-box',
+                  cursor: 'pointer',
                 }}
               >
                 <span
@@ -1320,199 +1324,216 @@ function DesignSystemSection() {
           })}
         </div>
 
-        {/* ── D) Design Principles (starts at y=642 within section) ── */}
-        {/* 642 - (553.2 + 40.8) = 48px gap */}
-        <div
-          style={{
-            marginTop: vw(48),
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: vw(30),
-              lineHeight: vw(36),
-              color: '#1a1a1a',
-              margin: 0,
-            }}
-          >
-            Design Principles
-          </h3>
-
-          {/* 3 cards row */}
-          <div
-            style={{
-              position: 'relative',
-              width: vw(1096),
-              height: vw(221.6),
-              marginTop: vw(24),
-            }}
-          >
-            {designPrinciples.map((principle, idx) => {
-              const cardPositions = [0, 373.33, 746.66];
-              const cardWidths = [349.325, 349.337, 349.325];
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    position: 'absolute',
-                    left: vw(cardPositions[idx]),
-                    top: 0,
-                    width: vw(cardWidths[idx]),
-                    height: vw(221.6),
-                    backgroundColor: COLORS.white,
-                    border: `0.8px solid #e5e5e5`,
-                    borderRadius: vw(8),
-                    boxSizing: 'border-box',
-                  }}
-                >
-                  {/* Icon box at (24.8px, 24.8px) */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: vw(24.8),
-                      top: vw(24.8),
-                      width: vw(48),
-                      height: vw(48),
-                      backgroundColor: '#f0e7fc',
-                      borderRadius: vw(8),
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img
-                      src={`${BASE_URL}images/peakmind-cms/${principle.icon}`}
-                      alt=""
-                      style={{ width: vw(24), height: vw(24) }}
-                    />
-                  </div>
-
-                  {/* Title at (24.8px, 89.2px) */}
-                  <p
-                    style={{
-                      position: 'absolute',
-                      left: vw(24.8),
-                      top: vw(89.2),
-                      margin: 0,
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 600,
-                      fontSize: vw(18),
-                      lineHeight: vw(28),
-                      color: '#1a1a1a',
-                    }}
-                  >
-                    {principle.title}
-                  </p>
-
-                  {/* Description at (24.8px, 124.8px) */}
-                  <p
-                    style={{
-                      position: 'absolute',
-                      left: vw(24.8),
-                      top: vw(124.8),
-                      margin: 0,
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 400,
-                      fontSize: vw(16),
-                      lineHeight: vw(24),
-                      color: '#737373',
-                      maxWidth: vw(300),
-                    }}
-                  >
-                    {principle.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ── E) Key Features (starts 48px after Design Principles) ── */}
-        <div
-          style={{
-            marginTop: vw(48),
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: vw(30),
-              lineHeight: vw(36),
-              color: '#1a1a1a',
-              margin: 0,
-            }}
-          >
-            Key Features
-          </h3>
-
-          {/* 6 items in 2 columns, 3 rows */}
-          <div
-            style={{
-              position: 'relative',
-              width: vw(1096),
-              height: vw(104), // 3 rows × 40px = 120, but rows at 0, 40, 80 with 24px text height
-              marginTop: vw(24),
-            }}
-          >
-            {keyFeatures.map((feature, idx) => {
-              const col = idx % 2;
-              const row = Math.floor(idx / 2);
-              const colX = col === 0 ? 0 : 556;
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    position: 'absolute',
-                    left: vw(colX),
-                    top: vw(row * 40),
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: vw(12),
-                  }}
-                >
-                  {/* Orange circle with check */}
-                  <div
-                    style={{
-                      flexShrink: 0,
-                      width: vw(20),
-                      height: vw(20),
-                      borderRadius: '50%',
-                      backgroundColor: '#ff6d24',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <img
-                      src={`${BASE_URL}images/peakmind-cms/feature-check-orange.svg`}
-                      alt=""
-                      style={{ width: vw(12), height: vw(12) }}
-                    />
-                  </div>
-                  {/* Feature text */}
-                  <span
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 400,
-                      fontSize: vw(16),
-                      lineHeight: vw(24),
-                      color: '#1a1a1a',
-                    }}
-                  >
-                    {feature}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {activeTab === 'overview' && <TabOverviewContent />}
+        {activeTab === 'colors' && <TabColorsContent />}
+        {activeTab === 'typography' && <TabTypographyContent />}
+        {activeTab === 'components' && <TabComponentsContent />}
+        {activeTab === 'patterns' && <TabPatternsContent />}
       </div>
     </section>
   );
 }
+
+function TabOverviewContent() {
+  return (
+    <>
+      {/* ── D) Design Principles (starts at y=642 within section) ── */}
+      {/* 642 - (553.2 + 40.8) = 48px gap */}
+      <div
+        style={{
+          marginTop: vw(48),
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 600,
+            fontSize: vw(30),
+            lineHeight: vw(36),
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Design Principles
+        </h3>
+
+        {/* 3 cards row */}
+        <div
+          style={{
+            position: 'relative',
+            width: vw(1096),
+            height: vw(221.6),
+            marginTop: vw(24),
+          }}
+        >
+          {designPrinciples.map((principle, idx) => {
+            const cardPositions = [0, 373.33, 746.66];
+            const cardWidths = [349.325, 349.337, 349.325];
+            return (
+              <div
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  left: vw(cardPositions[idx]),
+                  top: 0,
+                  width: vw(cardWidths[idx]),
+                  height: vw(221.6),
+                  backgroundColor: COLORS.white,
+                  border: `0.8px solid #e5e5e5`,
+                  borderRadius: vw(8),
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* Icon box at (24.8px, 24.8px) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: vw(24.8),
+                    top: vw(24.8),
+                    width: vw(48),
+                    height: vw(48),
+                    backgroundColor: '#f0e7fc',
+                    borderRadius: vw(8),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img
+                    src={`${BASE_URL}images/peakmind-cms/${principle.icon}`}
+                    alt=""
+                    style={{ width: vw(24), height: vw(24) }}
+                  />
+                </div>
+
+                {/* Title at (24.8px, 89.2px) */}
+                <p
+                  style={{
+                    position: 'absolute',
+                    left: vw(24.8),
+                    top: vw(89.2),
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 600,
+                    fontSize: vw(18),
+                    lineHeight: vw(28),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  {principle.title}
+                </p>
+
+                {/* Description at (24.8px, 124.8px) */}
+                <p
+                  style={{
+                    position: 'absolute',
+                    left: vw(24.8),
+                    top: vw(124.8),
+                    margin: 0,
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: vw(16),
+                    lineHeight: vw(24),
+                    color: '#737373',
+                    maxWidth: vw(300),
+                  }}
+                >
+                  {principle.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── E) Key Features (starts 48px after Design Principles) ── */}
+      <div
+        style={{
+          marginTop: vw(48),
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 600,
+            fontSize: vw(30),
+            lineHeight: vw(36),
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Key Features
+        </h3>
+
+        {/* 6 items in 2 columns, 3 rows */}
+        <div
+          style={{
+            position: 'relative',
+            width: vw(1096),
+            height: vw(104), // 3 rows × 40px = 120, but rows at 0, 40, 80 with 24px text height
+            marginTop: vw(24),
+          }}
+        >
+          {keyFeatures.map((feature, idx) => {
+            const col = idx % 2;
+            const row = Math.floor(idx / 2);
+            const colX = col === 0 ? 0 : 556;
+            return (
+              <div
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  left: vw(colX),
+                  top: vw(row * 40),
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: vw(12),
+                }}
+              >
+                {/* Orange circle with check */}
+                <div
+                  style={{
+                    flexShrink: 0,
+                    width: vw(20),
+                    height: vw(20),
+                    borderRadius: '50%',
+                    backgroundColor: '#ff6d24',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <img
+                    src={`${BASE_URL}images/peakmind-cms/feature-check-orange.svg`}
+                    alt=""
+                    style={{ width: vw(12), height: vw(12) }}
+                  />
+                </div>
+                {/* Feature text */}
+                <span
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 400,
+                    fontSize: vw(16),
+                    lineHeight: vw(24),
+                    color: '#1a1a1a',
+                  }}
+                >
+                  {feature}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function TabColorsContent() { return <div style={{ marginTop: vw(48) }}>Colors content coming</div>; }
+function TabTypographyContent() { return <div style={{ marginTop: vw(48) }}>Typography content coming</div>; }
+function TabComponentsContent() { return <div style={{ marginTop: vw(48) }}>Components content coming</div>; }
+function TabPatternsContent() { return <div style={{ marginTop: vw(48) }}>Patterns content coming</div>; }
 function UsersWorkflowsSection() {
   return (
     <section
@@ -2270,6 +2291,57 @@ function FeatureDeepDiveSection() {
               </div>
             </div>
 
+            {/* Right side: Case Management card at x=572 */}
+            <div
+              style={{
+                position: 'absolute',
+                left: vw(572),
+                top: 0,
+                width: vw(524),
+                height: vw(408),
+                backgroundColor: '#fafafa',
+                border: '0.8px solid #e5e5e5',
+                borderRadius: vw(8),
+                padding: vw(24.8),
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: vw(266.85),
+                  backgroundColor: '#f0e7fc',
+                  borderRadius: vw(8),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src={`${BASE_URL}images/peakmind-cms/${caseManagementFeature.imageIcon}`}
+                  alt=""
+                  style={{ width: vw(64), height: vw(64) }}
+                />
+              </div>
+              <p
+                style={{
+                  margin: 0,
+                  marginTop: vw(16),
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(14),
+                  lineHeight: vw(20),
+                  color: '#737373',
+                  textAlign: 'center',
+                }}
+              >
+                {caseManagementFeature.imageLabel}
+              </p>
+            </div>
           </div>
 
           {/* ── Safety Feature ── */}

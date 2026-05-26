@@ -292,3 +292,102 @@ export const bottomCards = [
     iconBg: 'rgba(255,109,36,0.1)',
   },
 ];
+
+export const colorPalette = {
+  description: 'The Peakmind color system uses purple as the primary brand color, representing trust and mindfulness, combined with an energetic orange for calls-to-action.',
+  colors: [
+    { name: 'Primary', hex: '#5F21B7', color: '#5F21B7', description: 'Main brand color for key actions and brand identity' },
+    { name: 'Secondary', hex: '#FF6D24', color: '#FF6D24', description: 'Accent color for CTAs and highlights' },
+    { name: 'Success', hex: '#10b981', color: '#10b981', description: 'Positive feedback and completion states' },
+    { name: 'Warning', hex: '#f59e0b', color: '#f59e0b', description: 'Caution and moderate alerts' },
+    { name: 'Destructive', hex: '#d4183d', color: '#d4183d', description: 'Error states and critical actions' },
+    { name: 'Muted', hex: '#f5f5f5', color: '#f5f5f5', description: 'Subtle backgrounds and disabled states', textDark: true },
+  ],
+  neutrals: [
+    { name: 'Foreground', hex: '#1a1a1a', color: '#1a1a1a' },
+    { name: 'Muted Foreground', hex: '#737373', color: '#737373' },
+    { name: 'Border', hex: '#e5e5e5', color: '#e5e5e5', textDark: true },
+    { name: 'Background', hex: '#fafafa', color: '#fafafa', textDark: true },
+  ],
+};
+
+export const typographyData = {
+  fontDescription: 'DM Sans is a geometric sans-serif typeface optimized for UI design. It provides excellent readability and a modern, friendly appearance suitable for educational platforms.',
+  weights: ['Regular', 'Medium', 'Semibold', 'Bold'],
+  typeScale: [
+    { name: 'Heading 1', size: '32px / 2rem', weight: 'Medium', lineHeight: '1.5 line height', fontSize: 32 },
+    { name: 'Heading 2', size: '24px / 1.5rem', weight: 'Medium', lineHeight: '1.5 line height', fontSize: 24 },
+    { name: 'Heading 3', size: '20px / 1.25rem', weight: 'Medium', lineHeight: '1.5 line height', fontSize: 20 },
+    { name: 'Heading 4', size: '16px / 1rem', weight: 'Medium', lineHeight: '1.5 line height', fontSize: 16 },
+    { name: 'Body Text', size: '16px / 1rem', weight: 'Regular', lineHeight: '1.5 line height', fontSize: 16 },
+  ],
+};
+
+export const componentsData = {
+  buttonVariants: [
+    { label: 'Primary Button', bg: '#5F21B7', color: '#ffffff' },
+    { label: 'Secondary Button', bg: '#FF6D24', color: '#ffffff' },
+    { label: 'Outline Button', bg: 'transparent', color: '#5F21B7', border: '#5F21B7' },
+    { label: 'Muted Button', bg: '#f5f5f5', color: '#1a1a1a' },
+  ],
+  buttonSizes: [
+    { label: 'Small', height: 28, fontSize: 12, px: 12 },
+    { label: 'Medium', height: 36, fontSize: 14, px: 16 },
+    { label: 'Large', height: 44, fontSize: 16, px: 24 },
+  ],
+  badges: [
+    { label: 'Live Session', bg: '#5F21B7', color: '#ffffff' },
+    { label: 'Workshop', bg: '#FF6D24', color: '#ffffff' },
+    { label: 'Mental Health Screener', bg: '#5F21B7', color: '#ffffff' },
+    { label: 'Survey', bg: '#10b981', color: '#ffffff' },
+    { label: 'Learning Session', bg: '#d4183d', color: '#ffffff' },
+    { label: 'Competition', bg: 'transparent', color: '#737373', border: '#e5e5e5' },
+  ],
+  progressBars: [
+    { label: 'Wellbeing', value: 70, color: '#FF6D24' },
+    { label: 'Completion', value: 85, color: '#FF6D24' },
+    { label: 'Engagement', value: 92, color: '#FF6D24' },
+  ],
+  sampleCards: [
+    {
+      title: 'Morning Mindfulness Session',
+      subtitle: 'Start your day with guided meditation and breathing exercises.',
+      meta: 'Ages 9-12 · 30 min',
+      badge: { label: 'Live Session', bg: '#5F21B7' },
+      iconType: 'calendar' as const,
+    },
+    {
+      title: 'Class 6A Performance',
+      subtitle: 'Grade 6 · 32 students',
+      badge: { label: 'Analytics', bg: '#FF6D24' },
+      iconType: 'chart' as const,
+      progressBar: { label: 'Wellbeing', value: 70, color: '#FF6D24' },
+    },
+  ],
+  navItems: ['Home', 'Planner', 'Analytics', 'Support', 'Safety', 'Self-care', 'Gallery', 'Classroom'],
+};
+
+export const patternsData = {
+  calendarDescription: 'A full-width calendar with color-coded events, filtering capabilities, and quick-add functionality.',
+  classGridDescription: 'Display multiple classes with key metrics in a responsive grid layout.',
+  classCards: [
+    { name: 'Class 6A', grade: 'Grade 6 · 32 students', wellbeing: 70 },
+    { name: 'Class 6B', grade: 'Grade 6 · 31 students', wellbeing: 80 },
+    { name: 'Class 7A', grade: 'Grade 7 · 30 students', wellbeing: 90 },
+  ],
+  spacingScale: [
+    { name: '2xs', rem: '0.25rem', px: 4 },
+    { name: 'xs', rem: '0.5rem', px: 8 },
+    { name: 'sm', rem: '0.75rem', px: 12 },
+    { name: 'md', rem: '1rem', px: 16 },
+    { name: 'lg', rem: '1.5rem', px: 24 },
+    { name: 'xl', rem: '2rem', px: 32 },
+    { name: '2xl', rem: '3rem', px: 48 },
+  ],
+  borderRadii: [
+    { name: 'sm', value: 'calc(0.5rem - 4px)' },
+    { name: 'md', value: 'calc(0.5rem - 2px)' },
+    { name: 'lg', value: '0.5rem' },
+    { name: 'xl', value: 'calc(0.5rem + 4px)' },
+  ],
+};
