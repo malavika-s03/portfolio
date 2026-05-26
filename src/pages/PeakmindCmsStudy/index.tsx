@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards, heroSlides, classroomContent, colorPalette, typographyData, componentsData, patternsData } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
-const BASE_WIDTH = 1144;
-const vw = (px: number) => `${(px / BASE_WIDTH) * 100}vw`;
+export const BASE_WIDTH = 1144;
+export const vw = (px: number) => `${(px / BASE_WIDTH) * 100}vw`;
 
 export function PeakmindCmsStudyPage() {
   useEffect(() => {
@@ -326,7 +326,7 @@ function HeroSection() {
 
 /* ── Hero Slide Cards ─────────────────────────── */
 
-function HeroSlideCard({ index }: { index: number }) {
+export function HeroSlideCard({ index }: { index: number }) {
   switch (index) {
     case 0: return <HeroPlannerCard />;
     case 1: return <HeroClassroomCard />;
@@ -337,7 +337,7 @@ function HeroSlideCard({ index }: { index: number }) {
   }
 }
 
-function HeroPlannerCard() {
+export function HeroPlannerCard() {
   return (
     <img
       src={`${BASE_URL}images/peakmind-cms/planner-mockup.png`}
@@ -354,7 +354,7 @@ function HeroPlannerCard() {
   );
 }
 
-function HeroClassroomCard() {
+export function HeroClassroomCard() {
   return (
     <div
       style={{
@@ -467,7 +467,7 @@ function HeroClassroomCard() {
   );
 }
 
-function HeroGalleryCard() {
+export function HeroGalleryCard() {
   return (
     <div>
       <div style={{ display: 'flex', gap: vw(16), width: vw(515.6) }}>
@@ -565,7 +565,7 @@ function HeroGalleryCard() {
   );
 }
 
-function HeroSafetyCard() {
+export function HeroSafetyCard() {
   return (
     <div
       style={{
@@ -715,7 +715,7 @@ function HeroSafetyCard() {
   );
 }
 
-function HeroAnalyticsCard() {
+export function HeroAnalyticsCard() {
   return (
     <div
       style={{

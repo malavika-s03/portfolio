@@ -16,7 +16,7 @@ export const COLORS = {
   darkButton: '#21263c',
 };
 
-export const introductionText = `Throughout the semester, we have been working on the Yulu app's user experience, starting with identifying the critical gaps in user experience faced by customers through techniques such as affinity mapping, secondary research, and user journey mapping; these allowed us to create a preliminary set of problem statements which we refined later on as we conducted more study and used techniques such as contextual inquiries.`;
+export const introductionText = `This project focused on designing a campaign kit for "SmartReconcile," a fictional AI-powered bank reconciliation feature for Zoho Books. The goal was to create a cohesive set of promotional assets that communicated the feature's benefits such as automatic transaction matching, time savings, and reduced errors through a clean and scalable visual system.`;
 
 export const colorSwatches = [
   { name: 'Primary Blue', hex: '#0c8be8', color: '#0c8be8' },

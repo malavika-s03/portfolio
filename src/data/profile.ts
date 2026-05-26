@@ -12,7 +12,7 @@ export const profile: Profile = {
   email: "malavikasparambumana@gmail.com",
   phone: "+91 9207768108",
   location: "Tokyo",
-  intro: "Hello, I'm a Multane specialist in creating digital experiences. With 10+ years of experience, I bring ideas to life with the right tools, one pixel at a time.",
+  intro: "Hello, I'm a UI/UX designer with a background in urban design, driven by curiosity about how people interact with spaces, systems, and digital experiences. My work focuses on creating intuitive and adaptable interfaces shaped by user behavior, accessibility, and everyday interactions.",
   about: "I collaborate with businesses of all sizes worldwide, using the latest technologies. My designs have also earned multiple awards.",
   philosophy: "I'm dedicated to crafting beautiful and highly functional designs that seamlessly align with my clients' unique needs and long-term goals.",
   available: true,

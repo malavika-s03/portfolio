@@ -902,16 +902,18 @@ function HowThisWorksSection() {
           justifyContent: 'center'
         }}
       >
-        <img
-          src={`${BASE_URL}images/vectorvault/view-prototype-btn.png`}
-          alt="View Prototype"
-          style={{
-            width: vw(243),
-            height: vw(142),
-            imageRendering: 'pixelated',
-            cursor: 'pointer'
-          }}
-        />
+        <a href="https://www.figma.com/proto/zJ9oe4R34H9dibPpHLiug9/SPM_VectorVault?node-id=1-3" target="_blank" rel="noopener noreferrer">
+          <img
+            src={`${BASE_URL}images/vectorvault/view-prototype-btn.png`}
+            alt="View Prototype"
+            style={{
+              width: vw(243),
+              height: vw(142),
+              imageRendering: 'pixelated',
+              cursor: 'pointer'
+            }}
+          />
+        </a>
       </div>
     </motion.section>
   );

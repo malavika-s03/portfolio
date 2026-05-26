@@ -716,7 +716,7 @@ function WireframesSection() {
           <img src={`${IMG}/wireframe-5.png`} alt="Wireframe: streak tracking" className="absolute" style={{ left: vw(334), top: vw(1097), width: vw(216), height: vw(431) }} />
           <img src={`${IMG}/wireframe-6.png`} alt="Wireframe: feature zones" className="absolute" style={{ left: vw(616), top: vw(1097), width: vw(217), height: vw(431) }} />
 
-          <p style={{ ...calloutStyle, left: vw(95), top: vw(1586), width: vw(800) }}>
+          <p style={{ ...calloutStyle, left: vw(48), top: vw(1586), width: vw(800), textAlign: 'center' }}>
             {wireframeCallouts[4]}
           </p>
         </div>

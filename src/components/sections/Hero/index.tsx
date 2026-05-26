@@ -48,7 +48,7 @@ export function Hero() {
 
         <motion.div
           className="absolute"
-          style={{ left: '47.27vw', top: '34.61vw', width: '47.42vw' }}
+          style={{ left: '40.70vw', top: '31.875vw', width: '58.67vw' }}
           initial={heroBioAppear.initial}
           animate={heroBioAppear.animate}
           transition={heroBioAppear.transition}
