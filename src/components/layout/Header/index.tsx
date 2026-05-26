@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/context/ThemeContext';
 import { headerAppear, FRAMER_EASE } from '@/lib/animations';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   const isProjectPage = location.pathname.startsWith('/project/') || location.pathname.startsWith('/work/');
@@ -71,41 +69,32 @@ export function Header() {
               <nav className="text-center">
                 <ul className="space-y-6">
                   {[
-                    { to: '/', label: 'Home' },
-                    { to: '/#projects', label: 'Projects' },
-                    { to: '/#contact', label: 'Contact' },
+                    { href: '#projects', label: 'Projects' },
+                    { href: '#work-experience', label: 'Work Experience' },
+                    { href: '#contact', label: 'Contact' },
                   ].map((item, index) => (
                     <motion.li
-                      key={item.to}
+                      key={item.href}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ delay: index * 0.1, ease: FRAMER_EASE }}
                     >
-                      <Link
-                        to={item.to}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="text-5xl md:text-7xl font-semibold uppercase tracking-tight hover:opacity-50 transition-opacity"
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsMenuOpen(false);
+                          const el = document.querySelector(item.href);
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="text-5xl md:text-7xl font-semibold uppercase tracking-tight hover:opacity-50 transition-opacity cursor-pointer"
                       >
                         {item.label}
-                      </Link>
+                      </a>
                     </motion.li>
                   ))}
                 </ul>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, ease: FRAMER_EASE }}
-                  className="mt-12"
-                >
-                  <button
-                    onClick={toggleTheme}
-                    className="text-sm uppercase tracking-wider opacity-50 hover:opacity-100 transition-opacity"
-                  >
-                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-                  </button>
-                </motion.div>
               </nav>
             </div>
           </motion.div>

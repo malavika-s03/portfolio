@@ -7,7 +7,7 @@ const BASE = import.meta.env.BASE_URL;
 
 export function WorkExperience() {
   return (
-    <section className="w-full">
+    <section id="work-experience" className="w-full">
       {/* White separator */}
       <div className="bg-white w-full" style={{ height: '1.41vw' }} />
 

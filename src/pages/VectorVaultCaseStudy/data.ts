@@ -107,7 +107,7 @@ export const countrySpendData: CountrySpendData[] = [
   { country: 'NETHERLANDS', percentage: 1.5, color: '#1A237E' }
 ];
 
-export const introductionText = `Throughout the semester, we have been working on the Yulu app's user experience, starting with identifying the critical gaps in user experience faced by customers through techniques such as affinity mapping, secondary research, and user journey mapping; these allowed us to create a preliminary set of problem statements`;
+export const introductionText = `VectorVault is a learning platform that helps users learn complex software without constantly switching tabs. Through in-app plugins, it provides step-by-step guidance directly within the software for a smoother learning experience.`;
 
 export interface ArunPersonaDetail {
   shortDescription: string;
