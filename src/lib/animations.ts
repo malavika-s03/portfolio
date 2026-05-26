@@ -67,7 +67,7 @@ export const headerAppear = {
 // About section elements use will-change:transform with scroll triggers
 export const scrollAppear = {
   sectionHeader: {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: '4vw' },
     whileInView: { opacity: 1, y: 0 },
     transition: { duration: 0.8, ease: SCROLL_EASE },
     viewport: { once: true, margin: '0px 0px -30px 0px' as const },

@@ -12,6 +12,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const rafId = useRef<number>(0);
   const location = useLocation();
+  const prevPathname = useRef(location.pathname);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -40,7 +41,25 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (lenisInstance) {
+    if (!lenisInstance) return;
+
+    const prev = prevPathname.current;
+    prevPathname.current = location.pathname;
+
+    if (prev === location.pathname) return;
+
+    if (prev === '/') {
+      sessionStorage.setItem('homeScrollY', String(lenisInstance.scroll));
+    }
+
+    if (location.pathname === '/') {
+      const saved = sessionStorage.getItem('homeScrollY');
+      if (saved !== null) {
+        requestAnimationFrame(() => {
+          lenisInstance.scrollTo(Number(saved), { immediate: true });
+        });
+      }
+    } else {
       lenisInstance.scrollTo(0, { immediate: true });
     }
   }, [location.pathname, lenisInstance]);

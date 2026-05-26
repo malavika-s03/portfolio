@@ -1,9 +1,10 @@
-import { useState, useRef, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data/projects';
 import { scrollAppear, projectSectionAppear, SCROLL_EASE } from '@/lib/animations';
 import { useLenis } from '@/components/shared/SmoothScroll';
+import { useHomeState } from '@/context/HomeStateContext';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -310,7 +311,7 @@ function ViewMoreToggle({ expanded, onToggle }: { expanded: boolean; onToggle: (
 }
 
 export function Projects() {
-  const [expanded, setExpanded] = useState(false);
+  const { projectsExpanded: expanded, setProjectsExpanded: setExpanded } = useHomeState();
   const toggleRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
 
@@ -334,7 +335,7 @@ export function Projects() {
     } else {
       setExpanded(true);
     }
-  }, [expanded, lenis]);
+  }, [expanded, lenis, setExpanded]);
 
   return (
     <section id="projects" className="w-full">
