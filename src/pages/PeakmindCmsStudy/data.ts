@@ -236,6 +236,44 @@ export const safetyFeature = {
   imageIcon: 'feature-safety-icon.svg',
 };
 
+export const heroSlides = [
+  {
+    title: 'Planner',
+    description: 'Plan and manage wellbeing activities across the school',
+    dotColor: '#ff6d24',
+  },
+  {
+    title: 'Classroom',
+    description: 'Prerecorded wellness and wellbeing activities',
+    dotColor: '#d4183d',
+  },
+  {
+    title: 'Gallery',
+    description: 'Curated wellbeing activity documentation',
+    dotColor: '#5f21b7',
+  },
+  {
+    title: 'Safety',
+    description: 'Incident reporting, tracking, and management',
+    dotColor: '#5f21b7',
+  },
+  {
+    title: 'Analytics',
+    description: 'Track student wellbeing and completion metrics',
+    dotColor: '#10b981',
+  },
+];
+
+export const classroomContent = {
+  title: 'Mindful Breathing',
+  subtitle: 'Guided classroom activity for calm and focus',
+  steps: [
+    { number: 1, title: 'Find Your Position', description: 'Sit comfortably with feet flat on the floor' },
+    { number: 2, title: 'Close Your Eyes', description: 'Gently close your eyes or soften your gaze' },
+    { number: 3, title: 'Breathe Deeply', description: 'Inhale for 4, hold for 4, exhale for 4' },
+  ],
+};
+
 export const bottomCards = [
   {
     icon: 'classroom-icon.svg',

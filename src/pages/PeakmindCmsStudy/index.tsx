@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards } from './data';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { COLORS, heroContent, heroGallery, projectOverview, designSystemCards, designSystemTabs, designPrinciples, keyFeatures, userRoles, featureDeepDiveIntro, plannerFeature, analyticsFeature, analyticsMetrics, caseManagementFeature, safetyFeature, incidentReport, bottomCards, heroSlides, classroomContent } from './data';
 
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const BASE_WIDTH = 1144;
@@ -107,6 +107,39 @@ function HeaderSection() {
 /* ── Hero ────────────────────────────────────── */
 
 function HeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const directionRef = useRef(1);
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: `${dir * 18}%`, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: `${dir * -18}%`, opacity: 0 }),
+  };
+
+  const resetTimer = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      directionRef.current = 1;
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+  }, []);
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [resetTimer]);
+
+  const goToSlide = (index: number) => {
+    directionRef.current = index > activeSlide ? 1 : -1;
+    setActiveSlide(index);
+    resetTimer();
+  };
+
+  const slide = heroSlides[activeSlide];
+
   return (
     <section
       style={{
@@ -172,7 +205,7 @@ function HeroSection() {
           {heroContent.subtitle}
         </motion.p>
 
-        {/* Gallery widget at x=556, y=15 within container */}
+        {/* Card slider area */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -182,112 +215,31 @@ function HeroSection() {
             left: vw(556),
             top: vw(15),
             width: vw(515.6),
+            height: vw(310),
           }}
+          onMouseEnter={() => { if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; } }}
+          onMouseLeave={() => resetTimer()}
         >
-          {/* 3 gallery cards row */}
-          <div
-            style={{
-              display: 'flex',
-              gap: vw(16),
-              width: vw(515.6),
-            }}
-          >
-            {heroGallery.items.map((item, idx) => (
-              <div
-                key={idx}
-                style={{
-                  width: vw(161.2),
-                  backgroundColor: COLORS.white,
-                  borderRadius: vw(8),
-                  overflow: 'hidden',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                }}
-              >
-                <img
-                  src={`${BASE_URL}images/peakmind-cms/${item.image}`}
-                  alt={item.title}
-                  style={{
-                    width: vw(159.6),
-                    height: vw(128),
-                    objectFit: 'cover',
-                    display: 'block',
-                    marginLeft: vw(0.8),
-                    marginTop: vw(0.8),
-                  }}
-                />
-                <div style={{ padding: `${vw(12)} ${vw(12)}` }}>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 600,
-                      fontSize: vw(14),
-                      lineHeight: vw(20),
-                      color: COLORS.text,
-                    }}
-                  >
-                    {item.title}
-                  </p>
-                  <p
-                    style={{
-                      margin: 0,
-                      marginTop: vw(4),
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontWeight: 400,
-                      fontSize: vw(12),
-                      lineHeight: vw(16),
-                      color: COLORS.textSecondary,
-                    }}
-                  >
-                    {item.subtitle}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Stats row at y=217.59 within gallery container */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: vw(32),
-              marginTop: vw(24),
-            }}
-          >
-            {heroGallery.stats.map((stat, idx) => (
-              <div key={idx} style={{ textAlign: 'center' }}>
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 700,
-                    fontSize: vw(24),
-                    lineHeight: vw(32),
-                    color: COLORS.purple,
-                  }}
-                >
-                  {stat.value}
-                </p>
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontWeight: 400,
-                    fontSize: vw(12),
-                    lineHeight: vw(16),
-                    color: COLORS.textSecondary,
-                  }}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+          <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: vw(12) }}>
+          <AnimatePresence mode="wait" custom={directionRef.current}>
+            <motion.div
+              key={activeSlide}
+              custom={directionRef.current}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <HeroSlideCard index={activeSlide} />
+            </motion.div>
+          </AnimatePresence>
           </div>
         </motion.div>
       </div>
 
-      {/* Gallery heading below inner container — at page x=567, y=420 within hero section */}
+      {/* Slide title, description, dots */}
       <div
         style={{
           width: vw(515.6),
@@ -295,56 +247,599 @@ function HeroSection() {
           marginTop: vw(40),
           textAlign: 'center',
         }}
+        onMouseEnter={() => { if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; } }}
+        onMouseLeave={() => resetTimer()}
       >
-        <h2
-          style={{
-            margin: 0,
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 700,
-            fontSize: vw(28),
-            lineHeight: vw(36),
-            color: COLORS.text,
-          }}
-        >
-          {heroGallery.heading}
-        </h2>
-        <p
-          style={{
-            margin: 0,
-            marginTop: vw(0),
-            fontFamily: "'DM Sans', sans-serif",
-            fontWeight: 400,
-            fontSize: vw(16),
-            lineHeight: vw(24),
-            color: COLORS.textSecondary,
-          }}
-        >
-          {heroGallery.subtitle}
-        </p>
-        {/* 5 dot navigation */}
+        <div style={{ overflow: 'hidden' }}>
+        <AnimatePresence mode="wait" custom={directionRef.current}>
+          <motion.div
+            key={activeSlide}
+            custom={directionRef.current}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: vw(28),
+                lineHeight: vw(36),
+                color: COLORS.orange,
+              }}
+            >
+              {slide.title}
+            </h2>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(16),
+                lineHeight: vw(24),
+                color: COLORS.textSecondary,
+              }}
+            >
+              {slide.description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+        </div>
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: vw(8),
-            marginTop: vw(0),
+            marginTop: vw(8),
           }}
         >
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              style={{
-                width: i === 2 ? vw(32) : vw(8),
-                height: vw(8),
-                borderRadius: vw(4),
-                backgroundColor: i === 2 ? COLORS.purple : '#d9d9d9',
-              }}
-            />
-          ))}
+          {heroSlides.map((_, i) => {
+            const isActive = i === activeSlide;
+            const isVisited = i < activeSlide;
+            let bgColor = '#d9d9d9';
+            if (isActive) bgColor = slide.dotColor;
+            else if (isVisited) bgColor = heroSlides[i].dotColor;
+            return (
+              <div
+                key={i}
+                onClick={() => goToSlide(i)}
+                style={{
+                  width: isActive ? vw(32) : vw(8),
+                  height: vw(8),
+                  borderRadius: vw(4),
+                  backgroundColor: bgColor,
+                  cursor: 'pointer',
+                  transition: 'width 0.3s ease, background-color 0.3s ease',
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
+  );
+}
+
+/* ── Hero Slide Cards ─────────────────────────── */
+
+function HeroSlideCard({ index }: { index: number }) {
+  switch (index) {
+    case 0: return <HeroPlannerCard />;
+    case 1: return <HeroClassroomCard />;
+    case 2: return <HeroGalleryCard />;
+    case 3: return <HeroSafetyCard />;
+    case 4: return <HeroAnalyticsCard />;
+    default: return null;
+  }
+}
+
+function HeroPlannerCard() {
+  return (
+    <img
+      src={`${BASE_URL}images/peakmind-cms/planner-mockup.png`}
+      alt="Planner calendar view"
+      style={{
+        width: '100%',
+        height: vw(310),
+        objectFit: 'cover',
+        objectPosition: 'top center',
+        borderRadius: vw(12),
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+      }}
+    />
+  );
+}
+
+function HeroClassroomCard() {
+  return (
+    <div
+      style={{
+        width: '100%',
+        backgroundColor: COLORS.white,
+        borderRadius: vw(12),
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          background: 'linear-gradient(135deg, #ff6d24, #ff8f4f)',
+          padding: `${vw(20)} ${vw(24)}`,
+        }}
+      >
+        <h4
+          style={{
+            margin: 0,
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 700,
+            fontSize: vw(18),
+            lineHeight: vw(24),
+            color: COLORS.white,
+          }}
+        >
+          {classroomContent.title}
+        </h4>
+        <p
+          style={{
+            margin: 0,
+            marginTop: vw(4),
+            fontFamily: "'DM Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: vw(14),
+            lineHeight: vw(20),
+            color: 'rgba(255,255,255,0.85)',
+          }}
+        >
+          {classroomContent.subtitle}
+        </p>
+      </div>
+      <div
+        style={{
+          padding: `${vw(20)} ${vw(24)}`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: vw(16),
+        }}
+      >
+        {classroomContent.steps.map((step) => (
+          <div
+            key={step.number}
+            style={{ display: 'flex', alignItems: 'flex-start', gap: vw(12) }}
+          >
+            <div
+              style={{
+                width: vw(28),
+                height: vw(28),
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255,109,36,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: vw(14),
+                  color: COLORS.orange,
+                }}
+              >
+                {step.number}
+              </span>
+            </div>
+            <div>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: vw(14),
+                  lineHeight: vw(20),
+                  color: COLORS.text,
+                }}
+              >
+                {step.title}
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  marginTop: vw(2),
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(12),
+                  lineHeight: vw(16),
+                  color: COLORS.textSecondary,
+                }}
+              >
+                {step.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HeroGalleryCard() {
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: vw(16), width: vw(515.6) }}>
+        {heroGallery.items.map((item, idx) => (
+          <div
+            key={idx}
+            style={{
+              width: vw(161.2),
+              backgroundColor: COLORS.white,
+              borderRadius: vw(8),
+              overflow: 'hidden',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+            }}
+          >
+            <img
+              src={`${BASE_URL}images/peakmind-cms/${item.image}`}
+              alt={item.title}
+              style={{
+                width: vw(159.6),
+                height: vw(128),
+                objectFit: 'cover',
+                display: 'block',
+                marginLeft: vw(0.8),
+                marginTop: vw(0.8),
+              }}
+            />
+            <div style={{ padding: `${vw(12)} ${vw(12)}` }}>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: vw(14),
+                  lineHeight: vw(20),
+                  color: COLORS.text,
+                }}
+              >
+                {item.title}
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  marginTop: vw(4),
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(12),
+                  lineHeight: vw(16),
+                  color: COLORS.textSecondary,
+                }}
+              >
+                {item.subtitle}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: vw(32),
+          marginTop: vw(24),
+        }}
+      >
+        {heroGallery.stats.map((stat, idx) => (
+          <div key={idx} style={{ textAlign: 'center' }}>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: vw(24),
+                lineHeight: vw(32),
+                color: COLORS.purple,
+              }}
+            >
+              {stat.value}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(12),
+                lineHeight: vw(16),
+                color: COLORS.textSecondary,
+              }}
+            >
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HeroSafetyCard() {
+  return (
+    <div
+      style={{
+        width: '100%',
+        backgroundColor: COLORS.white,
+        borderRadius: vw(12),
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: vw(12),
+          paddingTop: vw(20),
+          paddingLeft: vw(20),
+          paddingRight: vw(20),
+        }}
+      >
+        <div
+          style={{
+            width: vw(36),
+            height: vw(36),
+            borderRadius: '50%',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <svg width={vw(18)} height={vw(18)} viewBox="0 0 20 20" fill="none">
+            <path d="M10 2L2 18h16L10 2z" fill="#f59e0b" stroke="#f59e0b" strokeWidth="1.5" strokeLinejoin="round" />
+            <path d="M10 8v4M10 14h.01" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </div>
+        <div>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 700,
+              fontSize: vw(16),
+              lineHeight: vw(24),
+              color: COLORS.text,
+            }}
+          >
+            {incidentReport.title}
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 400,
+              fontSize: vw(12),
+              lineHeight: vw(16),
+              color: COLORS.textSecondary,
+            }}
+          >
+            {incidentReport.subtitle}
+          </p>
+        </div>
+      </div>
+      <div
+        style={{
+          paddingTop: vw(16),
+          paddingLeft: vw(20),
+          paddingRight: vw(20),
+          paddingBottom: vw(20),
+          display: 'flex',
+          flexDirection: 'column',
+          gap: vw(12),
+        }}
+      >
+        {incidentReport.entries.slice(0, 2).map((entry, idx) => (
+          <div
+            key={idx}
+            style={{
+              backgroundColor: COLORS.white,
+              border: `1px solid ${entry.borderColor}`,
+              borderRadius: vw(8),
+              padding: vw(14),
+              boxSizing: 'border-box',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: vw(13),
+                  lineHeight: vw(18),
+                  color: COLORS.text,
+                }}
+              >
+                Incident {entry.id}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 500,
+                  fontSize: vw(11),
+                  lineHeight: vw(14),
+                  color: entry.statusColor,
+                  backgroundColor: entry.statusBg,
+                  paddingLeft: vw(6),
+                  paddingRight: vw(6),
+                  paddingTop: vw(3),
+                  paddingBottom: vw(3),
+                  borderRadius: vw(4),
+                }}
+              >
+                {entry.status}
+              </span>
+            </div>
+            <p
+              style={{
+                margin: 0,
+                marginTop: vw(6),
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(13),
+                lineHeight: vw(18),
+                color: COLORS.text,
+              }}
+            >
+              {entry.description}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                marginTop: vw(6),
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(11),
+                lineHeight: vw(14),
+                color: COLORS.textSecondary,
+              }}
+            >
+              {entry.time}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HeroAnalyticsCard() {
+  return (
+    <div
+      style={{
+        width: '100%',
+        backgroundColor: COLORS.white,
+        borderRadius: vw(12),
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        boxSizing: 'border-box',
+        padding: vw(20),
+      }}
+    >
+      <h4
+        style={{
+          margin: 0,
+          fontFamily: "'DM Sans', sans-serif",
+          fontWeight: 700,
+          fontSize: vw(18),
+          lineHeight: vw(24),
+          color: COLORS.text,
+        }}
+      >
+        {analyticsMetrics.title}
+      </h4>
+      <div style={{ marginTop: vw(16) }}>
+        {analyticsMetrics.bars.map((bar, idx) => (
+          <div key={idx} style={{ marginTop: idx > 0 ? vw(14) : 0 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: vw(13),
+                  lineHeight: vw(18),
+                  color: COLORS.text,
+                }}
+              >
+                {bar.label}
+              </span>
+              <span
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontWeight: 600,
+                  fontSize: vw(13),
+                  lineHeight: vw(18),
+                  color: bar.color,
+                }}
+              >
+                {bar.value}%
+              </span>
+            </div>
+            <div
+              style={{
+                marginTop: vw(4),
+                width: '100%',
+                height: vw(7),
+                backgroundColor: '#f0f0f0',
+                borderRadius: vw(3.5),
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  width: `${bar.value}%`,
+                  height: '100%',
+                  backgroundColor: bar.color,
+                  borderRadius: vw(3.5),
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          marginTop: vw(16),
+          display: 'flex',
+          gap: vw(12),
+        }}
+      >
+        {analyticsMetrics.stats.map((stat, idx) => (
+          <div
+            key={idx}
+            style={{
+              flex: 1,
+              backgroundColor: stat.bg,
+              borderRadius: vw(8),
+              paddingTop: vw(20),
+              paddingBottom: vw(12),
+              paddingLeft: vw(10),
+              paddingRight: vw(10),
+              boxSizing: 'border-box',
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: vw(22),
+                lineHeight: vw(28),
+                color: COLORS.text,
+                textAlign: 'center',
+              }}
+            >
+              {stat.value}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                marginTop: vw(4),
+                fontFamily: "'DM Sans', sans-serif",
+                fontWeight: 400,
+                fontSize: vw(11),
+                lineHeight: vw(14),
+                color: COLORS.textSecondary,
+                textAlign: 'center',
+              }}
+            >
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
