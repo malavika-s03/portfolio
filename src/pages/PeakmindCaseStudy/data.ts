@@ -57,8 +57,13 @@ export const strategyItems: StrategyItem[] = [
   { number: 5, text: 'Wellness integrated with academic life', color: '#7c3aed' },
 ];
 
-export const wireframesFooterText =
-  'The goal was to redesign the Break page into a low-stress, emotionally safe experience that provides quick support, reduces cognitive load, and encourages consistent engagement.';
+export const wireframeCallouts = [
+  'Pop up window when clicking on a new feature, allowing users to explore. Easy exit so that users doesn\'t find it hard to get back to exploring',
+  'Combining leading problem statements with Peakoo for easy access',
+  'Customisable floating for users to put their favourite features to easily access it.',
+  'Clubbing features together into creating zones of similar features for easy understand.',
+  'Streaks combined with mood check-in so that users can track their mood and their streak with a simple emoji selections.',
+];
 
 export interface FeatureCallout {
   title: string;
