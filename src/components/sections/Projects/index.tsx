@@ -1,11 +1,38 @@
+import { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data/projects';
-import { scrollAppear, projectSectionAppear, FRAMER_EASE } from '@/lib/animations';
+import { scrollAppear, projectSectionAppear, SCROLL_EASE } from '@/lib/animations';
+import { useLenis } from '@/components/shared/SmoothScroll';
 
 const BASE = import.meta.env.BASE_URL;
+
+const ACCORDION_DURATION = 0.8;
+
+function bezierEasing(x1: number, y1: number, x2: number, y2: number) {
+  const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+  const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+  const sampleX = (t: number) => ((ax * t + bx) * t + cx) * t;
+  const sampleY = (t: number) => ((ay * t + by) * t + cy) * t;
+  const solveCurveX = (x: number) => {
+    let t = x;
+    for (let i = 0; i < 8; i++) {
+      const dx = sampleX(t) - x;
+      if (Math.abs(dx) < 1e-6) return t;
+      const d = (3 * ax * t + 2 * bx) * t + cx;
+      if (Math.abs(d) < 1e-6) break;
+      t -= dx / d;
+    }
+    return t;
+  };
+  return (x: number) => x <= 0 ? 0 : x >= 1 ? 1 : sampleY(solveCurveX(x));
+}
+
+const accordionEasing = bezierEasing(...SCROLL_EASE);
 const yulu = projects[0];
 const vectorVault = projects[1];
+const zoho = projects[3];
+const district = projects[4];
 
 function DarkProjectsSection() {
   const yuluLink = '/project/yulu';
@@ -136,66 +163,27 @@ function DarkProjectsSection() {
   );
 }
 
-function LightProjectsSection() {
-  const peakmind = projects[2];
-  const zoho = projects[3];
-  const peakmindLink = '/work/peakmind-student';
+function ExpandedProjectsContent() {
   const zohoLink = `/project/${zoho.slug}`;
+  const districtLink = `/project/${district.slug}`;
 
   return (
-    <div className="bg-white w-full relative overflow-hidden" style={{ height: '99.61vw' }}>
-      {/* PEAKMIND title */}
-      <motion.p
-        className="absolute font-medium text-black"
-        style={{ left: '3.98vw', top: '2.5vw', width: '66.48vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
-        {...projectSectionAppear.title}
-      >
-        {peakmind.title}
-      </motion.p>
-
-      {/* PEAKMIND image — negative left, extends past container edge */}
-      <motion.img
-        src={peakmind.thumbnail}
-        alt={peakmind.title}
-        className="absolute"
-        style={{ left: '-4.06vw', top: '8.52vw', width: '58.59vw', height: '39.06vw', maxWidth: 'none' }}
-        loading="lazy"
-        {...projectSectionAppear.image}
-      />
-
-      {/* PEAKMIND description */}
-      <motion.p
-        className="absolute font-normal text-black"
-        style={{ left: '55.31vw', top: '15.94vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
-        {...projectSectionAppear.text}
-      >
-        {peakmind.description}
-      </motion.p>
-
-      {/* PEAKMIND button */}
-      <motion.div className="absolute" style={{ left: '55.31vw', top: '27.19vw' }} {...projectSectionAppear.button}>
-        <Link
-          to={peakmindLink}
-          className="inline-flex items-center justify-center rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
-          style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw', backgroundColor: '#000000', color: '#ffffff' }}
-        >
-          VIew Project →
-        </Link>
-      </motion.div>
+    <div className="relative w-full" style={{ height: '92vw' }}>
+      {/* ── ZOHO CARD (image LEFT, text RIGHT — matching Yulu pattern) ── */}
 
       {/* ZOHO title */}
       <motion.p
-        className="absolute font-medium text-black"
-        style={{ left: '51.48vw', top: '46.25vw', width: '66.48vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
+        className="absolute font-medium text-[#fffefe]"
+        style={{ left: '3.98vw', top: '2.5vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw', width: '66.48vw' }}
         {...projectSectionAppear.title}
       >
         {zoho.title}
       </motion.p>
 
-      {/* ZOHO "Smart Reconcile" text */}
+      {/* Smart Reconcile overlay text */}
       <motion.p
         className="absolute font-black text-center"
-        style={{ left: '51.72vw', top: '55.47vw', width: '38.52vw', height: '11.48vw', fontSize: '1.875vw', lineHeight: '2.11vw', color: '#006fda' }}
+        style={{ left: '3.98vw', top: '13.19vw', width: '44.45vw', fontSize: '1.875vw', lineHeight: '2.11vw', color: '#dbbe27' }}
         {...projectSectionAppear.text}
       >
         {zoho.overlayText}
@@ -206,93 +194,185 @@ function LightProjectsSection() {
         src={zoho.thumbnail}
         alt={zoho.title}
         className="absolute"
-        style={{ left: '46.64vw', top: '60.55vw', width: '48.67vw', height: '21.72vw', maxWidth: 'none' }}
+        style={{ left: '3.98vw', top: '17.83vw', width: '44.45vw', height: '19.84vw', maxWidth: 'none' }}
         loading="lazy"
         {...projectSectionAppear.image}
       />
 
       {/* ZOHO description */}
       <motion.p
-        className="absolute font-normal text-black"
-        style={{ left: '6.88vw', top: '59.77vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
+        className="absolute font-normal text-[#fffbfb]"
+        style={{ left: '55.31vw', top: '12.03vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
         {...projectSectionAppear.text}
       >
         {zoho.description}
       </motion.p>
 
       {/* ZOHO button */}
-      <motion.div className="absolute" style={{ left: '6.88vw', top: '71.02vw' }} {...projectSectionAppear.button}>
+      <motion.div className="absolute" style={{ left: '55.31vw', top: '31.09vw' }} {...projectSectionAppear.button}>
         <Link
           to={zohoLink}
-          className="inline-flex items-center justify-center rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
-          style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw', backgroundColor: '#000000', color: '#ffffff' }}
+          className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
+          style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw' }}
         >
           VIew Project →
         </Link>
       </motion.div>
 
-      {/* View More Projects CTA — large rounded gradient, clipped at bottom by section overflow:hidden */}
-      <motion.div
-        className="absolute"
-        style={{
-          left: '-2.66vw',
-          top: '77.34vw',
-          width: '105.31vw',
-          height: '30.63vw',
-          background: 'linear-gradient(180deg, #ffffff 0%, #c8c8c9 100%)',
-          borderRadius: '1.25vw',
-        }}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: FRAMER_EASE }}
-        viewport={{ once: true }}
+      {/* ── DISTRICT CARD (text LEFT, image RIGHT — matching VV pattern) ── */}
+
+      {/* DISTRICT title */}
+      <motion.p
+        className="absolute font-medium text-[#fffefe]"
+        style={{ left: '50.08vw', top: '46.25vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
+        {...projectSectionAppear.title}
       >
-        <div
-          className="absolute flex flex-col items-center"
-          style={{ left: '50%', transform: 'translateX(-50%)', top: '9.92vw' }}
+        {district.title}
+      </motion.p>
+
+      {/* DISTRICT image */}
+      <motion.img
+        src={district.thumbnail}
+        alt={district.title}
+        className="absolute object-cover"
+        style={{ left: '50.70vw', top: '55.63vw', width: '42.73vw', height: '33.44vw', maxWidth: 'none', borderRadius: '0.78vw' }}
+        loading="lazy"
+        {...projectSectionAppear.image}
+      />
+
+      {/* DISTRICT description */}
+      <motion.p
+        className="absolute font-normal text-[#fffbfb]"
+        style={{ left: '6.88vw', top: '59.77vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
+        {...projectSectionAppear.text}
+      >
+        {district.description}
+      </motion.p>
+
+      {/* DISTRICT button */}
+      <motion.div className="absolute" style={{ left: '6.88vw', top: '78.05vw' }} {...projectSectionAppear.button}>
+        <Link
+          to={districtLink}
+          className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
+          style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw' }}
         >
-          <button
-            className="rounded-full flex items-center justify-center hover:bg-black hover:text-white transition group"
-            style={{ width: '4.38vw', height: '4.38vw', borderWidth: '0.125vw', borderStyle: 'solid', borderColor: '#000000', background: 'transparent' }}
-            aria-label="View more projects"
-          >
-            <svg style={{ width: '1.56vw', height: '1.56vw' }} viewBox="0 0 20 20" fill="none" className="text-current">
-              <path d="M10 4v12M16 10l-6 6-6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <span
-            className="font-normal whitespace-nowrap"
-            style={{ fontSize: '0.94vw', lineHeight: '1.25vw', letterSpacing: '0.023vw', marginTop: '1.25vw', color: '#0a0a0a' }}
-          >
-            View more projects
-          </span>
-        </div>
+          VIew Project →
+        </Link>
       </motion.div>
     </div>
   );
 }
 
+function ViewMoreToggle({ expanded, onToggle }: { expanded: boolean; onToggle: () => void }) {
+  return (
+    <div
+      className="bg-black w-full flex flex-col items-center"
+      style={{ padding: '3vw 0 4vw' }}
+    >
+      <button
+        onClick={onToggle}
+        className="rounded-full flex items-center justify-center transition group"
+        style={{
+          width: '4.38vw',
+          height: '4.38vw',
+          borderWidth: '0.125vw',
+          borderStyle: 'solid',
+          borderColor: '#ffffff',
+          background: 'transparent',
+        }}
+        aria-label={expanded ? 'Show fewer projects' : 'View more projects'}
+      >
+        <motion.svg
+          style={{ width: '1.56vw', height: '1.56vw' }}
+          viewBox="0 0 20 20"
+          fill="none"
+          className="text-white"
+          animate={{ rotate: expanded ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <path d="M10 4v12M16 10l-6 6-6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </motion.svg>
+      </button>
+      <span
+        className="font-normal whitespace-nowrap"
+        style={{
+          fontSize: '0.94vw',
+          lineHeight: '1.25vw',
+          letterSpacing: '0.023vw',
+          marginTop: '1.25vw',
+          color: '#ffffff',
+        }}
+      >
+        {expanded ? 'see less' : 'View more projects'}
+      </span>
+    </div>
+  );
+}
+
 export function Projects() {
+  const [expanded, setExpanded] = useState(false);
+  const toggleRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
+
+  const handleToggle = useCallback(() => {
+    if (expanded) {
+      if (lenis && toggleRef.current) {
+        const rect = toggleRef.current.getBoundingClientRect();
+        const toggleAbsTop = rect.top + window.scrollY;
+        const expandedHeight = window.innerWidth * 0.92;
+        const toggleFinalTop = toggleAbsTop - expandedHeight;
+        const centerOffset = (window.innerHeight - rect.height) / 2;
+
+        setExpanded(false);
+        lenis.scrollTo(Math.max(0, toggleFinalTop - centerOffset), {
+          duration: ACCORDION_DURATION,
+          easing: accordionEasing,
+        });
+      } else {
+        setExpanded(false);
+      }
+    } else {
+      setExpanded(true);
+    }
+  }, [expanded, lenis]);
+
   return (
     <section id="projects" className="w-full">
-      {/* PROJECTS header — white bg */}
-      <div className="bg-white w-full">
-        <div style={{ padding: '1.17vw 3.98vw' }}>
-          <motion.h2
-            className="font-medium tracking-[-0.014em] text-[#0a0a0a]"
-            style={{ fontSize: '4.30vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
-            {...scrollAppear.sectionHeader}
-          >
-            PROJECTS
-          </motion.h2>
-        </div>
+      {/* PROJECTS header — white bg, same pattern as Work Experience bar but inverted */}
+      <div className="bg-white w-full relative overflow-hidden" style={{ height: '7.5vw' }}>
+        <motion.h2
+          className="absolute font-medium text-[#0a0a0a]"
+          style={{ left: '3.98vw', top: '-0.625vw', fontSize: '4.30vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', margin: 0 }}
+          {...scrollAppear.sectionHeader}
+        >
+          PROJECTS
+        </motion.h2>
       </div>
 
-      {/* Dark section — Yulu + Vector Vault (absolute positioning from Figma) */}
-      <DarkProjectsSection />
+      {/* Single bg-black wrapper eliminates sub-pixel gaps between sections */}
+      <div className="bg-black">
+        <DarkProjectsSection />
 
-      {/* Light section — Peakmind + Zoho (absolute positioning from Figma) */}
-      <LightProjectsSection />
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              key="expanded-projects"
+              className="w-full overflow-hidden"
+              style={{ willChange: 'height' }}
+              initial={{ height: 0 }}
+              animate={{ height: '92vw' }}
+              exit={{ height: 0 }}
+              transition={{ duration: ACCORDION_DURATION, ease: SCROLL_EASE }}
+            >
+              <ExpandedProjectsContent />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div ref={toggleRef}>
+          <ViewMoreToggle expanded={expanded} onToggle={handleToggle} />
+        </div>
+      </div>
     </section>
   );
 }

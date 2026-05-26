@@ -1,19 +1,22 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useRef, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 
-interface SmoothScrollProps {
-  children: ReactNode;
+const LenisContext = createContext<Lenis | null>(null);
+
+export function useLenis() {
+  return useContext(LenisContext);
 }
 
-export function SmoothScroll({ children }: SmoothScrollProps) {
-  const lenisRef = useRef<Lenis | null>(null);
+export function SmoothScroll({ children }: { children: ReactNode }) {
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+  const rafId = useRef<number>(0);
   const location = useLocation();
 
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
@@ -21,28 +24,32 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       touchMultiplier: 2,
     });
 
-    lenisRef.current = lenis;
+    setLenisInstance(lenis);
 
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId.current = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
+    rafId.current = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId.current);
       lenis.destroy();
-      lenisRef.current = null;
+      setLenisInstance(null);
     };
   }, []);
 
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
+    if (lenisInstance) {
+      lenisInstance.scrollTo(0, { immediate: true });
     }
-  }, [location.pathname]);
+  }, [location.pathname, lenisInstance]);
 
-  return <>{children}</>;
+  return (
+    <LenisContext.Provider value={lenisInstance}>
+      {children}
+    </LenisContext.Provider>
+  );
 }
 
 export default SmoothScroll;
