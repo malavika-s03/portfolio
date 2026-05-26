@@ -1,5 +1,5 @@
 export const COLORS = {
-  pageBg: '#f0f2f5',
+  pageBg: '#f6f7f9',
   white: '#ffffff',
   blueBg: '#4B9CD3',
   titleYellow: '#f4ba32',
