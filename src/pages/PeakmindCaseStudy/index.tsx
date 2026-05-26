@@ -890,16 +890,16 @@ function KeyImprovementsSection() {
 function FinalExperienceSection() {
   const calloutColors = [COLORS.orange, COLORS.purple, COLORS.orange];
   const calloutPositions = [
-    { left: 26, top: 181, width: 286, height: 235, descTop: 80 },
-    { left: 786, top: 370, width: 284, height: 258, descTop: 80 },
-    { left: 38, top: 678, width: 284, height: 264, descTop: 128 },
+    { left: 26, top: 121, width: 286, height: 235, descTop: 80 },
+    { left: 786, top: 310, width: 284, height: 258, descTop: 80 },
+    { left: 38, top: 618, width: 284, height: 264, descTop: 128 },
   ];
   const descWidths = [244, 233, 238];
 
   return (
     <section className="relative w-full" style={{ ...notebookBg() }}>
-      <div className="relative mx-auto" style={{ width: vw(1144), height: vw(1057) }}>
-        <div className="absolute" style={{ left: vw(24), top: vw(61), width: vw(1096), height: vw(949) }}>
+      <div className="relative mx-auto" style={{ width: vw(1144), height: vw(997) }}>
+        <div className="absolute" style={{ left: vw(24), top: vw(61), width: vw(1096), height: vw(889) }}>
           <h2
             className="absolute"
             style={{
@@ -918,7 +918,7 @@ function FinalExperienceSection() {
             Final Experience
           </h2>
 
-          <img src={`${IMG}/final-phone.png`} alt="Final PeakMind break page design" className="absolute" style={{ left: vw(368), top: vw(181), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/final-phone.png`} alt="Final PeakMind break page design" className="absolute" style={{ left: vw(368), top: vw(121), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
 
           {finalExperienceCallouts.map((callout, i) => (
             <div
