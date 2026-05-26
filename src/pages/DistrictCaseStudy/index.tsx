@@ -280,6 +280,7 @@ function PhoneMockup({
         <img
           src={imageSrc}
           alt=""
+          decoding="async"
           style={{
             width: '100%',
             height: '100%',
@@ -1341,6 +1342,7 @@ function AddressingConstraintSection() {
       <img
         src={`${BASE_URL}images/district/addressing-constraint.png`}
         alt="Social media posts showing user frustration with competitor ticket booking"
+        decoding="async"
         style={{
           width: '100%',
           maxWidth: vw(1132),

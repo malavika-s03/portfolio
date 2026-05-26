@@ -11,6 +11,7 @@ const GreenArrowBullet = () => (
   <img
     src={`${BASE_URL}images/vectorvault/arrow_grreen.png`}
     alt=""
+    decoding="async"
     style={{
       width: vw(13),
       height: vw(13),
@@ -26,6 +27,7 @@ const WhiteArrowBullet = () => (
   <img
     src={`${BASE_URL}images/vectorvault/arrow_white.png`}
     alt=""
+    decoding="async"
     style={{
       width: vw(13),
       height: vw(13),
@@ -87,6 +89,7 @@ const PixelArtHeading = ({ text, marginBottom = '0' }: { text: string; marginBot
       <img
         src={`${BASE_URL}images/vectorvault/${imageData.path}`}
         alt={text}
+        decoding="async"
         style={{
           ...sizeStyle,
           marginBottom,
@@ -181,6 +184,7 @@ function HeroAndIntroSection() {
       <motion.img
         src={`${BASE_URL}images/vectorvault/hero-illustration.png`}
         alt="VectorVault Hero"
+        decoding="async"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -198,6 +202,7 @@ function HeroAndIntroSection() {
       <motion.img
         src={`${BASE_URL}images/vectorvault/vault-icon.png`}
         alt="Vault Icon"
+        decoding="async"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -215,6 +220,7 @@ function HeroAndIntroSection() {
       <motion.img
         src={`${BASE_URL}images/vectorvault/headings/vectorvault-title.png`}
         alt="VECTORVAULT"
+        decoding="async"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -323,6 +329,7 @@ function WhyVectorVaultSection() {
       <img
         src={`${BASE_URL}images/vectorvault/youtube-screenshot.png`}
         alt="YouTube tutorial search screenshot"
+        decoding="async"
         style={{
           position: 'absolute',
           left: vw(640),
@@ -401,6 +408,7 @@ function SoftwareProvidersSection() {
       <img
         src={`${BASE_URL}images/vectorvault/software-providers-pie.png`}
         alt="Software Providers Market Share"
+        decoding="async"
         style={{
           position: 'absolute',
           left: vw(570),
@@ -442,6 +450,7 @@ function CreativeSoftwareSpendSection() {
       <img
         src={`${BASE_URL}images/vectorvault/creative-software-spend.png`}
         alt="Creative Software Spend by Country"
+        decoding="async"
         style={{
           position: 'absolute',
           left: vw(2),
@@ -650,6 +659,7 @@ function UserPersonasSection() {
               <img
                 src={persona.imgUrl}
                 alt={persona.name}
+                decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -662,6 +672,7 @@ function UserPersonasSection() {
             <img
               src={`${BASE_URL}images/vectorvault/health-bar.png`}
               alt="Health"
+              decoding="async"
               style={{
                 position: 'absolute',
                 left: vw(persona.healthBarX),
@@ -787,6 +798,7 @@ function DetailedPersonaCard() {
             <img
               src={`${BASE_URL}images/vectorvault/personas/arun-profile.png`}
               alt="ARUN"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
@@ -794,6 +806,7 @@ function DetailedPersonaCard() {
             <img
               src={`${BASE_URL}images/vectorvault/health-bar.png`}
               alt="Health"
+              decoding="async"
               style={{
                 width: vw(96),
                 height: vw(29),
@@ -884,6 +897,7 @@ function HowThisWorksSection() {
       <img
         src={`${BASE_URL}images/vectorvault/how-this-works-cityscape.png`}
         alt="VectorVault Isometric Cityscape"
+        decoding="async"
         style={{
           width: vw(963),
           height: vw(607),
@@ -906,6 +920,7 @@ function HowThisWorksSection() {
           <img
             src={`${BASE_URL}images/vectorvault/view-prototype-btn.png`}
             alt="View Prototype"
+            decoding="async"
             style={{
               width: vw(243),
               height: vw(142),
@@ -939,6 +954,7 @@ function GameOverFooter() {
       <img
         src={`${BASE_URL}images/vectorvault/headings/game-over.png`}
         alt="GAME OVER"
+        decoding="async"
         style={{
           height: vw(58),
           width: 'auto',
@@ -973,6 +989,7 @@ function GameOverFooter() {
         <img
           src={`${BASE_URL}images/vectorvault/footer_landscape.png`}
           alt="Pixel art landscape with treasure chest"
+          decoding="async"
           style={{
             width: '100%',
             height: '100%',

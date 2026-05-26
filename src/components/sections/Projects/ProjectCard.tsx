@@ -45,6 +45,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
             src={project.thumbnail}
             alt={project.title}
             loading="lazy"
+            decoding="async"
             className="w-full h-auto object-cover"
             style={project.slug === 'yulu' ? { maxHeight: '31.56vw' } : project.slug === 'peakmind-student' ? { maxHeight: '39.06vw' } : undefined}
           />
@@ -58,6 +59,7 @@ export function ProjectCard({ project, index, variant }: ProjectCardProps) {
                 src={src}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 className="absolute object-contain"
                 style={pos}
                 {...animProps}

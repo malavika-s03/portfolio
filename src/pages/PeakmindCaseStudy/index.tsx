@@ -241,8 +241,8 @@ function HeroSection() {
         >
           4 → 7 messages per session
         </span>
-        <img src={`${IMG}/hero-before.png`} alt="Before — original PeakMind home screen" style={{ position: 'absolute', left: 0, top: vw(117), width: vw(360), height: vw(769), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
-        <img src={`${IMG}/hero-after.png`} alt="After — redesigned PeakMind home screen" style={{ position: 'absolute', left: vw(551), top: vw(115), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+        <img src={`${IMG}/hero-before.png`} alt="Before — original PeakMind home screen" decoding="async" style={{ position: 'absolute', left: 0, top: vw(117), width: vw(360), height: vw(769), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+        <img src={`${IMG}/hero-after.png`} alt="After — redesigned PeakMind home screen" decoding="async" style={{ position: 'absolute', left: vw(551), top: vw(115), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
       </motion.div>
     </section>
   );
@@ -694,17 +694,17 @@ function WireframesSection() {
             borderRadius: vw(16),
           }}
         >
-          <img src={`${IMG}/wireframe-1.png`} alt="Wireframe: pop-up feature exploration" className="absolute" style={{ left: vw(48), top: vw(48), width: vw(223), height: vw(459) }} />
+          <img src={`${IMG}/wireframe-1.png`} alt="Wireframe: pop-up feature exploration" decoding="async" className="absolute" style={{ left: vw(48), top: vw(48), width: vw(223), height: vw(459) }} />
           <p style={{ ...calloutStyle, left: vw(288), top: vw(54), width: vw(307) }}>
             {wireframeCallouts[0]}
           </p>
-          <img src={`${IMG}/wireframe-2.png`} alt="Wireframe: problem statements with Peakoo" className="absolute" style={{ left: vw(624), top: vw(48), width: vw(223), height: vw(458) }} />
+          <img src={`${IMG}/wireframe-2.png`} alt="Wireframe: problem statements with Peakoo" decoding="async" className="absolute" style={{ left: vw(624), top: vw(48), width: vw(223), height: vw(458) }} />
 
           <p style={{ ...calloutStyle, left: vw(386), top: vw(327), width: vw(260) }}>
             {wireframeCallouts[1]}
           </p>
 
-          <img src={`${IMG}/wireframe-3.png`} alt="Wireframe: customisable floating features" className="absolute" style={{ left: vw(46), top: vw(559), width: vw(450), height: vw(460) }} />
+          <img src={`${IMG}/wireframe-3.png`} alt="Wireframe: customisable floating features" decoding="async" className="absolute" style={{ left: vw(46), top: vw(559), width: vw(450), height: vw(460) }} />
           <p style={{ ...calloutStyle, left: vw(540), top: vw(575), width: vw(307) }}>
             {wireframeCallouts[2]}
           </p>
@@ -712,9 +712,9 @@ function WireframesSection() {
             {wireframeCallouts[3]}
           </p>
 
-          <img src={`${IMG}/wireframe-4.png`} alt="Wireframe: mood tracking" className="absolute" style={{ left: vw(48), top: vw(1097), width: vw(216), height: vw(437) }} />
-          <img src={`${IMG}/wireframe-5.png`} alt="Wireframe: streak tracking" className="absolute" style={{ left: vw(334), top: vw(1097), width: vw(216), height: vw(431) }} />
-          <img src={`${IMG}/wireframe-6.png`} alt="Wireframe: feature zones" className="absolute" style={{ left: vw(616), top: vw(1097), width: vw(217), height: vw(431) }} />
+          <img src={`${IMG}/wireframe-4.png`} alt="Wireframe: mood tracking" decoding="async" className="absolute" style={{ left: vw(48), top: vw(1097), width: vw(216), height: vw(437) }} />
+          <img src={`${IMG}/wireframe-5.png`} alt="Wireframe: streak tracking" decoding="async" className="absolute" style={{ left: vw(334), top: vw(1097), width: vw(216), height: vw(431) }} />
+          <img src={`${IMG}/wireframe-6.png`} alt="Wireframe: feature zones" decoding="async" className="absolute" style={{ left: vw(616), top: vw(1097), width: vw(217), height: vw(431) }} />
 
           <p style={{ ...calloutStyle, left: vw(48), top: vw(1586), width: vw(800), textAlign: 'center' }}>
             {wireframeCallouts[4]}
@@ -833,8 +833,8 @@ function KeyImprovementsSection() {
           >
             Leading question prompts and a friendly AI companion reduce the pressure of expressing emotional concerns and guide students toward relevant support. Strategic improvements increased engagement from 4 messages per session to 7 messages per session.
           </p>
-          <img src={`${IMG}/key-imp-phone-1.png`} alt="Peakoo AI conversation screen" style={{ position: 'absolute', left: vw(66), top: vw(305), width: vw(360), height: vw(458), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
-          <img src={`${IMG}/key-imp-phone-2.png`} alt="Peakoo AI response screen" style={{ position: 'absolute', left: vw(485), top: vw(305), width: vw(360), height: vw(458), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/key-imp-phone-1.png`} alt="Peakoo AI conversation screen" decoding="async" style={{ position: 'absolute', left: vw(66), top: vw(305), width: vw(360), height: vw(458), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/key-imp-phone-2.png`} alt="Peakoo AI response screen" decoding="async" style={{ position: 'absolute', left: vw(485), top: vw(305), width: vw(360), height: vw(458), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
         </div>
 
         <div
@@ -879,8 +879,8 @@ function KeyImprovementsSection() {
           >
             A simple emoji-based check-in helps students quickly express emotions while building consistent self-awareness through streaks and rewards. Users can now track their mood throughout the week or month, creating accountability and patterns recognition.
           </p>
-          <img src={`${IMG}/key-imp-phone-3.png`} alt="Mood streak tracking screen" style={{ position: 'absolute', left: vw(55), top: vw(112), width: vw(360), height: vw(626), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
-          <img src={`${IMG}/key-imp-phone-4.png`} alt="Mood emoji check-in screen" style={{ position: 'absolute', left: vw(532), top: vw(316), width: vw(360), height: vw(434), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/key-imp-phone-3.png`} alt="Mood streak tracking screen" decoding="async" style={{ position: 'absolute', left: vw(55), top: vw(112), width: vw(360), height: vw(626), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/key-imp-phone-4.png`} alt="Mood emoji check-in screen" decoding="async" style={{ position: 'absolute', left: vw(532), top: vw(316), width: vw(360), height: vw(434), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
         </div>
       </div>
     </section>
@@ -918,7 +918,7 @@ function FinalExperienceSection() {
             Final Experience
           </h2>
 
-          <img src={`${IMG}/final-phone.png`} alt="Final PeakMind break page design" className="absolute" style={{ left: vw(368), top: vw(121), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
+          <img src={`${IMG}/final-phone.png`} alt="Final PeakMind break page design" decoding="async" className="absolute" style={{ left: vw(368), top: vw(121), width: vw(360), height: vw(768), clipPath: `inset(${vw(3)} round ${vw(30)})` }} />
 
           {finalExperienceCallouts.map((callout, i) => (
             <div
