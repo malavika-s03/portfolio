@@ -122,7 +122,7 @@ function HeroSection() {
     intervalRef.current = setInterval(() => {
       directionRef.current = 1;
       setActiveSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+    }, 3000);
   }, []);
 
   useEffect(() => {
@@ -3213,56 +3213,27 @@ function FeatureDeepDiveSection() {
               </div>
             </div>
 
-            {/* Right side: Case Management card at x=572 */}
+            {/* Right side: Case Management screenshot at x=731, y=18.6, w=297, h=397 */}
             <div
               style={{
                 position: 'absolute',
-                left: vw(572),
-                top: 0,
-                width: vw(524),
-                height: vw(408),
-                backgroundColor: '#fafafa',
-                border: '0.8px solid #e5e5e5',
-                borderRadius: vw(8),
-                padding: vw(24.8),
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+                left: vw(731),
+                top: vw(18.6),
+                width: vw(297),
+                height: vw(397),
               }}
             >
-              <div
+              <img
+                src={`${BASE_URL}images/peakmind-cms/case-mgmt-mockup.png`}
+                alt="Case management mobile view"
                 style={{
                   width: '100%',
-                  height: vw(266.85),
-                  backgroundColor: '#f0e7fc',
-                  borderRadius: vw(8),
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  height: '100%',
+                  objectFit: 'contain',
+                  borderRadius: vw(12),
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
                 }}
-              >
-                <img
-                  src={`${BASE_URL}images/peakmind-cms/${caseManagementFeature.imageIcon}`}
-                  alt=""
-                  style={{ width: vw(64), height: vw(64) }}
-                />
-              </div>
-              <p
-                style={{
-                  margin: 0,
-                  marginTop: vw(16),
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 400,
-                  fontSize: vw(14),
-                  lineHeight: vw(20),
-                  color: '#737373',
-                  textAlign: 'center',
-                }}
-              >
-                {caseManagementFeature.imageLabel}
-              </p>
+              />
             </div>
           </div>
 
@@ -3279,9 +3250,9 @@ function FeatureDeepDiveSection() {
               style={{
                 position: 'absolute',
                 left: 0,
-                top: vw(0),
+                top: 0,
                 width: vw(512),
-                backgroundColor: COLORS.white,
+                backgroundColor: '#ffffff',
                 borderRadius: vw(12),
                 boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
                 boxSizing: 'border-box',
@@ -3307,6 +3278,7 @@ function FeatureDeepDiveSection() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    flexShrink: 0,
                   }}
                 >
                   <svg width={vw(20)} height={vw(20)} viewBox="0 0 20 20" fill="none">
@@ -3322,7 +3294,7 @@ function FeatureDeepDiveSection() {
                       fontWeight: 700,
                       fontSize: vw(18),
                       lineHeight: vw(28),
-                      color: COLORS.text,
+                      color: '#1a1a1a',
                     }}
                   >
                     {incidentReport.title}
@@ -3334,7 +3306,7 @@ function FeatureDeepDiveSection() {
                       fontWeight: 400,
                       fontSize: vw(14),
                       lineHeight: vw(20),
-                      color: COLORS.textSecondary,
+                      color: '#737373',
                     }}
                   >
                     {incidentReport.subtitle}
@@ -3358,7 +3330,7 @@ function FeatureDeepDiveSection() {
                   <div
                     key={idx}
                     style={{
-                      backgroundColor: COLORS.white,
+                      backgroundColor: entry.statusBg,
                       border: `1px solid ${entry.borderColor}`,
                       borderRadius: vw(8),
                       padding: vw(16.8),
@@ -3372,7 +3344,7 @@ function FeatureDeepDiveSection() {
                           fontWeight: 600,
                           fontSize: vw(14),
                           lineHeight: vw(20),
-                          color: COLORS.text,
+                          color: '#1a1a1a',
                         }}
                       >
                         Incident {entry.id}
@@ -3384,7 +3356,7 @@ function FeatureDeepDiveSection() {
                           fontSize: vw(12),
                           lineHeight: vw(16),
                           color: entry.statusColor,
-                          backgroundColor: entry.statusBg,
+                          backgroundColor: 'rgba(255,255,255,0.7)',
                           paddingLeft: vw(8),
                           paddingRight: vw(8),
                           paddingTop: vw(4),
@@ -3403,7 +3375,7 @@ function FeatureDeepDiveSection() {
                         fontWeight: 400,
                         fontSize: vw(14),
                         lineHeight: vw(20),
-                        color: COLORS.text,
+                        color: '#1a1a1a',
                       }}
                     >
                       {entry.description}
@@ -3416,7 +3388,7 @@ function FeatureDeepDiveSection() {
                         fontWeight: 400,
                         fontSize: vw(12),
                         lineHeight: vw(16),
-                        color: COLORS.textSecondary,
+                        color: '#737373',
                       }}
                     >
                       {entry.time}
