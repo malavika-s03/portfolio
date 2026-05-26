@@ -1751,7 +1751,7 @@ function TabTypographyContent() {
           style={{
             marginTop: vw(24),
             background: '#ffffff',
-            border: `${vw(0.8)} solid #e5e5e5`,
+            border: '0.8px solid #e5e5e5',
             borderRadius: vw(8),
             padding: vw(32),
           }}
@@ -1817,7 +1817,7 @@ function TabTypographyContent() {
               key={item.name}
               style={{
                 background: '#fafafa',
-                border: `${vw(0.8)} solid #e5e5e5`,
+                border: '0.8px solid #e5e5e5',
                 borderRadius: vw(8),
                 padding: vw(24),
               }}
