@@ -338,19 +338,22 @@ export function Projects() {
 
   return (
     <section id="projects" className="w-full">
-      {/* PROJECTS header — white bg, same pattern as Work Experience bar but inverted */}
-      <div className="bg-white w-full relative overflow-hidden" style={{ height: '7.5vw' }}>
-        <motion.h2
-          className="absolute font-medium text-[#0a0a0a]"
-          style={{ left: '3.98vw', top: '-0.625vw', fontSize: '4.30vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', margin: 0 }}
-          {...scrollAppear.sectionHeader}
-        >
-          PROJECTS
-        </motion.h2>
-      </div>
-
       {/* Single bg-black wrapper eliminates sub-pixel gaps between sections */}
       <div className="bg-black">
+        {/* PROJECTS header with underline */}
+        <div className="w-full relative overflow-hidden" style={{ height: '13.83vw' }}>
+          <motion.h2
+            className="absolute font-medium text-white"
+            style={{ left: '3.98vw', top: '0.55vw', fontSize: '5.86vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', margin: 0 }}
+            {...scrollAppear.sectionHeader}
+          >
+            PROJECTS
+          </motion.h2>
+          <div
+            className="absolute bg-white"
+            style={{ left: '4.06vw', top: '9.77vw', width: '89.92vw', height: '1px' }}
+          />
+        </div>
         <DarkProjectsSection />
 
         <AnimatePresence initial={false}>

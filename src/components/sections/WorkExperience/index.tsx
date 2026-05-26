@@ -1,30 +1,29 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projectSectionAppear, scrollAppear } from '@/lib/animations';
+import { CmsSlider } from '@/components/shared/CmsSlider';
 
 const BASE = import.meta.env.BASE_URL;
-
-const galleryCards = [
-  { image: 'gallery-gratitude.png', title: 'Gratitude Wall', subtitle: 'Year 5 Project' },
-  { image: 'gallery-kindness.png', title: 'Kindness Week', subtitle: 'School-wide' },
-  { image: 'gallery-mindfulness.png', title: 'Mindfulness Art', subtitle: 'Year 3 Activity' },
-];
 
 export function WorkExperience() {
   return (
     <section className="w-full">
-      {/* White separator bar — inverted pattern: mirrors InfoBar above PROJECTS */}
-      <div className="bg-white w-full" style={{ height: '2.19vw' }} />
+      {/* White separator */}
+      <div className="bg-white w-full" style={{ height: '1.41vw' }} />
 
-      {/* Dark title bar */}
-      <div className="bg-black w-full relative overflow-hidden" style={{ height: '7.5vw' }}>
+      {/* White title bar with underline */}
+      <div className="bg-white w-full relative overflow-hidden" style={{ height: '12.19vw' }}>
         <motion.p
-          className="absolute font-medium text-white"
-          style={{ left: '3.59vw', top: '-0.625vw', fontSize: '4.30vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
+          className="absolute font-medium text-[#0e0e0e]"
+          style={{ left: '3.67vw', top: '0vw', fontSize: '5.0vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw' }}
           {...scrollAppear.sectionHeader}
         >
-          WORK EXPERIENCE : PEAKMIND
+          WORK EXPERIENCE
         </motion.p>
+        <div
+          className="absolute bg-[#0e0e0e]"
+          style={{ left: '4.06vw', top: '10.16vw', width: '89.92vw', height: '1px' }}
+        />
       </div>
 
       {/* White content area */}
@@ -44,7 +43,17 @@ export function WorkExperience() {
           src={`${BASE}images/projects/peakmind-illustration.png`}
           alt="PeakMind Student App"
           className="absolute"
-          style={{ left: '8.44vw', top: '11.88vw', width: '38.05vw', height: '23.36vw', maxWidth: 'none' }}
+          style={{ left: '4.69vw', top: '12.19vw', width: '33.36vw', height: '20.0vw', maxWidth: 'none' }}
+          loading="lazy"
+          {...projectSectionAppear.image}
+        />
+
+        {/* Engagement badge */}
+        <motion.img
+          src={`${BASE}images/projects/peakmind-badge.png`}
+          alt="4 → 7 messages per session"
+          className="absolute"
+          style={{ left: '6.56vw', top: '32.97vw', width: '29.14vw', height: '4.53vw', maxWidth: 'none' }}
           loading="lazy"
           {...projectSectionAppear.image}
         />
@@ -99,88 +108,16 @@ export function WorkExperience() {
           </Link>
         </motion.div>
 
-        {/* Gallery cards */}
+        {/* CMS Slider — reused from case study page, scaled from 1144-base to 1280-base */}
         <motion.div
-          className="absolute flex"
-          style={{ left: '49.45vw', top: '57.03vw', gap: '1.25vw' }}
+          className="absolute"
+          style={{ left: '49.45vw', top: '57.03vw', width: '40.28vw', overflow: 'hidden' }}
           {...projectSectionAppear.image}
         >
-          {galleryCards.map((card) => (
-            <div
-              key={card.title}
-              style={{
-                width: '12.59vw',
-                borderRadius: '1.09vw',
-                border: '0.8px solid #e5e7eb',
-                overflow: 'hidden',
-                boxShadow: '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)',
-                backgroundColor: 'white',
-              }}
-            >
-              <img
-                src={`${BASE}images/peakmind-cms/${card.image}`}
-                alt={card.title}
-                loading="lazy"
-                className="object-cover w-full"
-                style={{ height: '10vw', display: 'block' }}
-              />
-              <div style={{ padding: '0.94vw 0.94vw 0.94vw' }}>
-                <p className="font-semibold" style={{ fontSize: '1.09vw', lineHeight: '1.56vw', color: '#101828', margin: 0 }}>
-                  {card.title}
-                </p>
-                <p className="font-normal" style={{ fontSize: '0.94vw', lineHeight: '1.25vw', color: '#6a7282', margin: '0.31vw 0 0' }}>
-                  {card.subtitle}
-                </p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          className="absolute flex justify-center"
-          style={{ left: '49.45vw', top: '74.03vw', width: '40.28vw', gap: '2.5vw' }}
-          {...projectSectionAppear.text}
-        >
-          <div className="text-center">
-            <p className="font-bold" style={{ fontSize: '1.875vw', lineHeight: '2.5vw', color: '#9810fa', margin: 0 }}>124</p>
-            <p className="font-normal" style={{ fontSize: '0.94vw', lineHeight: '1.25vw', color: '#6a7282', margin: 0 }}>Total Entries</p>
-          </div>
-          <div className="text-center">
-            <p className="font-bold" style={{ fontSize: '1.875vw', lineHeight: '2.5vw', color: '#9810fa', margin: 0 }}>8</p>
-            <p className="font-normal" style={{ fontSize: '0.94vw', lineHeight: '1.25vw', color: '#6a7282', margin: 0 }}>Collections</p>
-          </div>
-          <div className="text-center">
-            <p className="font-bold" style={{ fontSize: '1.875vw', lineHeight: '2.5vw', color: '#9810fa', margin: 0 }}>15</p>
-            <p className="font-normal" style={{ fontSize: '0.94vw', lineHeight: '1.25vw', color: '#6a7282', margin: 0 }}>Classes</p>
+          <div style={{ transform: 'scale(0.89375)', transformOrigin: '0 0', width: '45.07vw' }}>
+            <CmsSlider />
           </div>
         </motion.div>
-
-        {/* Gallery heading */}
-        <motion.div
-          className="absolute text-center"
-          style={{ left: '50.0vw', top: '83.28vw', width: '40.28vw' }}
-          {...projectSectionAppear.text}
-        >
-          <p className="font-bold" style={{ fontSize: '2.34vw', lineHeight: '2.81vw', color: '#5f21b7', margin: 0 }}>
-            Gallery
-          </p>
-          <p className="font-normal" style={{ fontSize: '1.25vw', lineHeight: '1.875vw', color: '#4a5565', margin: '0.31vw 0 0' }}>
-            Curated wellbeing activity documentation
-          </p>
-        </motion.div>
-
-        {/* Dot navigation */}
-        <div
-          className="absolute flex items-center justify-center"
-          style={{ left: '50.0vw', top: '87.97vw', width: '40.28vw', gap: '0.625vw' }}
-        >
-          <div style={{ width: '0.625vw', height: '0.625vw', borderRadius: '9999px', backgroundColor: '#d1d5db' }} />
-          <div style={{ width: '0.625vw', height: '0.625vw', borderRadius: '9999px', backgroundColor: '#d1d5db' }} />
-          <div style={{ width: '2.5vw', height: '0.625vw', borderRadius: '9999px', backgroundColor: '#5f21b7' }} />
-          <div style={{ width: '0.625vw', height: '0.625vw', borderRadius: '9999px', backgroundColor: '#d1d5db' }} />
-          <div style={{ width: '0.625vw', height: '0.625vw', borderRadius: '9999px', backgroundColor: '#d1d5db' }} />
-        </div>
       </div>
     </section>
   );
