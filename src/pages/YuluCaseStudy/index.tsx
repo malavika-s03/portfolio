@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { journeyStages } from './data';
+import { journeyStages, competitors, competitorRowLabels } from './data';
 
 const CYAN = '#22bddc';
 const BASE_URL = import.meta.env.BASE_URL || '/';
@@ -347,7 +347,7 @@ function BlackSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="absolute font-medium"
-        style={{ left: '4.53vw', top: '13.2vw', width: '25vw', fontSize: B, lineHeight: 'normal', color: C }}
+        style={{ left: '4.53vw', top: '10.86vw', width: '31.02vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
         A heuristic evaluation of the redesigned Yulu app identified usability issues such as lack of system feedback, inconsistent terminology, and unclear icon usage. These insights guided improvements in navigation, interface clarity, and overall user experience.
       </motion.p>
@@ -389,7 +389,7 @@ function BlackSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="absolute font-medium"
-        style={{ left: '49.53vw', top: '53.36vw', width: '46.02vw', fontSize: B, lineHeight: 'normal', color: C }}
+        style={{ left: '49.53vw', top: '53.36vw', width: '46.02vw', fontSize: B, lineHeight: 'normal', color: C, zIndex: 2 }}
       >
         Usability testing with paper prototypes was conducted to evaluate the redesigned Yulu app during the early design stage. Participants were asked to perform key tasks such as booking a ride, accessing support, and finding transaction details using low-fidelity paper screens.
       </motion.p>
@@ -400,7 +400,7 @@ function BlackSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="absolute font-medium"
-        style={{ left: '49.84vw', top: '65.47vw', width: '45.39vw', fontSize: B, lineHeight: 'normal', color: C }}
+        style={{ left: '49.84vw', top: '65.47vw', width: '45.39vw', fontSize: B, lineHeight: 'normal', color: C, zIndex: 2 }}
       >
         The testing revealed issues related to booking clarity, cognitive overload, and feature discoverability. Feedback led to improvements such as adding a booking progress bar, relocating the coupon feature to the payment stage, improving visibility of balance and transaction history, and providing clearer location and vehicle condition information.
       </motion.p>
@@ -417,15 +417,21 @@ function BlackSection() {
       </motion.h2>
 
       {/* Contextual body: x=46, y=1119, w=564 */}
-      <motion.p
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="absolute font-medium"
         style={{ left: '3.59vw', top: '87.42vw', width: '44.06vw', fontSize: B, lineHeight: 'normal', color: C }}
       >
-        Contextual enquiry for the Yulu app was conducted with first-time, occasional, and frequent users performing real-world tasks such as booking rides, scanning QR codes, accessing support, and managing payments. Key Learnings The study revealed issues related to unclear onboarding, confusing ride options, lack of system feedback, QR scanning difficulties, inaccurate bike information, and unclear pricing. Users also highlighted the need for better support, improved accessibility, clearer vehicle condition details, and more reliable navigation and payment experiences.
-      </motion.p>
+        <p style={{ margin: 0 }}>
+          Contextual enquiry for the Yulu app was conducted with first-time, occasional, and frequent users performing real-world tasks such as booking rides, scanning QR codes, accessing support, and managing payments.
+        </p>
+        <p style={{ margin: '1em 0 0' }}>Key Learnings</p>
+        <p style={{ margin: '1em 0 0' }}>
+          The study revealed issues related to unclear onboarding, confusing ride options, lack of system feedback, QR scanning difficulties, inaccurate bike information, and unclear pricing. Users also highlighted the need for better support, improved accessibility, clearer vehicle condition details, and more reliable navigation and payment experiences.
+        </p>
+      </motion.div>
 
       {/* Scooter: pinned to right edge, sized to fit within section */}
       <motion.div
@@ -433,7 +439,7 @@ function BlackSection() {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         className="absolute"
-        style={{ right: '0', top: '75vw', width: '52vw' }}
+        style={{ right: '5vw', top: '77.27vw', width: '52vw', zIndex: 1 }}
       >
         <img
           src={`${BASE_URL}images/yulu/contextual-scooter.png`}
@@ -445,6 +451,97 @@ function BlackSection() {
   );
 }
 
+
+function FeatureTable() {
+  const rowKeys: (keyof typeof competitors[0])[] = [
+    'poweredBy', 'batterySwap', 'range', 'gpsTracking', 'lockSystem', 'rating', 'availability',
+  ];
+
+  const highlightRows = [1, 3, 5];
+  const HIGHLIGHT_BG = '#e6f7f9';
+  const BORDER_COLOR = 'rgba(34, 189, 220, 0.3)';
+
+  function renderCell(value: string | boolean, key: string) {
+    if (typeof value === 'boolean') {
+      return value ? (
+        <span style={{ color: CYAN, fontSize: '1.4vw' }}>✓</span>
+      ) : (
+        <span style={{ color: '#9ca3af', fontSize: '1.4vw' }}>✗</span>
+      );
+    }
+    if (key === 'range' && value === '') {
+      return <span style={{ color: '#9ca3af', fontSize: '1.4vw' }}>✗</span>;
+    }
+    return <span style={{ fontSize: '1.1vw', color: '#374151' }}>{value}</span>;
+  }
+
+  return (
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}
+    >
+      <thead>
+        <tr>
+          <th style={{ borderBottom: `1px solid ${BORDER_COLOR}`, padding: '0.6vw 0.8vw' }} />
+          {competitors.map((c) => (
+            <th
+              key={c.name}
+              style={{
+                padding: '0.6vw 0.8vw',
+                fontSize: '1.25vw',
+                fontWeight: 700,
+                color: CYAN,
+                textAlign: 'center',
+                borderBottom: `1px solid ${BORDER_COLOR}`,
+                borderLeft: `1px solid ${BORDER_COLOR}`,
+              }}
+            >
+              {c.name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {competitorRowLabels.map((label, rowIdx) => {
+          const key = rowKeys[rowIdx];
+          const isHighlight = highlightRows.includes(rowIdx);
+          return (
+            <tr key={label} style={{ backgroundColor: isHighlight ? HIGHLIGHT_BG : 'transparent' }}>
+              <td
+                style={{
+                  padding: '0.7vw 0.8vw',
+                  fontSize: '1.1vw',
+                  fontWeight: 500,
+                  color: CYAN,
+                  whiteSpace: 'nowrap',
+                  borderBottom: `1px solid ${BORDER_COLOR}`,
+                }}
+              >
+                {label}
+              </td>
+              {competitors.map((c) => (
+                <td
+                  key={c.name}
+                  style={{
+                    padding: '0.7vw 0.8vw',
+                    textAlign: 'center',
+                    borderBottom: `1px solid ${BORDER_COLOR}`,
+                    borderLeft: `1px solid ${BORDER_COLOR}`,
+                  }}
+                >
+                  {renderCell(c[key], key)}
+                </td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
 
 function FeatureComparisonSection() {
   /*
@@ -485,7 +582,7 @@ function FeatureComparisonSection() {
           style={{
             left: '2.66vw',
             top: '3.13vw',
-            width: '25vw',
+            width: '22.34vw',
           }}
         >
           <p className="font-medium text-black" style={{ fontSize: '1.5625vw', lineHeight: 'normal' }}>
@@ -493,18 +590,17 @@ function FeatureComparisonSection() {
           </p>
         </div>
 
-        {/* Table image: x=381, y=166, w=899, h=416 */}
-        <img
-          src={`${BASE_URL}images/yulu/feature-table.png`}
-          alt="Feature comparison table: Yulu vs Zypp vs EVeez vs MYBYK"
+        {/* Native feature comparison table: x=381, y=166, w=899, h=416 */}
+        <div
           className="absolute"
           style={{
             left: '29.77vw',
             top: '0',
             width: '70.23vw',
-            height: 'auto',
           }}
-        />
+        >
+          <FeatureTable />
+        </div>
       </motion.div>
     </section>
   );
@@ -565,7 +661,7 @@ function YuluStrengthsSection() {
           style={{
             left: '58.52vw',
             top: '2.42vw',
-            width: '38.2vw',
+            width: '38.59vw',
           }}
         >
           <p className="font-medium text-black" style={{ fontSize: '1.5625vw', lineHeight: 'normal' }}>
@@ -653,10 +749,10 @@ function FinalDesignSection() {
               width: '10.94vw',
               height: '3.13vw',
               fontSize: '1.1vw',
-              color: '#d1d5db',
-              backgroundColor: '#374151',
+              color: '#374151',
+              backgroundColor: '#e5e7eb',
               borderRadius: '0.47vw',
-              border: '1px solid #6b7280',
+              border: '1px solid #9ca3af',
               textDecoration: 'none',
             }}
           >
