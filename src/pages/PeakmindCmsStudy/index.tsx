@@ -1530,10 +1530,932 @@ function TabOverviewContent() {
   );
 }
 
-function TabColorsContent() { return <div style={{ marginTop: vw(48) }}>Colors content coming</div>; }
-function TabTypographyContent() { return <div style={{ marginTop: vw(48) }}>Typography content coming</div>; }
-function TabComponentsContent() { return <div style={{ marginTop: vw(48) }}>Components content coming</div>; }
-function TabPatternsContent() { return <div style={{ marginTop: vw(48) }}>Patterns content coming</div>; }
+function TabColorsContent() {
+  return (
+    <div style={{ marginTop: vw(48) }}>
+      {/* Section 1: Color Palette */}
+      <div>
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: vw(30),
+            fontWeight: 600,
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Color Palette
+        </h3>
+        <p
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: vw(16),
+            fontWeight: 400,
+            color: '#737373',
+            margin: 0,
+            marginTop: vw(12),
+            lineHeight: 1.5,
+          }}
+        >
+          {colorPalette.description}
+        </p>
+
+        {/* 3x2 Color Cards Grid */}
+        <div
+          style={{
+            position: 'relative',
+            marginTop: vw(24),
+            width: vw(1096),
+            height: vw(120 + 16 + 16 + 20 + 18 + 24 + 120 + 16 + 16 + 20 + 18),
+          }}
+        >
+          {colorPalette.colors.map((c, i) => {
+            const col = i % 3;
+            const row = Math.floor(i / 3);
+            const colOffsets = [0, 373.33, 746.66];
+            const cardWidth = 349;
+            const colorBlockH = 120;
+            const bottomPadding = 16;
+            const nameH = 20;
+            const descH = 18;
+            const cardH = colorBlockH + bottomPadding + nameH + 8 + descH + bottomPadding;
+            const rowGap = 24;
+            return (
+              <div
+                key={c.name}
+                style={{
+                  position: 'absolute',
+                  left: vw(colOffsets[col]),
+                  top: vw(row * (cardH + rowGap)),
+                  width: vw(cardWidth),
+                  border: '0.8px solid #e5e5e5',
+                  borderRadius: vw(8),
+                  overflow: 'hidden',
+                  boxSizing: 'border-box',
+                }}
+              >
+                {/* Color block */}
+                <div
+                  style={{
+                    backgroundColor: c.color,
+                    height: vw(colorBlockH),
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: vw(16),
+                      fontWeight: 500,
+                      color: c.textDark ? '#1a1a1a' : '#ffffff',
+                    }}
+                  >
+                    {c.hex}
+                  </span>
+                </div>
+                {/* Info block */}
+                <div
+                  style={{
+                    backgroundColor: '#ffffff',
+                    padding: vw(16),
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: vw(16),
+                      fontWeight: 600,
+                      color: '#1a1a1a',
+                      margin: 0,
+                    }}
+                  >
+                    {c.name}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: vw(14),
+                      fontWeight: 400,
+                      color: '#737373',
+                      margin: 0,
+                      marginTop: vw(4),
+                    }}
+                  >
+                    {c.description}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Section 2: Neutral Colors */}
+      <div style={{ marginTop: vw(48) }}>
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: vw(30),
+            fontWeight: 600,
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Neutral Colors
+        </h3>
+
+        {/* 4-card row */}
+        <div
+          style={{
+            display: 'flex',
+            gap: vw(16),
+            marginTop: vw(24),
+          }}
+        >
+          {colorPalette.neutrals.map((n) => (
+            <div
+              key={n.name}
+              style={{
+                flex: 1,
+                border: '0.8px solid #e5e5e5',
+                borderRadius: vw(8),
+                overflow: 'hidden',
+                boxSizing: 'border-box',
+              }}
+            >
+              {/* Color block */}
+              <div
+                style={{
+                  backgroundColor: n.color,
+                  height: vw(72),
+                }}
+              />
+              {/* Info block */}
+              <div
+                style={{
+                  backgroundColor: '#ffffff',
+                  padding: vw(12),
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: vw(14),
+                    fontWeight: 500,
+                    color: '#1a1a1a',
+                    margin: 0,
+                  }}
+                >
+                  {n.name}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: vw(12),
+                    fontWeight: 400,
+                    color: '#737373',
+                    margin: 0,
+                    marginTop: vw(4),
+                  }}
+                >
+                  {n.hex}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+function TabTypographyContent() {
+  const weightMap: Record<string, number> = { Regular: 400, Medium: 500, Semibold: 600, Bold: 700 };
+  return (
+    <div style={{ marginTop: vw(48) }}>
+      {/* Font Family Section */}
+      <div>
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: vw(30),
+            fontWeight: 600,
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Font Family
+        </h3>
+        <div
+          style={{
+            marginTop: vw(24),
+            background: '#ffffff',
+            border: `${vw(0.8)} solid #e5e5e5`,
+            borderRadius: vw(8),
+            padding: vw(32),
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: vw(48),
+              fontWeight: 700,
+              color: '#1a1a1a',
+              margin: 0,
+            }}
+          >
+            DM Sans
+          </div>
+          <p
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: vw(16),
+              fontWeight: 400,
+              color: '#737373',
+              marginTop: vw(16),
+              marginBottom: 0,
+              lineHeight: 1.5,
+            }}
+          >
+            {typographyData.fontDescription}
+          </p>
+          <div style={{ display: 'flex', gap: vw(24), marginTop: vw(24) }}>
+            {typographyData.weights.map((w) => (
+              <span
+                key={w}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: vw(20),
+                  fontWeight: weightMap[w],
+                  color: '#1a1a1a',
+                }}
+              >
+                {w}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Type Scale Section */}
+      <div style={{ marginTop: vw(48) }}>
+        <h3
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: vw(30),
+            fontWeight: 600,
+            color: '#1a1a1a',
+            margin: 0,
+          }}
+        >
+          Type Scale
+        </h3>
+        <div style={{ marginTop: vw(24), display: 'flex', flexDirection: 'column' as const, gap: vw(12) }}>
+          {typographyData.typeScale.map((item) => (
+            <div
+              key={item.name}
+              style={{
+                background: '#fafafa',
+                border: `${vw(0.8)} solid #e5e5e5`,
+                borderRadius: vw(8),
+                padding: vw(24),
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: vw(item.fontSize),
+                  fontWeight: weightMap[item.weight] || 400,
+                  color: '#1a1a1a',
+                  margin: 0,
+                }}
+              >
+                {item.name}
+              </div>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: vw(14),
+                  fontWeight: 400,
+                  color: '#737373',
+                  marginTop: vw(8),
+                  marginBottom: 0,
+                }}
+              >
+                {item.size} · {item.weight} · {item.lineHeight}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+function TabComponentsContent() {
+  const font = "'DM Sans', sans-serif";
+  const sectionHeadingStyle: React.CSSProperties = {
+    fontFamily: font,
+    fontSize: vw(30),
+    fontWeight: 600,
+    color: '#1a1a1a',
+    margin: 0,
+  };
+  const cardContainerStyle: React.CSSProperties = {
+    width: '100%',
+    background: '#fafafa',
+    border: '0.8px solid #e5e5e5',
+    borderRadius: vw(8),
+    padding: vw(24),
+    boxSizing: 'border-box' as const,
+  };
+  const cardLabelStyle: React.CSSProperties = {
+    fontFamily: font,
+    fontSize: vw(16),
+    fontWeight: 600,
+    color: '#1a1a1a',
+    margin: 0,
+  };
+
+  const navIcons: Record<string, React.ReactNode> = {
+    Home: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <path d="M2 8l6-6 6 6" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3.5 9v4.5a1 1 0 001 1h7a1 1 0 001-1V9" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    Planner: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#737373" strokeWidth="1.5"/>
+        <path d="M2 6.5h12" stroke="#737373" strokeWidth="1.5"/>
+        <path d="M5.5 1.5v3M10.5 1.5v3" stroke="#737373" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    Analytics: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <rect x="2" y="9" width="3" height="5" rx="0.5" stroke="#737373" strokeWidth="1.5"/>
+        <rect x="6.5" y="5" width="3" height="9" rx="0.5" stroke="#737373" strokeWidth="1.5"/>
+        <rect x="11" y="2" width="3" height="12" rx="0.5" stroke="#737373" strokeWidth="1.5"/>
+      </svg>
+    ),
+    Support: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <path d="M2.5 11.5v2l2.5-2h6.5a1.5 1.5 0 001.5-1.5v-6A1.5 1.5 0 0011.5 2.5h-7A1.5 1.5 0 003 4v6" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    Safety: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <path d="M8 1.5l5 2.5v4c0 3-2.5 5.5-5 6.5-2.5-1-5-3.5-5-6.5V4l5-2.5z" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    'Self-care': (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <path d="M8 13.5s-5.5-3.5-5.5-7a3 3 0 015.5-1.5 3 3 0 015.5 1.5c0 3.5-5.5 7-5.5 7z" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    Gallery: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#737373" strokeWidth="1.5"/>
+        <circle cx="5.5" cy="6.5" r="1.5" stroke="#737373" strokeWidth="1.2"/>
+        <path d="M2 11l3-3 2 2 3-3 4 4" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    Classroom: (
+      <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+        <path d="M8 1.5L1.5 5 8 8.5 14.5 5 8 1.5z" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M3.5 6.5v4L8 13l4.5-2.5v-4" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  };
+
+  return (
+    <div style={{ marginTop: vw(48) }}>
+      {/* 1. Buttons Section */}
+      <p style={sectionHeadingStyle}>Buttons</p>
+
+      {/* Card A — Button Variants */}
+      <div style={{ ...cardContainerStyle, marginTop: vw(24) }}>
+        <p style={cardLabelStyle}>Button Variants</p>
+        <div style={{ display: 'flex', gap: vw(12), marginTop: vw(16) }}>
+          {componentsData.buttonVariants.map((btn) => (
+            <button
+              key={btn.label}
+              style={{
+                fontFamily: font,
+                fontSize: vw(14),
+                fontWeight: 500,
+                color: btn.color,
+                background: btn.bg,
+                border: btn.border ? `1.5px solid ${btn.border}` : 'none',
+                borderRadius: '9999px',
+                paddingTop: vw(10),
+                paddingBottom: vw(10),
+                paddingLeft: vw(20),
+                paddingRight: vw(20),
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Card B — Button Sizes */}
+      <div style={{ ...cardContainerStyle, marginTop: vw(16) }}>
+        <p style={cardLabelStyle}>Button Sizes</p>
+        <div style={{ display: 'flex', gap: vw(12), alignItems: 'center', marginTop: vw(16) }}>
+          {componentsData.buttonSizes.map((btn) => (
+            <button
+              key={btn.label}
+              style={{
+                fontFamily: font,
+                fontSize: vw(btn.fontSize),
+                fontWeight: 500,
+                color: '#ffffff',
+                background: btn.label === 'Large' ? '#FF6D24' : '#5F21B7',
+                border: 'none',
+                borderRadius: '9999px',
+                height: vw(btn.height),
+                paddingLeft: vw(btn.px),
+                paddingRight: vw(btn.px),
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. Badges & Tags Section */}
+      <div style={{ marginTop: vw(48) }}>
+        <p style={sectionHeadingStyle}>Badges &amp; Tags</p>
+        <div style={{ ...cardContainerStyle, marginTop: vw(24) }}>
+          <div style={{ display: 'flex', gap: vw(8), flexWrap: 'wrap' }}>
+            {componentsData.badges.map((badge) => (
+              <span
+                key={badge.label}
+                style={{
+                  fontFamily: font,
+                  fontSize: vw(12),
+                  fontWeight: 500,
+                  color: badge.color,
+                  background: badge.bg,
+                  border: badge.border ? `1px solid ${badge.border}` : 'none',
+                  borderRadius: '9999px',
+                  paddingTop: vw(4),
+                  paddingBottom: vw(4),
+                  paddingLeft: vw(12),
+                  paddingRight: vw(12),
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {badge.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Progress Bars Section */}
+      <div style={{ marginTop: vw(48) }}>
+        <p style={sectionHeadingStyle}>Progress Bars</p>
+        <div style={{ ...cardContainerStyle, marginTop: vw(24) }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: vw(16) }}>
+            {componentsData.progressBars.map((bar) => (
+              <div key={bar.label}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: font, fontSize: vw(14), fontWeight: 600, color: '#1a1a1a' }}>
+                    {bar.label}
+                  </span>
+                  <span style={{ fontFamily: font, fontSize: vw(14), fontWeight: 600, color: '#1a1a1a' }}>
+                    {bar.value}%
+                  </span>
+                </div>
+                <div
+                  style={{
+                    marginTop: vw(4),
+                    width: '100%',
+                    height: vw(8),
+                    background: '#f0f0f0',
+                    borderRadius: vw(4),
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${bar.value}%`,
+                      height: '100%',
+                      background: bar.color,
+                      borderRadius: vw(4),
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 4. Cards Section */}
+      <div style={{ marginTop: vw(48) }}>
+        <p style={sectionHeadingStyle}>Cards</p>
+        <div style={{ display: 'flex', gap: vw(24), marginTop: vw(24) }}>
+          {componentsData.sampleCards.map((card) => (
+            <div
+              key={card.title}
+              style={{
+                flex: 1,
+                background: '#ffffff',
+                border: '0.8px solid #e5e5e5',
+                borderRadius: vw(8),
+                padding: vw(20),
+                boxSizing: 'border-box' as const,
+              }}
+            >
+              {/* Top row: icon + badge */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div
+                  style={{
+                    width: vw(32),
+                    height: vw(32),
+                    borderRadius: '50%',
+                    background: card.iconType === 'calendar' ? '#5F21B7' : '#FF6D24',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {card.iconType === 'calendar' ? (
+                    <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+                      <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="white" strokeWidth="1.5"/>
+                      <path d="M2 6.5h12" stroke="white" strokeWidth="1.5"/>
+                      <path d="M5.5 1.5v3M10.5 1.5v3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  ) : (
+                    <svg width={vw(16)} height={vw(16)} viewBox="0 0 16 16" fill="none">
+                      <rect x="2" y="8" width="3" height="6" rx="0.5" fill="white"/>
+                      <rect x="6.5" y="5" width="3" height="9" rx="0.5" fill="white"/>
+                      <rect x="11" y="2" width="3" height="12" rx="0.5" fill="white"/>
+                    </svg>
+                  )}
+                </div>
+                <span
+                  style={{
+                    fontFamily: font,
+                    fontSize: vw(10),
+                    fontWeight: 500,
+                    color: '#ffffff',
+                    background: card.badge.bg,
+                    borderRadius: '9999px',
+                    paddingTop: vw(3),
+                    paddingBottom: vw(3),
+                    paddingLeft: vw(8),
+                    paddingRight: vw(8),
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {card.badge.label}
+                </span>
+              </div>
+
+              {/* Title */}
+              <p
+                style={{
+                  fontFamily: font,
+                  fontSize: vw(16),
+                  fontWeight: 600,
+                  color: '#1a1a1a',
+                  margin: 0,
+                  marginTop: vw(12),
+                }}
+              >
+                {card.title}
+              </p>
+
+              {/* Subtitle */}
+              <p
+                style={{
+                  fontFamily: font,
+                  fontSize: vw(14),
+                  fontWeight: 400,
+                  color: '#737373',
+                  margin: 0,
+                  marginTop: vw(4),
+                }}
+              >
+                {card.subtitle}
+              </p>
+
+              {/* Meta (calendar card) */}
+              {card.meta && (
+                <p
+                  style={{
+                    fontFamily: font,
+                    fontSize: vw(12),
+                    fontWeight: 400,
+                    color: '#737373',
+                    margin: 0,
+                    marginTop: vw(12),
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: vw(4),
+                  }}
+                >
+                  <svg width={vw(12)} height={vw(12)} viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+                    <rect x="2" y="3" width="12" height="11" rx="1.5" stroke="#737373" strokeWidth="1.5"/>
+                    <path d="M2 6.5h12" stroke="#737373" strokeWidth="1.5"/>
+                    <path d="M5.5 1.5v3M10.5 1.5v3" stroke="#737373" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                  {card.meta}
+                </p>
+              )}
+
+              {/* Progress bar (chart card) */}
+              {card.progressBar && (
+                <div style={{ marginTop: vw(12) }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontFamily: font, fontSize: vw(14), fontWeight: 600, color: '#1a1a1a' }}>
+                      {card.progressBar.label}
+                    </span>
+                    <span style={{ fontFamily: font, fontSize: vw(14), fontWeight: 600, color: '#1a1a1a' }}>
+                      {card.progressBar.value}%
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      marginTop: vw(4),
+                      width: '100%',
+                      height: vw(8),
+                      background: '#f0f0f0',
+                      borderRadius: vw(4),
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${card.progressBar.value}%`,
+                        height: '100%',
+                        background: card.progressBar.color,
+                        borderRadius: vw(4),
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 5. Navigation Items Section */}
+      <div style={{ marginTop: vw(48) }}>
+        <p style={sectionHeadingStyle}>Navigation Items</p>
+        <div style={{ ...cardContainerStyle, marginTop: vw(24) }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: vw(12) }}>
+            {componentsData.navItems.map((item) => (
+              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: vw(12) }}>
+                <div style={{ width: vw(20), height: vw(20), display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {navIcons[item]}
+                </div>
+                <span
+                  style={{
+                    fontFamily: font,
+                    fontSize: vw(14),
+                    fontWeight: 400,
+                    color: '#737373',
+                  }}
+                >
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+function TabPatternsContent() {
+  const dayRows = [
+    [1, 2, 3, 4, 5, 6, 7],
+    [8, 9, 10, 11, 12, 13, 14],
+    [15, 16, 17, 18, 19, 20, 21],
+    [22, 23, 24, 25, 26, 27, 28],
+    [29, 30, 31, 1, 2, 3, 4],
+  ];
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  return (
+    <div style={{ marginTop: vw(48) }}>
+      {/* Layout Patterns heading */}
+      <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(30), fontWeight: 600, color: '#1a1a1a', margin: 0 }}>
+        Layout Patterns
+      </h3>
+
+      {/* Calendar View Card */}
+      <div style={{
+        marginTop: vw(24),
+        background: '#ffffff',
+        border: '0.8px solid #e5e5e5',
+        borderRadius: vw(8),
+        padding: vw(24),
+        boxSizing: 'border-box' as const,
+      }}>
+        <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(18), fontWeight: 600, color: '#1a1a1a', margin: 0 }}>
+          Calendar View
+        </h4>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 400, color: '#737373', margin: 0, marginTop: vw(8) }}>
+          {patternsData.calendarDescription}
+        </p>
+        <div style={{ marginTop: vw(24) }}>
+          {/* Header row */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
+            {weekdays.map((day) => (
+              <div key={day} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(12), fontWeight: 500, color: '#737373', textAlign: 'center' as const, paddingBottom: vw(8) }}>
+                {day}
+              </div>
+            ))}
+          </div>
+          {/* Day grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
+            {dayRows.map((row, rowIdx) =>
+              row.map((day, colIdx) => {
+                const isNextMonth = rowIdx === 4 && day <= 4;
+                return (
+                  <div
+                    key={`${rowIdx}-${colIdx}`}
+                    style={{
+                      border: '0.8px solid #e5e5e5',
+                      borderRadius: vw(4),
+                      height: vw(100),
+                      padding: vw(8),
+                      boxSizing: 'border-box' as const,
+                    }}
+                  >
+                    <span style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: vw(12),
+                      fontWeight: 500,
+                      color: isNextMonth ? '#d4d4d4' : '#1a1a1a',
+                    }}>
+                      {day}
+                    </span>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Class Grid Card */}
+      <div style={{
+        marginTop: vw(24),
+        background: '#ffffff',
+        border: '0.8px solid #e5e5e5',
+        borderRadius: vw(8),
+        padding: vw(24),
+        boxSizing: 'border-box' as const,
+      }}>
+        <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(18), fontWeight: 600, color: '#1a1a1a', margin: 0 }}>
+          Class Grid
+        </h4>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 400, color: '#737373', margin: 0, marginTop: vw(8) }}>
+          {patternsData.classGridDescription}
+        </p>
+        <div style={{ display: 'flex', gap: vw(16), marginTop: vw(24) }}>
+          {patternsData.classCards.map((card) => (
+            <div key={card.name} style={{
+              flex: 1,
+              background: '#fafafa',
+              border: '0.8px solid #e5e5e5',
+              borderRadius: vw(8),
+              padding: vw(16),
+              boxSizing: 'border-box' as const,
+            }}>
+              {/* Top row */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: vw(12) }}>
+                <div style={{
+                  width: vw(32),
+                  height: vw(32),
+                  borderRadius: '50%',
+                  background: 'rgba(95,33,183,0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}>
+                  <svg viewBox="0 0 16 16" fill="none" style={{ width: vw(16), height: vw(16) }}>
+                    <path d="M8 2L2 5.5L8 9L14 5.5L8 2Z" stroke="#5F21B7" strokeWidth="1.2" strokeLinejoin="round"/>
+                    <path d="M4 7v3.5c0 1 1.8 2 4 2s4-1 4-2V7" stroke="#5F21B7" strokeWidth="1.2"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 600, color: '#1a1a1a' }}>
+                    {card.name}
+                  </div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(12), fontWeight: 400, color: '#737373' }}>
+                    {card.grade}
+                  </div>
+                </div>
+              </div>
+              {/* Progress bar */}
+              <div style={{ marginTop: vw(12) }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(12), fontWeight: 400, color: '#737373' }}>Wellbeing</span>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(12), fontWeight: 600, color: '#1a1a1a' }}>{card.wellbeing}%</span>
+                </div>
+                <div style={{
+                  marginTop: vw(4),
+                  width: '100%',
+                  height: vw(6),
+                  background: '#f0f0f0',
+                  borderRadius: vw(3),
+                }}>
+                  <div style={{
+                    width: `${card.wellbeing}%`,
+                    height: vw(6),
+                    background: '#FF6D24',
+                    borderRadius: vw(3),
+                  }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Spacing System */}
+      <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(30), fontWeight: 600, color: '#1a1a1a', margin: 0, marginTop: vw(48) }}>
+        Spacing System
+      </h3>
+      <div style={{
+        marginTop: vw(24),
+        background: '#ffffff',
+        border: '0.8px solid #e5e5e5',
+        borderRadius: vw(8),
+        padding: vw(24),
+        boxSizing: 'border-box' as const,
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: vw(16) }}>
+          {patternsData.spacingScale.map((item) => (
+            <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: vw(16) }}>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 500, color: '#1a1a1a', width: vw(40), flexShrink: 0 }}>
+                {item.name}
+              </span>
+              <div style={{
+                height: vw(16),
+                background: '#5F21B7',
+                borderRadius: vw(2),
+                width: vw(item.px * 4),
+                flexShrink: 0,
+              }} />
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 400, color: '#737373' }}>
+                {item.rem} ({item.px}px)
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Border Radius */}
+      <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(30), fontWeight: 600, color: '#1a1a1a', margin: 0, marginTop: vw(48) }}>
+        Border Radius
+      </h3>
+      <div style={{
+        marginTop: vw(24),
+        background: '#ffffff',
+        border: '0.8px solid #e5e5e5',
+        borderRadius: vw(8),
+        padding: vw(24),
+        boxSizing: 'border-box' as const,
+        display: 'flex',
+        justifyContent: 'space-evenly',
+      }}>
+        {patternsData.borderRadii.map((item) => (
+          <div key={item.name} style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center' }}>
+            <div style={{
+              width: vw(80),
+              height: vw(80),
+              background: '#5F21B7',
+              borderRadius: item.value,
+            }} />
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(14), fontWeight: 500, color: '#1a1a1a', marginTop: vw(12) }}>
+              {item.name}
+            </span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: vw(12), fontWeight: 400, color: '#737373', marginTop: vw(4) }}>
+              {item.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 function UsersWorkflowsSection() {
   return (
     <section
