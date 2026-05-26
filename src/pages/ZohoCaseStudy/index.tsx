@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { COLORS, introductionText, colorSwatches, typographyExamples, illustrationCards } from './data';
 
@@ -35,8 +35,25 @@ export function ZohoCaseStudyPage() {
   return (
     <main className="min-h-screen w-full" style={{ backgroundColor: COLORS.pageBg }}>
       <HeroSection />
-      <DesignSystemSection />
-      <PitchDeckSection />
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        style={{
+          width: '100%',
+          background: 'linear-gradient(105.49deg, #f9fafb 0%, #f3f4f6 100%)',
+          overflow: 'hidden',
+        }}
+      >
+        <DSDocHeader title="Zoho Books" subtitle="Design System Documentation" />
+        <ColorPaletteSection />
+        <TypographySection />
+        <ContainersAndButtonsSection />
+        <IllustrationsSection />
+        <IconographySection />
+        <PitchDeckSection />
+      </motion.section>
       <LinkedInTilesSection />
     </main>
   );
@@ -56,6 +73,18 @@ function HeroSection() {
         overflow: 'hidden',
       }}
     >
+      {/* White title card with shadow */}
+      <div style={{
+        position: 'absolute',
+        left: vw(3),
+        top: 0,
+        width: vw(1277),
+        height: vw(192),
+        backgroundColor: COLORS.white,
+        borderBottom: `0.8px solid ${COLORS.border}`,
+        boxShadow: '0px 1px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.1)',
+      }} />
+
       <h1 style={{
         position: 'absolute',
         left: vw(41),
@@ -84,6 +113,7 @@ function HeroSection() {
         }}
       />
 
+      {/* Introduction heading on gray bg */}
       <h2 style={{
         position: 'absolute',
         left: vw(41),
@@ -98,6 +128,7 @@ function HeroSection() {
         Introduction
       </h2>
 
+      {/* Body text on gray bg */}
       <p style={{
         position: 'absolute',
         left: vw(41),
@@ -118,11 +149,11 @@ function HeroSection() {
 
 function SectionHeader({ title, description }: { title: string; description: string }) {
   return (
-    <div style={{ marginBottom: vw(32) }}>
+    <div style={{ marginBottom: vw(32), display: 'flex', flexDirection: 'column', gap: '8px' }}>
       <h3 style={{
         fontFamily: "'Inter', sans-serif",
         fontWeight: 700,
-        fontSize: vw(28),
+        fontSize: vw(30),
         lineHeight: vw(36),
         color: COLORS.textDark,
         margin: 0,
@@ -136,7 +167,6 @@ function SectionHeader({ title, description }: { title: string; description: str
         lineHeight: vw(24),
         color: COLORS.textGray,
         margin: 0,
-        marginTop: vw(8),
       }}>
         {description}
       </p>
@@ -151,8 +181,10 @@ function DSDocHeader({ title, subtitle }: { title: string; subtitle: string }) {
       borderBottom: `0.8px solid ${COLORS.border}`,
       boxShadow: '0px 1px 1.5px rgba(0,0,0,0.1), 0px 1px 1px rgba(0,0,0,0.1)',
       padding: `${vw(24)} ${vw(32)} ${vw(0)}`,
-      height: vw(116),
+      height: vw(117),
       boxSizing: 'border-box',
+      position: 'relative' as const,
+      zIndex: 1,
     }}>
       <h2 style={{
         fontFamily: "'Inter', sans-serif",
@@ -194,15 +226,16 @@ function ColorPaletteSection() {
               width: vw(128),
               height: vw(128),
               backgroundColor: swatch.color,
-              borderRadius: vw(10),
-              border: swatch.hex === '#ffffff' ? `1px solid ${COLORS.border}` : 'none',
+              borderRadius: vw(16),
+              border: `1px solid #f3f4f6`,
+              boxShadow: '0px 10px 15px 0px rgba(0,0,0,0.1), 0px 4px 6px 0px rgba(0,0,0,0.1)',
             }} />
             <p style={{
               fontFamily: "'Inter', sans-serif",
               fontWeight: 500,
               fontSize: vw(14),
               lineHeight: vw(20),
-              color: COLORS.textLabel,
+              color: '#1e2939',
               margin: 0,
               marginTop: vw(12),
               textAlign: 'center',
@@ -210,7 +243,7 @@ function ColorPaletteSection() {
               {swatch.name}
             </p>
             <p style={{
-              fontFamily: "'Inter', sans-serif",
+              fontFamily: "'Consolas', monospace",
               fontWeight: 400,
               fontSize: vw(12),
               lineHeight: vw(16),
@@ -257,7 +290,7 @@ function TypographySection() {
               </span>
               <div style={{ textAlign: 'right' }}>
                 <p style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Consolas', monospace",
                   fontWeight: 400,
                   fontSize: vw(12),
                   lineHeight: vw(16),
@@ -267,7 +300,7 @@ function TypographySection() {
                   {example.size}
                 </p>
                 <p style={{
-                  fontFamily: "'Inter', sans-serif",
+                  fontFamily: "'Consolas', monospace",
                   fontWeight: 400,
                   fontSize: vw(12),
                   lineHeight: vw(16),
@@ -294,7 +327,7 @@ function TypographySection() {
               fontWeight: 400,
               fontSize: vw(12),
               lineHeight: vw(16),
-              color: COLORS.textMuted,
+              color: '#99a1af',
               margin: 0,
             }}>
               {example.font}
@@ -309,7 +342,7 @@ function TypographySection() {
 function ContainersAndButtonsSection() {
   return (
     <div style={{ padding: `${vw(80)} ${vw(32)} 0` }}>
-      <div style={{ display: 'flex', gap: vw(60) }}>
+      <div style={{ display: 'flex', gap: 0 }}>
         {/* Containers & Backgrounds */}
         <div style={{ flex: '0 0 auto', width: vw(769) }}>
           <SectionHeader title="Containers & Backgrounds" description="Reusable container components with various styles" />
@@ -394,6 +427,16 @@ function ContainersAndButtonsSection() {
           </div>
         </div>
 
+        {/* Vertical Divider */}
+        <div style={{
+          width: '1px',
+          backgroundColor: COLORS.border,
+          alignSelf: 'stretch',
+          marginLeft: vw(22),
+          marginRight: vw(22),
+          marginTop: vw(68),
+        }} />
+
         {/* Buttons */}
         <div style={{ flex: 1 }}>
           <SectionHeader title="Buttons" description="Primary and secondary button styles" />
@@ -469,10 +512,10 @@ function IllustrationsSection() {
   return (
     <div style={{ padding: `${vw(80)} ${vw(32)} 0` }}>
       <SectionHeader title="Illustrations" description="Custom illustrations for various business scenarios" />
-      <div style={{ display: 'flex', gap: vw(27) }}>
+      <div style={{ display: 'flex', gap: vw(27), maxWidth: vw(1195) }}>
         {illustrationCards.map((card) => (
           <div key={card.title} style={{
-            width: vw(380),
+            flex: 1,
             height: vw(310),
             border: `1.6px solid ${COLORS.border}`,
             borderRadius: vw(14),
@@ -483,7 +526,6 @@ function IllustrationsSection() {
             <div style={{
               width: '100%',
               height: vw(220),
-              backgroundColor: '#e8f4fd',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -493,34 +535,38 @@ function IllustrationsSection() {
                 src={`${BASE_URL}images/zoho/${card.image}`}
                 alt={card.title}
                 style={{
-                  maxWidth: '70%',
-                  maxHeight: '80%',
+                  maxWidth: '80%',
+                  maxHeight: '90%',
                   objectFit: 'contain',
                 }}
               />
             </div>
-            <div style={{ padding: `${vw(12)} ${vw(25.6)}` }}>
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 600,
-                fontSize: vw(18),
-                lineHeight: vw(27),
-                color: COLORS.textDark,
-                margin: 0,
-              }}>
-                {card.title}
-              </p>
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 400,
-                fontSize: vw(14),
-                lineHeight: vw(20),
-                color: COLORS.textGray,
-                margin: 0,
-              }}>
-                {card.description}
-              </p>
-            </div>
+            <p style={{
+              position: 'absolute',
+              left: vw(24),
+              top: vw(232),
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 600,
+              fontSize: vw(18),
+              lineHeight: vw(27),
+              color: COLORS.textDark,
+              margin: 0,
+            }}>
+              {card.title}
+            </p>
+            <p style={{
+              position: 'absolute',
+              left: vw(24),
+              top: vw(263),
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 400,
+              fontSize: vw(14),
+              lineHeight: vw(20),
+              color: COLORS.textGray,
+              margin: 0,
+            }}>
+              {card.description}
+            </p>
           </div>
         ))}
       </div>
@@ -541,68 +587,94 @@ function IconographySection() {
           display: 'block',
         }}
       />
-      <div style={{ marginTop: vw(32) }}>
-        <h4 style={{
-          fontFamily: "'Inter', sans-serif",
-          fontWeight: 600,
-          fontSize: vw(18),
-          lineHeight: vw(27),
-          color: COLORS.textDark,
-          margin: 0,
-          marginBottom: vw(16),
-        }}>
-          Icon States & Usage
-        </h4>
-        <img
-          src={`${BASE_URL}images/zoho/icon-states.png`}
-          alt="Icon States"
-          style={{
-            width: vw(1180),
-            height: 'auto',
-            display: 'block',
-          }}
-        />
-      </div>
+      <img
+        src={`${BASE_URL}images/zoho/icon-states.png`}
+        alt="Icon States & Usage"
+        style={{
+          width: vw(1231),
+          height: 'auto',
+          display: 'block',
+          marginTop: vw(32),
+        }}
+      />
     </div>
-  );
-}
-
-function DesignSystemSection() {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      style={{
-        width: '100%',
-        backgroundColor: COLORS.white,
-        overflow: 'hidden',
-      }}
-    >
-      <DSDocHeader title="Zoho Books" subtitle="Design System Documentation" />
-      <ColorPaletteSection />
-      <TypographySection />
-      <ContainersAndButtonsSection />
-      <IllustrationsSection />
-      <IconographySection />
-    </motion.section>
   );
 }
 
 function PitchDeckSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const dragState = useRef({ startX: 0, scrollLeft: 0 });
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setIsDragging(true);
+    dragState.current.startX = e.pageX - el.offsetLeft;
+    dragState.current.scrollLeft = el.scrollLeft;
+    el.style.scrollSnapType = 'none';
+    el.style.cursor = 'grabbing';
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const el = scrollRef.current;
+    if (!el) return;
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - dragState.current.startX) * 1.2;
+    el.scrollLeft = dragState.current.scrollLeft - walk;
+  }, [isDragging]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+    const el = scrollRef.current;
+    if (!el) return;
+    el.style.scrollSnapType = 'x mandatory';
+    el.style.cursor = 'grab';
+  }, []);
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isDragging) {
+        setIsDragging(false);
+        const el = scrollRef.current;
+        if (el) {
+          el.style.scrollSnapType = 'x mandatory';
+          el.style.cursor = 'grab';
+        }
+      }
+    };
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [isDragging]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const slideWidth = el.scrollWidth / 6;
+      const idx = Math.round(el.scrollLeft / slideWidth);
+      setActiveSlide(Math.min(idx, 5));
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <section style={{ backgroundColor: COLORS.white }}>
+    <section>
       <DSDocHeader title="Pitch Deck for feature" subtitle="Explainer for the function" />
       <div style={{
-        backgroundColor: COLORS.blueBg,
-        padding: `${vw(40)} 0`,
+        padding: `${vw(50)} 0 ${vw(47)}`,
         overflow: 'hidden',
       }}>
         <div
           ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
           style={{
             display: 'flex',
             gap: vw(41),
@@ -611,6 +683,13 @@ function PitchDeckSection() {
             paddingRight: vw(83),
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
+            scrollSnapType: 'x mandatory',
+            scrollPaddingLeft: vw(83),
+            scrollPaddingRight: vw(83),
+            scrollBehavior: 'smooth',
+            cursor: 'grab',
+            userSelect: isDragging ? 'none' : 'auto',
+            WebkitUserSelect: isDragging ? 'none' : 'auto',
           }}
         >
           {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -618,12 +697,34 @@ function PitchDeckSection() {
               key={num}
               src={`${BASE_URL}images/zoho/deck-slide-${num}.jpg`}
               alt={`Deck Slide ${num}`}
+              draggable={false}
               style={{
                 width: vw(1060),
                 height: vw(596),
                 borderRadius: vw(8),
                 flexShrink: 0,
                 objectFit: 'cover',
+                scrollSnapAlign: 'start',
+              }}
+            />
+          ))}
+        </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: vw(4),
+          marginTop: vw(37),
+          paddingBottom: vw(50),
+        }}>
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              style={{
+                width: vw(10),
+                height: vw(10),
+                borderRadius: '50%',
+                backgroundColor: i === activeSlide ? COLORS.secondaryYellow : 'rgba(0,0,0,0.15)',
+                transition: 'background-color 0.3s',
               }}
             />
           ))}
@@ -635,11 +736,10 @@ function PitchDeckSection() {
 
 function LinkedInTilesSection() {
   return (
-    <section style={{ backgroundColor: COLORS.white }}>
+    <section>
       <DSDocHeader title="LinkedIn Tiles" subtitle="Explainer for the function" />
       <div style={{
-        backgroundColor: COLORS.blueBg,
-        padding: `${vw(40)} ${vw(32)} ${vw(60)}`,
+        padding: `${vw(40)} ${vw(32)} ${vw(134)}`,
         display: 'flex',
         gap: vw(13),
       }}>
