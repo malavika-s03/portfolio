@@ -80,7 +80,7 @@ export function WorkExperience() {
             className="inline-flex items-center justify-center bg-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
             style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw', color: '#ffffff' }}
           >
-            VIew Project →
+            View Details →
           </Link>
         </motion.div>
 
@@ -110,7 +110,7 @@ export function WorkExperience() {
             className="inline-flex items-center justify-center bg-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
             style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw', color: '#ffffff' }}
           >
-            VIew Project →
+            View Details →
           </Link>
         </motion.div>
 

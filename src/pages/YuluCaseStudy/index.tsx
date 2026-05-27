@@ -416,7 +416,7 @@ function BlackSection() {
         className="absolute font-medium"
         style={{ left: '3.59vw', top: '79.06vw', fontSize: T, lineHeight: 'normal', color: CYAN }}
       >
-        contextual Enquiry
+        Contextual Enquiry
       </motion.h2>
 
       {/* Contextual body: x=46, y=1119, w=564 */}
@@ -442,7 +442,7 @@ function BlackSection() {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         className="absolute"
-        style={{ right: '5vw', top: '77.27vw', width: '52vw', zIndex: 1 }}
+        style={{ right: '2vw', top: '77.27vw', width: '45vw', zIndex: 1 }}
       >
         <img
           src={`${BASE_URL}images/yulu/contextual-scooter.png`}
