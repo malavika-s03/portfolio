@@ -54,6 +54,9 @@ function DarkProjectsSection() {
       <motion.img
         src={yulu.thumbnail}
         alt={yulu.title}
+        width={654}
+        height={455}
+        decoding="async"
         className="absolute object-cover"
         style={{ left: '4.41vw', top: '11.37vw', width: '45.39vw', height: '31.56vw', maxWidth: 'none' }}
         loading="lazy"
@@ -93,6 +96,9 @@ function DarkProjectsSection() {
       <motion.img
         src={vectorVault.thumbnail}
         alt={vectorVault.title}
+        width={589}
+        height={363}
+        decoding="async"
         className="absolute object-cover"
         style={{ left: '50.87vw', top: '55.39vw', width: '40.87vw', height: '25.16vw', maxWidth: 'none' }}
         loading="lazy"
@@ -102,11 +108,11 @@ function DarkProjectsSection() {
       {/* VECTOR VAULT floating images */}
       {vectorVault.floatingImages && (
         <>
-          <motion.img src={vectorVault.floatingImages[0]} alt="" loading="lazy" className="absolute object-contain" style={{ left: '83.24vw', top: '58.31vw', width: '8.76vw', height: '8.32vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(0)} />
-          <motion.img src={vectorVault.floatingImages[1]} alt="" loading="lazy" className="absolute object-contain" style={{ left: '50.00vw', top: '67.95vw', width: '8.37vw', height: '8.39vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(1)} />
-          <motion.img src={vectorVault.floatingImages[2]} alt="" loading="lazy" className="absolute object-contain" style={{ left: '65.84vw', top: '60.27vw', width: '4.20vw', height: '7.00vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(2)} />
-          <motion.img src={vectorVault.floatingImages[3]} alt="" loading="lazy" className="absolute object-contain" style={{ left: '78.78vw', top: '63.84vw', width: '6.31vw', height: '6.91vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(3)} />
-          <motion.img src={vectorVault.floatingImages[4]} alt="" loading="lazy" className="absolute object-contain" style={{ left: '58.50vw', top: '67.25vw', width: '6.95vw', height: '6.97vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(4)} />
+          <motion.img src={vectorVault.floatingImages[0]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '83.24vw', top: '58.31vw', width: '8.76vw', height: '8.32vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(0)} />
+          <motion.img src={vectorVault.floatingImages[1]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '50.00vw', top: '67.95vw', width: '8.37vw', height: '8.39vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(1)} />
+          <motion.img src={vectorVault.floatingImages[2]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '65.84vw', top: '60.27vw', width: '4.20vw', height: '7.00vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(2)} />
+          <motion.img src={vectorVault.floatingImages[3]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '78.78vw', top: '63.84vw', width: '6.31vw', height: '6.91vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(3)} />
+          <motion.img src={vectorVault.floatingImages[4]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '58.50vw', top: '67.25vw', width: '6.95vw', height: '6.97vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(4)} />
         </>
       )}
 
@@ -194,6 +200,9 @@ function ExpandedProjectsContent() {
       <motion.img
         src={zoho.thumbnail}
         alt={zoho.title}
+        width={640}
+        height={286}
+        decoding="async"
         className="absolute"
         style={{ left: '3.98vw', top: '17.83vw', width: '44.45vw', height: '19.84vw', maxWidth: 'none' }}
         loading="lazy"
@@ -235,6 +244,9 @@ function ExpandedProjectsContent() {
       <motion.img
         src={district.thumbnail}
         alt={district.title}
+        width={615}
+        height={482}
+        decoding="async"
         className="absolute object-cover"
         style={{ left: '50.70vw', top: '55.63vw', width: '42.73vw', height: '33.44vw', maxWidth: 'none', borderRadius: '0.78vw' }}
         loading="lazy"

@@ -94,9 +94,10 @@ function HeroSection() {
           transition={{ duration: 0.6 }}
           className="w-[47.73vw] shrink-0"
         >
-          <img 
+          <img
             src={`${BASE_URL}images/yulu/hero-image.jpg`}
-            alt="YULU UX Study" 
+            alt="YULU UX Study"
+            decoding="async"
             className="w-full h-auto"
             style={{ aspectRatio: '611/433' }}
           />
@@ -363,6 +364,7 @@ function BlackSection() {
         <img
           src={`${BASE_URL}images/yulu/radar-chart.png`}
           alt="Heuristic Evaluation Radar Chart"
+          decoding="async"
           className="w-full h-auto"
         />
       </motion.div>
@@ -379,6 +381,7 @@ function BlackSection() {
         <img
           src={`${BASE_URL}images/yulu/usability-hand.png`}
           alt="Usability test - paper prototype"
+          decoding="async"
           className="w-full h-auto"
         />
       </motion.div>
@@ -444,6 +447,7 @@ function BlackSection() {
         <img
           src={`${BASE_URL}images/yulu/contextual-scooter.png`}
           alt="Yulu Electric Scooter Illustration"
+          decoding="async"
           className="w-full h-auto"
         />
       </motion.div>
@@ -646,6 +650,7 @@ function YuluStrengthsSection() {
         <img
           src={`${BASE_URL}images/yulu/strengths-infographic.png`}
           alt="Yulu's Strengths: Battery Swapping, Affordability, No License Required, Eco-Friendly Focus, Convenience"
+          decoding="async"
           className="absolute"
           style={{
             left: '0',
@@ -714,6 +719,7 @@ function FinalDesignSection() {
           <img
             src={`${BASE_URL}images/yulu/phone-mockup.png`}
             alt="Yulu Final Design Mockups"
+            decoding="async"
             className="w-full h-auto"
           />
         </div>

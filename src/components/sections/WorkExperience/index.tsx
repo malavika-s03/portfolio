@@ -42,6 +42,9 @@ export function WorkExperience() {
         <motion.img
           src={`${BASE}images/projects/peakmind-illustration.png`}
           alt="PeakMind Student App"
+          width={480}
+          height={288}
+          decoding="async"
           className="absolute"
           style={{ left: '4.69vw', top: '12.19vw', width: '33.36vw', height: '20.0vw', maxWidth: 'none' }}
           loading="lazy"
@@ -52,6 +55,9 @@ export function WorkExperience() {
         <motion.img
           src={`${BASE}images/projects/peakmind-badge.png`}
           alt="4 → 7 messages per session"
+          width={420}
+          height={65}
+          decoding="async"
           className="absolute"
           style={{ left: '6.56vw', top: '32.97vw', width: '29.14vw', height: '4.53vw', maxWidth: 'none' }}
           loading="lazy"

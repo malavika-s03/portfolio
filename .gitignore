@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dev planning/spec files
+IMPLEMENTATION_PLAN.md
+docs/

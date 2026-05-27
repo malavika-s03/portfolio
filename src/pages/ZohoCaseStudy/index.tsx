@@ -104,6 +104,7 @@ function HeroSection() {
       <img
         src={`${BASE_URL}images/zoho/zoho-logo-full.png`}
         alt="Zoho Logo"
+        decoding="async"
         style={{
           position: 'absolute',
           left: vw(1062),
@@ -534,6 +535,7 @@ function IllustrationsSection() {
               <img
                 src={`${BASE_URL}images/zoho/${card.image}`}
                 alt={card.title}
+                decoding="async"
                 style={{
                   maxWidth: '80%',
                   maxHeight: '90%',
@@ -581,6 +583,7 @@ function IconographySection() {
       <img
         src={`${BASE_URL}images/zoho/icons-grid.png`}
         alt="Icon Grid"
+        decoding="async"
         style={{
           width: vw(1231),
           height: 'auto',
@@ -590,6 +593,7 @@ function IconographySection() {
       <img
         src={`${BASE_URL}images/zoho/icon-states.png`}
         alt="Icon States & Usage"
+        decoding="async"
         style={{
           width: vw(1231),
           height: 'auto',
@@ -697,6 +701,7 @@ function PitchDeckSection() {
               key={num}
               src={`${BASE_URL}images/zoho/deck-slide-${num}.jpg`}
               alt={`Deck Slide ${num}`}
+              decoding="async"
               draggable={false}
               style={{
                 width: vw(1060),
@@ -748,6 +753,7 @@ function LinkedInTilesSection() {
             key={num}
             src={`${BASE_URL}images/zoho/linkedin-tile-${num}.jpg`}
             alt={`LinkedIn Tile ${num}`}
+            decoding="async"
             style={{
               width: vw(396),
               height: vw(396),

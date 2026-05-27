@@ -342,6 +342,7 @@ export function HeroPlannerCard() {
     <img
       src={`${BASE_URL}images/peakmind-cms/planner-mockup.png`}
       alt="Planner calendar view"
+      decoding="async"
       style={{
         width: '100%',
         height: vw(310),
@@ -485,6 +486,7 @@ export function HeroGalleryCard() {
             <img
               src={`${BASE_URL}images/peakmind-cms/${item.image}`}
               alt={item.title}
+              decoding="async"
               style={{
                 width: vw(159.6),
                 height: vw(128),
@@ -917,6 +919,7 @@ function ProjectOverviewSection() {
               <img
                 src={`${BASE_URL}images/peakmind-cms/problem-icon.svg`}
                 alt=""
+                decoding="async"
                 style={{ width: vw(16), height: vw(16) }}
               />
               <span
@@ -1031,6 +1034,7 @@ function ProjectOverviewSection() {
               <img
                 src={`${BASE_URL}images/peakmind-cms/solution-icon.svg`}
                 alt=""
+                decoding="async"
                 style={{ width: vw(16), height: vw(16) }}
               />
               <span
@@ -1110,6 +1114,7 @@ function ProjectOverviewSection() {
                     <img
                       src={`${BASE_URL}images/peakmind-cms/checkmark-purple.svg`}
                       alt=""
+                      decoding="async"
                       style={{ width: vw(16), height: vw(16), flexShrink: 0 }}
                     />
                     <span
@@ -1402,6 +1407,7 @@ function TabOverviewContent() {
                   <img
                     src={`${BASE_URL}images/peakmind-cms/${principle.icon}`}
                     alt=""
+                    decoding="async"
                     style={{ width: vw(24), height: vw(24) }}
                   />
                 </div>
@@ -1506,6 +1512,7 @@ function TabOverviewContent() {
                   <img
                     src={`${BASE_URL}images/peakmind-cms/feature-check-orange.svg`}
                     alt=""
+                    decoding="async"
                     style={{ width: vw(12), height: vw(12) }}
                   />
                 </div>
@@ -2563,6 +2570,7 @@ function UsersWorkflowsSection() {
                   <img
                     src={`${BASE_URL}images/peakmind-cms/${role.icon}`}
                     alt=""
+                    decoding="async"
                     style={{ width: vw(32), height: vw(32) }}
                   />
                 </div>
@@ -2780,6 +2788,7 @@ function FeatureDeepDiveSection() {
                     <img
                       src={`${BASE_URL}images/peakmind-cms/feature-check-green.svg`}
                       alt=""
+                      decoding="async"
                       style={{
                         width: vw(20),
                         height: vw(20),
@@ -2818,6 +2827,7 @@ function FeatureDeepDiveSection() {
               <img
                 src={`${BASE_URL}images/peakmind-cms/planner-mockup.png`}
                 alt="Planner calendar view"
+                decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -3226,6 +3236,7 @@ function FeatureDeepDiveSection() {
               <img
                 src={`${BASE_URL}images/peakmind-cms/case-mgmt-mockup.png`}
                 alt="Case management mobile view"
+                decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -3568,6 +3579,7 @@ function FeatureDeepDiveSection() {
                   <img
                     src={`${BASE_URL}images/peakmind-cms/${card.icon}`}
                     alt=""
+                    decoding="async"
                     style={{ width: vw(24), height: vw(24) }}
                   />
                 </div>
@@ -3630,6 +3642,7 @@ function FeatureDeepDiveSection() {
                       <img
                         src={`${BASE_URL}images/peakmind-cms/${card.checkIcon}`}
                         alt=""
+                        decoding="async"
                         style={{
                           width: vw(16),
                           height: vw(16),

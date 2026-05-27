@@ -40,6 +40,9 @@ export function Hero() {
             <img
               src={`${BASE}images/profile-photo.jpg`}
               alt={profile.name}
+              width={800}
+              height={800}
+              fetchPriority="high"
               className="absolute"
               style={{ width: '177.85%', height: '100.09%', left: '-38.26%', top: '-0.04%', maxWidth: 'none' }}
             />
