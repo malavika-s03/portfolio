@@ -12,7 +12,7 @@ export default defineConfig({
       jpg: { quality: 90 },
       svg: {
         plugins: [
-          { name: 'preset-default', params: { overrides: { removeViewBox: false } } },
+          { name: 'preset-default', params: { overrides: { removeViewBox: false } } } as any,
         ],
       },
     }),
