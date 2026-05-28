@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { HomeStateProvider } from '@/context/HomeStateContext';
 import { SmoothScroll } from '@/components/shared/SmoothScroll';
@@ -18,7 +18,7 @@ function App() {
   return (
     <ThemeProvider>
       <HomeStateProvider>
-      <HashRouter>
+      <BrowserRouter>
         <SmoothScroll>
           <Header />
           <PageTransition>
@@ -35,7 +35,7 @@ function App() {
             </Routes>
           </PageTransition>
         </SmoothScroll>
-      </HashRouter>
+      </BrowserRouter>
       </HomeStateProvider>
     </ThemeProvider>
   );

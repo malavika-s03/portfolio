@@ -14,6 +14,12 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Redirect old hash-based URLs (e.g. /#/work/peakmind-cms → /work/peakmind-cms)
+      (function(){var h=location.hash;if(h&&h.startsWith('#/'))history.replaceState(null,'',h.slice(1)+location.search)})();
+      // Restore path from GitHub Pages 404.html redirect
+      (function(){var q=location.search,m=q.match(/[?&]p=([^&]*)/);if(m){var p=decodeURIComponent(m[1]);history.replaceState(null,'',p+(q.replace(/[?&]p=[^&]*/,'').replace(/^\?$/,'')||''))}})();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

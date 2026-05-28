@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useLayoutEffect, useState, useRef, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
+import { useHomeState } from '@/context/HomeStateContext';
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -13,6 +14,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const rafId = useRef<number>(0);
   const location = useLocation();
   const prevPathname = useRef(location.pathname);
+  const { markHomeVisited } = useHomeState();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -40,7 +42,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!lenisInstance) return;
 
     const prev = prevPathname.current;
@@ -50,19 +52,19 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     if (prev === '/') {
       sessionStorage.setItem('homeScrollY', String(lenisInstance.scroll));
+      markHomeVisited();
     }
 
     if (location.pathname === '/') {
       const saved = sessionStorage.getItem('homeScrollY');
       if (saved !== null) {
-        requestAnimationFrame(() => {
-          lenisInstance.scrollTo(Number(saved), { immediate: true });
-        });
+        lenisInstance.scrollTo(Number(saved), { immediate: true });
       }
     } else {
       lenisInstance.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
     }
-  }, [location.pathname, lenisInstance]);
+  }, [location.pathname, lenisInstance, markHomeVisited]);
 
   return (
     <LenisContext.Provider value={lenisInstance}>
