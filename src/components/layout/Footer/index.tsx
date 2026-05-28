@@ -15,8 +15,7 @@ function footerStagger(delay: number) {
 }
 
 export function Footer() {
-  const { hasVisitedHome } = useHomeState();
-  const s = (props: Record<string, unknown>) => hasVisitedHome ? {} : props;
+  const { skipAnimation } = useHomeState();
 
   return (
     <footer
@@ -35,7 +34,7 @@ export function Footer() {
           letterSpacing: '-0.142vw',
           color: '#fffefe',
         }}
-        {...s(footerStagger(0))}
+        {...skipAnimation(footerStagger(0))}
       >
         GET IN TOUCH
       </motion.h2>
@@ -50,7 +49,7 @@ export function Footer() {
           lineHeight: '1.90vw',
           color: '#99a1af',
         }}
-        {...s(footerStagger(0.1))}
+        {...skipAnimation(footerStagger(0.1))}
       >
         {profile.email}
       </motion.a>
@@ -68,7 +67,7 @@ export function Footer() {
             lineHeight: '1.90vw',
             color: '#99a1af',
           }}
-          {...s(footerStagger(0.2))}
+          {...skipAnimation(footerStagger(0.2))}
         >
           LInkedIn
         </motion.a>
@@ -87,7 +86,7 @@ export function Footer() {
             lineHeight: '1.90vw',
             color: '#99a1af',
           }}
-          {...s(footerStagger(0.3))}
+          {...skipAnimation(footerStagger(0.3))}
         >
           Behance
         </motion.a>

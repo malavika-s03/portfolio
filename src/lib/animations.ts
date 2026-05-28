@@ -15,11 +15,6 @@ export const HERO_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 // Ease-out for scroll reveals (no hesitation on entry, smooth deceleration)
 export const SCROLL_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-// Durations (seconds)
-export const APPEAR_DURATION = 0.6;
-export const COLOR_TRANSITION_DURATION = 0.4;
-export const STAGGER_DELAY = 0.1;
-
 // ─── Hero Appear Animations ─────────────────────────────────────────
 // Initial states extracted from data-framer-appear-id elements
 export const heroNameAppear = {
@@ -72,54 +67,6 @@ export const scrollAppear = {
     transition: { duration: 0.8, ease: SCROLL_EASE },
     viewport: { once: true, margin: '0px 0px -30px 0px' as const },
   },
-  textBlock: {
-    initial: { opacity: 0, y: 50 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: SCROLL_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-  imageBlock: {
-    initial: { opacity: 0, y: 50 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: SCROLL_EASE },
-    viewport: { once: true, margin: '0px 0px -30px 0px' as const },
-  },
-};
-
-// ─── Footer Animation ───────────────────────────────────────────────
-export const footerAppear = {
-  initial: { opacity: 0.001, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: {
-    duration: 0.6,
-    ease: FRAMER_EASE,
-  },
-};
-
-// ─── Generic Variants (for stagger patterns) ────────────────────────
-export const staggerVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * STAGGER_DELAY,
-      duration: APPEAR_DURATION,
-      ease: FRAMER_EASE,
-    },
-  }),
-};
-
-// ─── Project Card Animation ─────────────────────────────────────────
-export const projectCardAppear = {
-  initial: { opacity: 0, y: 50 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '0px 0px -30px 0px' },
-  transition: (index: number) => ({
-    duration: 0.8,
-    delay: index * 0.08,
-    ease: SCROLL_EASE,
-  }),
 };
 
 // ─── Projects Section Animations ────────────────────────────────────
@@ -163,17 +110,3 @@ export const infoBarAppear = {
   transition: { duration: 0.7, delay: 1.2, ease: HERO_EASE },
 };
 
-// ─── Page Transition ────────────────────────────────────────────────
-export const pageVariants = {
-  initial: { opacity: 0 },
-  enter: {
-    opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'linear' as const,
-    },
-  },
-  exit: {
-    opacity: 1,
-  },
-};

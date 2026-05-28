@@ -6,8 +6,7 @@ import { useHomeState } from '@/context/HomeStateContext';
 const BASE = import.meta.env.BASE_URL;
 
 export function Hero() {
-  const { hasVisitedHome } = useHomeState();
-  const skip = hasVisitedHome;
+  const { skipAnimation } = useHomeState();
 
   return (
     <section className="w-full bg-white overflow-hidden">
@@ -16,7 +15,7 @@ export function Hero() {
           <motion.p
             className="font-medium text-[#0a0a0a] mb-0"
             style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
-            {...(skip ? {} : {
+            {...skipAnimation({
               initial: heroNameAppear.initial,
               animate: heroNameAppear.animate,
               transition: heroNameAppear.transition(0.2),
@@ -27,7 +26,7 @@ export function Hero() {
           <motion.p
             className="font-medium text-[#0a0a0a]"
             style={{ fontSize: '10vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', willChange: 'transform, opacity' }}
-            {...(skip ? {} : {
+            {...skipAnimation({
               initial: heroNameAppear.initial,
               animate: heroNameAppear.animate,
               transition: heroNameAppear.transition(0.5),
@@ -40,7 +39,7 @@ export function Hero() {
         <motion.div
           className="absolute"
           style={{ left: '82.03vw', top: '9.22vw', width: '11.64vw', height: '11.64vw', borderRadius: '5.78vw' }}
-          {...(skip ? {} : {
+          {...skipAnimation({
             initial: heroPhotoAppear.initial,
             animate: heroPhotoAppear.animate,
             transition: heroPhotoAppear.transition,
@@ -62,7 +61,7 @@ export function Hero() {
         <motion.div
           className="absolute"
           style={{ left: '40.70vw', top: '31.875vw', width: '58.67vw' }}
-          {...(skip ? {} : {
+          {...skipAnimation({
             initial: heroBioAppear.initial,
             animate: heroBioAppear.animate,
             transition: heroBioAppear.transition,

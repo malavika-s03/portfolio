@@ -7,7 +7,7 @@ import { useHomeState } from '@/context/HomeStateContext';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { hasVisitedHome } = useHomeState();
+  const { skipAnimation } = useHomeState();
 
   const isProjectPage = location.pathname.startsWith('/project/') || location.pathname.startsWith('/work/');
 
@@ -16,7 +16,7 @@ export function Header() {
       {!isProjectPage && (
         <motion.header
           className="absolute top-0 left-0 right-0 z-50"
-          {...(hasVisitedHome ? {} : {
+          {...skipAnimation({
             initial: headerAppear.initial,
             animate: headerAppear.animate,
             transition: headerAppear.transition,
