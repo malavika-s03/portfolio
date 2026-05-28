@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { profile } from '@/data/profile';
 import { SCROLL_EASE } from '@/lib/animations';
+import { useHomeState } from '@/context/HomeStateContext';
 
 const VIEWPORT = { once: true, margin: '0px 0px -30px 0px' as const };
 
@@ -14,6 +15,9 @@ function footerStagger(delay: number) {
 }
 
 export function Footer() {
+  const { hasVisitedHome } = useHomeState();
+  const s = (props: Record<string, unknown>) => hasVisitedHome ? {} : props;
+
   return (
     <footer
       id="contact"
@@ -31,7 +35,7 @@ export function Footer() {
           letterSpacing: '-0.142vw',
           color: '#fffefe',
         }}
-        {...footerStagger(0)}
+        {...s(footerStagger(0))}
       >
         GET IN TOUCH
       </motion.h2>
@@ -46,7 +50,7 @@ export function Footer() {
           lineHeight: '1.90vw',
           color: '#99a1af',
         }}
-        {...footerStagger(0.1)}
+        {...s(footerStagger(0.1))}
       >
         {profile.email}
       </motion.a>
@@ -64,7 +68,7 @@ export function Footer() {
             lineHeight: '1.90vw',
             color: '#99a1af',
           }}
-          {...footerStagger(0.2)}
+          {...s(footerStagger(0.2))}
         >
           LInkedIn
         </motion.a>
@@ -83,7 +87,7 @@ export function Footer() {
             lineHeight: '1.90vw',
             color: '#99a1af',
           }}
-          {...footerStagger(0.3)}
+          {...s(footerStagger(0.3))}
         >
           Behance
         </motion.a>

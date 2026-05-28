@@ -35,9 +35,10 @@ const vectorVault = projects[1];
 const zoho = projects[3];
 const district = projects[4];
 
-function DarkProjectsSection() {
+function DarkProjectsSection({ skip }: { skip: boolean }) {
   const yuluLink = '/project/yulu';
   const vvLink = '/project/vector-vault';
+  const s = (props: Record<string, unknown>) => skip ? {} : props;
 
   return (
     <div className="bg-black w-full relative overflow-hidden" style={{ height: '92.42vw' }}>
@@ -45,7 +46,7 @@ function DarkProjectsSection() {
       <motion.p
         className="absolute font-medium text-[#fffefe]"
         style={{ left: '3.98vw', top: '2.5vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw', width: '66.48vw' }}
-        {...projectSectionAppear.title}
+        {...s(projectSectionAppear.title)}
       >
         {yulu.title}
       </motion.p>
@@ -60,20 +61,20 @@ function DarkProjectsSection() {
         className="absolute object-cover"
         style={{ left: '4.41vw', top: '11.37vw', width: '45.39vw', height: '31.56vw', maxWidth: 'none' }}
         loading="lazy"
-        {...projectSectionAppear.image}
+        {...s(projectSectionAppear.image)}
       />
 
       {/* YULU description */}
       <motion.p
         className="absolute font-normal text-[#fffbfb]"
         style={{ left: '55.31vw', top: '15.94vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
-        {...projectSectionAppear.text}
+        {...s(projectSectionAppear.text)}
       >
         {yulu.description}
       </motion.p>
 
       {/* YULU button */}
-      <motion.div className="absolute" style={{ left: '55.31vw', top: '29.53vw' }} {...projectSectionAppear.button}>
+      <motion.div className="absolute" style={{ left: '55.31vw', top: '29.53vw' }} {...s(projectSectionAppear.button)}>
         <Link
           to={yuluLink}
           className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
@@ -87,7 +88,7 @@ function DarkProjectsSection() {
       <motion.p
         className="absolute font-medium text-[#fffefe]"
         style={{ left: '44.61vw', top: '46.25vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
-        {...projectSectionAppear.title}
+        {...s(projectSectionAppear.title)}
       >
         {vectorVault.title}
       </motion.p>
@@ -102,17 +103,17 @@ function DarkProjectsSection() {
         className="absolute object-cover"
         style={{ left: '50.87vw', top: '55.39vw', width: '40.87vw', height: '25.16vw', maxWidth: 'none' }}
         loading="lazy"
-        {...projectSectionAppear.image}
+        {...s(projectSectionAppear.image)}
       />
 
       {/* VECTOR VAULT floating images */}
       {vectorVault.floatingImages && (
         <>
-          <motion.img src={vectorVault.floatingImages[0]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '83.24vw', top: '58.31vw', width: '8.76vw', height: '8.32vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(0)} />
-          <motion.img src={vectorVault.floatingImages[1]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '50.00vw', top: '67.95vw', width: '8.37vw', height: '8.39vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(1)} />
-          <motion.img src={vectorVault.floatingImages[2]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '65.84vw', top: '60.27vw', width: '4.20vw', height: '7.00vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(2)} />
-          <motion.img src={vectorVault.floatingImages[3]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '78.78vw', top: '63.84vw', width: '6.31vw', height: '6.91vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(3)} />
-          <motion.img src={vectorVault.floatingImages[4]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '58.50vw', top: '67.25vw', width: '6.95vw', height: '6.97vw', maxWidth: 'none' }} {...projectSectionAppear.floatingImage(4)} />
+          <motion.img src={vectorVault.floatingImages[0]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '83.24vw', top: '58.31vw', width: '8.76vw', height: '8.32vw', maxWidth: 'none' }} {...s(projectSectionAppear.floatingImage(0))} />
+          <motion.img src={vectorVault.floatingImages[1]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '50.00vw', top: '67.95vw', width: '8.37vw', height: '8.39vw', maxWidth: 'none' }} {...s(projectSectionAppear.floatingImage(1))} />
+          <motion.img src={vectorVault.floatingImages[2]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '65.84vw', top: '60.27vw', width: '4.20vw', height: '7.00vw', maxWidth: 'none' }} {...s(projectSectionAppear.floatingImage(2))} />
+          <motion.img src={vectorVault.floatingImages[3]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '78.78vw', top: '63.84vw', width: '6.31vw', height: '6.91vw', maxWidth: 'none' }} {...s(projectSectionAppear.floatingImage(3))} />
+          <motion.img src={vectorVault.floatingImages[4]} alt="" loading="lazy" decoding="async" className="absolute object-contain" style={{ left: '58.50vw', top: '67.25vw', width: '6.95vw', height: '6.97vw', maxWidth: 'none' }} {...s(projectSectionAppear.floatingImage(4))} />
         </>
       )}
 
@@ -120,13 +121,13 @@ function DarkProjectsSection() {
       <motion.p
         className="absolute font-normal text-[#fffbfb]"
         style={{ left: '6.88vw', top: '59.77vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
-        {...projectSectionAppear.text}
+        {...s(projectSectionAppear.text)}
       >
         {vectorVault.description}
       </motion.p>
 
       {/* VECTOR VAULT button */}
-      <motion.div className="absolute" style={{ left: '6.88vw', top: '78.05vw' }} {...projectSectionAppear.button}>
+      <motion.div className="absolute" style={{ left: '6.88vw', top: '78.05vw' }} {...s(projectSectionAppear.button)}>
         <Link
           to={vvLink}
           className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
@@ -170,9 +171,10 @@ function DarkProjectsSection() {
   );
 }
 
-function ExpandedProjectsContent() {
+function ExpandedProjectsContent({ skip }: { skip: boolean }) {
   const zohoLink = `/project/${zoho.slug}`;
   const districtLink = `/project/${district.slug}`;
+  const s = (props: Record<string, unknown>) => skip ? {} : props;
 
   return (
     <div className="relative w-full" style={{ height: '92vw' }}>
@@ -182,7 +184,7 @@ function ExpandedProjectsContent() {
       <motion.p
         className="absolute font-medium text-[#fffefe]"
         style={{ left: '3.98vw', top: '2.5vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw', width: '66.48vw' }}
-        {...projectSectionAppear.title}
+        {...s(projectSectionAppear.title)}
       >
         {zoho.title}
       </motion.p>
@@ -191,7 +193,7 @@ function ExpandedProjectsContent() {
       <motion.p
         className="absolute font-black text-center"
         style={{ left: '3.98vw', top: '13.19vw', width: '44.45vw', fontSize: '1.875vw', lineHeight: '2.11vw', color: '#dbbe27' }}
-        {...projectSectionAppear.text}
+        {...s(projectSectionAppear.text)}
       >
         {zoho.overlayText}
       </motion.p>
@@ -206,20 +208,20 @@ function ExpandedProjectsContent() {
         className="absolute"
         style={{ left: '3.98vw', top: '17.83vw', width: '44.45vw', height: '19.84vw', maxWidth: 'none' }}
         loading="lazy"
-        {...projectSectionAppear.image}
+        {...s(projectSectionAppear.image)}
       />
 
       {/* ZOHO description */}
       <motion.p
         className="absolute font-normal text-[#fffbfb]"
         style={{ left: '55.31vw', top: '12.03vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
-        {...projectSectionAppear.text}
+        {...s(projectSectionAppear.text)}
       >
         {zoho.description}
       </motion.p>
 
       {/* ZOHO button */}
-      <motion.div className="absolute" style={{ left: '55.31vw', top: '31.09vw' }} {...projectSectionAppear.button}>
+      <motion.div className="absolute" style={{ left: '55.31vw', top: '31.09vw' }} {...s(projectSectionAppear.button)}>
         <Link
           to={zohoLink}
           className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
@@ -235,7 +237,7 @@ function ExpandedProjectsContent() {
       <motion.p
         className="absolute font-medium text-[#fffefe]"
         style={{ left: '50.08vw', top: '46.25vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
-        {...projectSectionAppear.title}
+        {...s(projectSectionAppear.title)}
       >
         {district.title}
       </motion.p>
@@ -250,20 +252,20 @@ function ExpandedProjectsContent() {
         className="absolute object-cover"
         style={{ left: '50.70vw', top: '55.63vw', width: '42.73vw', height: '33.44vw', maxWidth: 'none', borderRadius: '0.78vw' }}
         loading="lazy"
-        {...projectSectionAppear.image}
+        {...s(projectSectionAppear.image)}
       />
 
       {/* DISTRICT description */}
       <motion.p
         className="absolute font-normal text-[#fffbfb]"
         style={{ left: '6.88vw', top: '59.77vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
-        {...projectSectionAppear.text}
+        {...s(projectSectionAppear.text)}
       >
         {district.description}
       </motion.p>
 
       {/* DISTRICT button */}
-      <motion.div className="absolute" style={{ left: '6.88vw', top: '78.05vw' }} {...projectSectionAppear.button}>
+      <motion.div className="absolute" style={{ left: '6.88vw', top: '78.05vw' }} {...s(projectSectionAppear.button)}>
         <Link
           to={districtLink}
           className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
@@ -323,9 +325,10 @@ function ViewMoreToggle({ expanded, onToggle }: { expanded: boolean; onToggle: (
 }
 
 export function Projects() {
-  const { projectsExpanded: expanded, setProjectsExpanded: setExpanded } = useHomeState();
+  const { projectsExpanded: expanded, setProjectsExpanded: setExpanded, hasVisitedHome } = useHomeState();
   const toggleRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
+  const skip = hasVisitedHome;
 
   const handleToggle = useCallback(() => {
     if (expanded) {
@@ -358,7 +361,7 @@ export function Projects() {
           <motion.h2
             className="absolute font-medium text-white"
             style={{ left: '3.98vw', top: '0.55vw', fontSize: '5.86vw', lineHeight: '9.22vw', letterSpacing: '-0.142vw', margin: 0 }}
-            {...scrollAppear.sectionHeader}
+            {...(skip ? {} : scrollAppear.sectionHeader)}
           >
             PROJECTS
           </motion.h2>
@@ -367,7 +370,7 @@ export function Projects() {
             style={{ left: '4.06vw', top: '9.77vw', width: '89.92vw', height: '1px' }}
           />
         </div>
-        <DarkProjectsSection />
+        <DarkProjectsSection skip={skip} />
 
         <AnimatePresence initial={false}>
           {expanded && (
@@ -380,7 +383,7 @@ export function Projects() {
               exit={{ height: 0 }}
               transition={{ duration: ACCORDION_DURATION, ease: SCROLL_EASE }}
             >
-              <ExpandedProjectsContent />
+              <ExpandedProjectsContent skip={skip} />
             </motion.div>
           )}
         </AnimatePresence>

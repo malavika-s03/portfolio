@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { headerAppear, FRAMER_EASE } from '@/lib/animations';
+import { useHomeState } from '@/context/HomeStateContext';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { hasVisitedHome } = useHomeState();
 
   const isProjectPage = location.pathname.startsWith('/project/') || location.pathname.startsWith('/work/');
 
@@ -14,9 +16,11 @@ export function Header() {
       {!isProjectPage && (
         <motion.header
           className="absolute top-0 left-0 right-0 z-50"
-          initial={headerAppear.initial}
-          animate={headerAppear.animate}
-          transition={headerAppear.transition}
+          {...(hasVisitedHome ? {} : {
+            initial: headerAppear.initial,
+            animate: headerAppear.animate,
+            transition: headerAppear.transition,
+          })}
         >
           <div className="w-full relative" style={{ height: '4.69vw' }}>
               <Link
