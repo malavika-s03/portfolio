@@ -29,6 +29,8 @@ export function Pulse({
           <Stat n={today.inProgress} word="in progress" />
           <span className="jt-dotsep">·</span>
           <Stat n={today.applied} word="applied" />
+          <span className="jt-dotsep">·</span>
+          <Stat n={today.updated} word="updated" />
         </div>
       </div>
 
