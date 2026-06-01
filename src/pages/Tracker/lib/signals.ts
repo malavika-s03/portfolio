@@ -56,21 +56,25 @@ export function decorate(apps: JoinedApp[], today: string): DecoratedApp[] {
 }
 
 export interface Pulse {
-  today: { added: number; applied: number; updated: number };
+  // Today's newly-added applications, broken down by their CURRENT status (updates live as
+  // you change a status), so it always reconciles with the cards.
+  today: { added: number; inProgress: number; applied: number };
   overall: { total: number; active: number; needsAttention: number; byStatus: Record<string, number>; byPriority: Record<string, number> };
 }
 
 export function computePulse(apps: DecoratedApp[], today: string): Pulse {
-  const t = { added: 0, applied: 0, updated: 0 };
+  const t = { added: 0, inProgress: 0, applied: 0 };
   const byStatus: Record<string, number> = {};
   const byPriority: Record<string, number> = {};
   let active = 0;
   let needsAttention = 0;
 
   for (const a of apps) {
-    if (a.dateAdded === today) t.added++;
-    if (a.details?.dateApplied === today) t.applied++;
-    if (a.details?.lastUpdate === today) t.updated++;
+    if (a.dateAdded === today) {
+      t.added++;
+      if (a.status === STATUS.IN_PROGRESS) t.inProgress++;
+      else if (a.status === STATUS.APPLIED) t.applied++;
+    }
     byStatus[a.status] = (byStatus[a.status] ?? 0) + 1;
     if (a.priority) byPriority[a.priority] = (byPriority[a.priority] ?? 0) + 1;
     if (!CLOSED_STATUSES.includes(a.status)) active++;

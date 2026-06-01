@@ -26,9 +26,9 @@ export function Pulse({
         <div className="jt-widget-row">
           <Stat n={today.added} word="added" />
           <span className="jt-dotsep">·</span>
-          <Stat n={today.applied} word="applied" />
+          <Stat n={today.inProgress} word="in progress" />
           <span className="jt-dotsep">·</span>
-          <Stat n={today.updated} word="updated" />
+          <Stat n={today.applied} word="applied" />
         </div>
       </div>
 
