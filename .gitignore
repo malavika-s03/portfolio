@@ -25,4 +25,11 @@ dist-ssr
 
 # Dev planning/spec files
 IMPLEMENTATION_PLAN.md
-docs/
+/docs/
+
+# Credentials — never commit
+.env
+.env.*
+!.env.example
+**/service-account*.json
+**/*credential*.json
