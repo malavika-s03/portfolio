@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useLayoutEffect, useState, useRef, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
-import { useHomeState } from '@/context/HomeStateContext';
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -14,9 +13,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const rafId = useRef<number>(0);
   const location = useLocation();
   const prevPathname = useRef(location.pathname);
-  const { markHomeVisited } = useHomeState();
 
   useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -52,19 +54,26 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     if (prev === '/') {
       sessionStorage.setItem('homeScrollY', String(lenisInstance.scroll));
-      markHomeVisited();
     }
+
+    // HomePage is kept mounted and toggled via display, so the document height
+    // changes the instant the route swaps. Lenis only recomputes its scroll
+    // limit on a debounced resize, so force a synchronous recompute here —
+    // otherwise scrollTo() can clamp the target to a stale limit and land short.
+    lenisInstance.resize();
 
     if (location.pathname === '/') {
       const saved = sessionStorage.getItem('homeScrollY');
       if (saved !== null) {
-        lenisInstance.scrollTo(Number(saved), { immediate: true });
+        const scrollY = Number(saved);
+        window.scrollTo(0, scrollY);
+        lenisInstance.scrollTo(scrollY, { immediate: true });
       }
     } else {
-      lenisInstance.scrollTo(0, { immediate: true });
       window.scrollTo(0, 0);
+      lenisInstance.scrollTo(0, { immediate: true });
     }
-  }, [location.pathname, lenisInstance, markHomeVisited]);
+  }, [location.pathname, lenisInstance]);
 
   return (
     <LenisContext.Provider value={lenisInstance}>
