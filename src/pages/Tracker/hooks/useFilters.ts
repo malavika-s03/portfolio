@@ -14,7 +14,7 @@ export interface FilterState {
   sort: SortKey;
 }
 
-const DEFAULT: FilterState = { query: '', needsAttention: false, week: false, statuses: [], priorities: [], sort: 'attention' };
+const DEFAULT: FilterState = { query: '', needsAttention: false, week: false, statuses: [], priorities: [], sort: 'recent' };
 
 function searchBlob(a: DecoratedApp): string {
   return [
@@ -30,6 +30,9 @@ function searchBlob(a: DecoratedApp): string {
 
 const rank = (p: string) => PRIORITY_RANK[p] ?? 99;
 const desc = (a?: string, b?: string) => ((b ?? '') < (a ?? '') ? -1 : (b ?? '') > (a ?? '') ? 1 : 0);
+// id (app_NNN) is assigned max+1, so it's a precise creation-order key — newest = highest number.
+const idNum = (id: string) => { const m = /(\d+)$/.exec(id); return m ? +m[1] : -1; };
+const newest = (a: DecoratedApp, b: DecoratedApp) => idNum(b.id) - idNum(a.id);
 
 export function useFilters(apps: DecoratedApp[], today: string) {
   const [filter, setFilter] = useState<FilterState>(DEFAULT);
@@ -55,16 +58,11 @@ export function useFilters(apps: DecoratedApp[], today: string) {
 
     const sorted = [...list];
     if (filter.sort === 'attention') {
-      sorted.sort(
-        (a, b) =>
-          b.signals.length - a.signals.length ||
-          desc(a.details?.lastUpdate, b.details?.lastUpdate) ||
-          desc(a.dateAdded, b.dateAdded),
-      );
+      sorted.sort((a, b) => b.signals.length - a.signals.length || desc(a.details?.lastUpdate, b.details?.lastUpdate) || newest(a, b));
     } else if (filter.sort === 'recent') {
-      sorted.sort((a, b) => desc(a.dateAdded, b.dateAdded));
+      sorted.sort(newest);
     } else if (filter.sort === 'priority') {
-      sorted.sort((a, b) => rank(a.priority) - rank(b.priority) || desc(a.dateAdded, b.dateAdded));
+      sorted.sort((a, b) => rank(a.priority) - rank(b.priority) || newest(a, b));
     }
     return sorted;
   }, [apps, filter, today]);

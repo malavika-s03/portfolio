@@ -54,7 +54,10 @@ export function Toolbar({
         />
       </div>
 
-      {/* facets first — what you reach for most */}
+      {/* All (reset) first, then facets, then the smart toggles, This week last */}
+      <button className={`jt-toggle ${!hasFilters ? 'is-on' : ''}`} onClick={clearAll} title="Clear filters — show everything">
+        All
+      </button>
       <FacetDropdown
         label="Status"
         kind="status"
@@ -74,17 +77,12 @@ export function Toolbar({
         onToggle={togglePriority}
         onSet={(priorities) => setFilter((f) => ({ ...f, priorities }))}
       />
-
-      {/* quick views — All leads, then the smart toggles */}
-      <button className={`jt-toggle ${!hasFilters ? 'is-on' : ''}`} onClick={clearAll} title="Clear filters — show everything">
-        All
-      </button>
       <button
         className={`jt-toggle ${filter.needsAttention ? 'is-on' : ''}`}
         onClick={() => setFilter((f) => ({ ...f, needsAttention: !f.needsAttention }))}
         title={ATTENTION_TIP}
       >
-        ⚑ Needs attention
+        Needs attention
       </button>
       <button
         className={`jt-toggle ${filter.week ? 'is-on' : ''}`}

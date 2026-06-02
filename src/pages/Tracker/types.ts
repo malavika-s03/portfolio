@@ -63,3 +63,19 @@ export interface JoinedApp extends Application {
 export interface DecoratedApp extends JoinedApp {
   signals: Signal[];
 }
+
+// ---- write inputs (see lib/writeApi.ts) ----
+export interface NewApplication {
+  company: string;
+  link: string;
+  status: string;
+  priority: string;
+  notes: string;
+  who: string;
+}
+
+export interface ParsedContact {
+  name?: string;
+  email?: string;
+  linkedin?: string;
+}

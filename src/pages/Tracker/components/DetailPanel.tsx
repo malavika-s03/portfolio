@@ -1,13 +1,24 @@
 import { useEffect, useState } from 'react';
-import { SHEET_EDIT_URL } from '../config';
-import type { DecoratedApp } from '../types';
-import { ContactRow, Field, Prose } from './panelParts';
+import { PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
+import { parseContact } from '../lib/parseContact';
+import type { DecoratedApp, ParsedContact } from '../types';
+import { Contacts } from './Contacts';
+import { Field, Prose } from './panelParts';
 
-// Slide-over: right drawer on desktop, bottom sheet on mobile. Read-only; links out to edit.
-export function DetailPanel({ app, onClose }: { app: DecoratedApp | null; onClose: () => void }) {
+interface Props {
+  app: DecoratedApp | null;
+  onClose: () => void;
+  writesEnabled: boolean;
+  onStatusChange: (id: string, status: string) => void;
+  onPriorityChange: (id: string, priority: string) => void;
+  onAddContact: (appId: string, parsed: ParsedContact) => Promise<unknown>;
+}
+
+// Slide-over: right drawer on desktop, bottom sheet on mobile. Status & Priority are editable
+// (when writes are on); everything else is read-only. Links out to edit the full row.
+export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onAddContact }: Props) {
   const open = app !== null;
-  // Retain the last app while the panel slides out (so closing animates instead of blanking).
-  // Guarded set-during-render — React's documented "adjust state when a prop changes" pattern.
+  // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
   if (app !== null && app !== shown) setShown(app);
 
@@ -30,13 +41,36 @@ export function DetailPanel({ app, onClose }: { app: DecoratedApp | null; onClos
               <div className="jt-panel-head-main">
                 <h2 className="jt-panel-title">{shown.company || 'Untitled'}</h2>
                 <div className="jt-panel-tags">
-                  <span className="jt-pill" data-status={shown.status}>{shown.status || '—'}</span>
-                  {shown.priority && (
-                    <span className="jt-prio-inline">
-                      <span className="jt-prio" data-priority={shown.priority} />
-                      {shown.priority}
-                    </span>
+                  {writesEnabled ? (
+                    <select
+                      className="jt-pill-select"
+                      data-status={shown.status}
+                      value={shown.status}
+                      onChange={(e) => onStatusChange(shown.id, e.target.value)}
+                      aria-label="Status"
+                    >
+                      {STATUS_ORDER.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  ) : (
+                    <span className="jt-pill" data-status={shown.status}>{shown.status || '—'}</span>
                   )}
+
+                  <span className="jt-prio-inline">
+                    <span className="jt-prio" data-priority={shown.priority} />
+                    {writesEnabled ? (
+                      <select
+                        className="jt-prio-select"
+                        value={shown.priority || 'Medium'}
+                        onChange={(e) => onPriorityChange(shown.id, e.target.value)}
+                        aria-label="Priority"
+                      >
+                        {PRIORITY_OPTIONS.map((p) => <option key={p} value={p}>{p}</option>)}
+                      </select>
+                    ) : (
+                      shown.priority
+                    )}
+                  </span>
+
                   {shown.id && <span className="jt-panel-id">{shown.id}</span>}
                 </div>
               </div>
@@ -72,16 +106,11 @@ export function DetailPanel({ app, onClose }: { app: DecoratedApp | null; onClos
               <Prose label="Research notes" value={d?.researchNotes} />
               <Prose label="My notes" value={d?.myNotes} />
 
-              {shown.contacts.length > 0 && (
-                <section className="jt-section">
-                  <h3 className="jt-section-title">Contacts ({shown.contacts.length})</h3>
-                  <div className="jt-contacts">
-                    {shown.contacts.map((c) => (
-                      <ContactRow key={c.contactId || c.name} c={c} />
-                    ))}
-                  </div>
-                </section>
-              )}
+              <Contacts
+                contacts={shown.contacts}
+                canAdd={writesEnabled}
+                onAdd={(parsed: ReturnType<typeof parseContact>) => onAddContact(shown.id, parsed as ParsedContact)}
+              />
             </div>
 
             <footer className="jt-panel-foot">
