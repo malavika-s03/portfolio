@@ -42,3 +42,10 @@ export const STATUS = {
 export const STATUS_ORDER = [STATUS.SAVED, STATUS.IN_PROGRESS, STATUS.APPLIED, STATUS.SCREENING, STATUS.REJECTED, STATUS.NO_RESPONSE];
 export const CLOSED_STATUSES: string[] = [STATUS.REJECTED, STATUS.NO_RESPONSE];
 export const PRIORITY_RANK: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
+export const PRIORITY_OPTIONS = ['High', 'Medium', 'Low'];
+
+// ---- Writing from the UI (see job-tracker/docs/04-write-from-ui.md) ----
+// Paste the Apps Script Web App /exec URL here to ENABLE the add/edit controls. Blank = read-only.
+export const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdETZLw4leTYnxqGYtCLoKs3vUqLKUDDQXzImGU47wQf-hO0UTVfKJmTzFFX_oowtf0A/exec';
+export const WRITES_ENABLED = WEB_APP_URL.length > 0;
+export const ADDED_BY_OPTIONS = ['Malavika', 'Abhijeet', 'Other'];

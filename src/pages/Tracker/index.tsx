@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './tracker.css';
+import { WRITES_ENABLED } from './config';
+import { AddSheet } from './components/AddSheet';
 import { AppList } from './components/AppList';
 import { DetailPanel } from './components/DetailPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { Fab } from './components/Fab';
 import { Pulse } from './components/Pulse';
 import { Toolbar } from './components/Toolbar';
 import { ErrorState, TrackerLoading } from './components/states';
@@ -10,9 +13,10 @@ import { useTracker } from './hooks/useTracker';
 import { clockTime } from './lib/dates';
 
 function Tracker() {
-  const { today, data, pulse, filters, selected, selectedId, select } = useTracker();
+  const { today, data, pulse, filters, selected, selectedId, select, mutations } = useTracker();
   const { apps, phase, error, fetchedAt, refreshing, refresh } = data;
   const { filter, setFilter, visible, toggleStatus, togglePriority, clearAll, hasFilters } = filters;
+  const [showAdd, setShowAdd] = useState(false);
 
   useEffect(() => {
     document.title = 'Tracker';
@@ -63,7 +67,31 @@ function Tracker() {
         <AppList apps={visible} today={today} selectedId={selectedId} onSelect={select} />
       </div>
 
-      <DetailPanel app={selected} onClose={() => select(null)} />
+      <DetailPanel
+        app={selected}
+        onClose={() => select(null)}
+        writesEnabled={WRITES_ENABLED}
+        onStatusChange={mutations.changeStatus}
+        onPriorityChange={mutations.changePriority}
+        onAddContact={mutations.addContactTo}
+      />
+
+      {WRITES_ENABLED && (
+        <>
+          <Fab onClick={() => setShowAdd(true)} />
+          <AddSheet
+            open={showAdd}
+            busy={mutations.busy}
+            error={mutations.error}
+            onClose={() => { setShowAdd(false); mutations.setError(null); }}
+            onAdd={mutations.add}
+            onAddContact={mutations.addContactTo}
+          />
+          {mutations.error && !showAdd && (
+            <div className="jt-toast" onClick={() => mutations.setError(null)}>{mutations.error}</div>
+          )}
+        </>
+      )}
     </div>
   );
 }
