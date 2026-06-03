@@ -14,7 +14,7 @@ export type Overrides = Record<string, Override>;
 
 export function emptyDetails(id: string): Details {
   return {
-    id, platform: '', location: '', workMode: '', glassdoor: '', salary: '', tags: '',
+    id, platform: '', location: '', workMode: '', yoeRequired: '', glassdoor: '', salary: '',
     dateApplied: '', lastUpdate: '', followUpBy: '', nextStep: '', jobDescription: '',
     requirements: '', researchNotes: '', myNotes: '',
   };

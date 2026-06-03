@@ -87,10 +87,10 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
               <div className="jt-fields">
                 <Field label="Platform" value={d?.platform} />
                 <Field label="Work mode" value={d?.workMode} />
+                <Field label="YOE required" value={d?.yoeRequired} />
                 <Field label="Location" value={d?.location} />
                 <Field label="Salary" value={d?.salary} />
                 <Field label="Glassdoor" value={d?.glassdoor} />
-                <Field label="Tags" value={d?.tags} />
                 <Field label="Date added" value={shown.dateAdded} />
                 <Field label="Added by" value={shown.addedBy} />
                 <Field label="Date applied" value={d?.dateApplied} />

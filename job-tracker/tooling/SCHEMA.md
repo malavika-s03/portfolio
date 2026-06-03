@@ -32,9 +32,9 @@ fields sit at the end, out of the way). The letters below reflect the current li
 | `Platform` | enum: Platform | dropdown (suggest) |
 | `Location` | text | city / "Remote" |
 | `Work Mode` | enum: WorkMode | dropdown (strict) |
+| `YOE Required` | text | years of experience required, e.g. `1+`, `2–4 yrs` |
 | `Glassdoor` | number | company rating, `0.0` |
 | `Salary` | text | if listed |
-| `Tags` | text | comma-separated, for search |
 | `Date Applied` | date | blank while just "Saved" |
 | `Last Update` | date | stamped on any change (onEdit, Web App, or Claude) |
 | `Follow-up By` | date | manual reminder date — no longer drives a dashboard signal |

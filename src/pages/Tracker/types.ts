@@ -15,9 +15,9 @@ export interface Details {
   platform: string;
   location: string;
   workMode: string;
+  yoeRequired: string;
   glassdoor: string;
   salary: string;
-  tags: string;
   dateApplied: string;
   lastUpdate: string;
   followUpBy: string;
