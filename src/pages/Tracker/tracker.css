@@ -158,32 +158,35 @@
 
 /* ---- status + priority tokens (data-driven) ---- */
 .jt-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 999px; background: var(--jt-surface-2); color: var(--jt-text-med); white-space: nowrap; }
-.jt-pill[data-status="Saved"]       { background: rgba(148,163,184,0.14); color: #aab2c2; }
-.jt-pill[data-status="In progress"] { background: rgba(45,212,191,0.16);  color: #5ee0cf; }
+.jt-pill[data-status="Saved"]        { background: rgba(148,163,184,0.14); color: #aab2c2; }
 .jt-pill[data-status="Applied"]      { background: rgba(59,130,246,0.16);  color: #82baff; }
-.jt-pill[data-status="Screening"]    { background: rgba(245,166,35,0.16);  color: #f5c067; }
+.jt-pill[data-status="Reached out"]  { background: rgba(45,212,191,0.16);  color: #5ee0cf; }
+.jt-pill[data-status="Responded"]    { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+.jt-pill[data-status="Accepted"]     { background: rgba(34,197,94,0.16);   color: #6ee7a0; }
 .jt-pill[data-status="Rejected"]     { background: rgba(239,68,68,0.15);   color: #ff8e8e; }
-.jt-pill[data-status="No-response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
+.jt-pill[data-status="No response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
 
 .jt-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--jt-text-soft); }
-.jt-dot[data-status="Saved"]      { background: #94a3b8; }
-.jt-dot[data-status="In progress"]{ background: #2dd4bf; box-shadow: 0 0 8px rgba(45,212,191,0.6); }
-.jt-dot[data-status="Applied"]    { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.6); }
-.jt-dot[data-status="Screening"]  { background: #f5a623; box-shadow: 0 0 8px rgba(245,166,35,0.6); }
-.jt-dot[data-status="Rejected"]   { background: #ef4444; }
-.jt-dot[data-status="No-response"]{ background: #6b6b76; }
+.jt-dot[data-status="Saved"]        { background: #94a3b8; }
+.jt-dot[data-status="Applied"]      { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.6); }
+.jt-dot[data-status="Reached out"]  { background: #2dd4bf; box-shadow: 0 0 8px rgba(45,212,191,0.6); }
+.jt-dot[data-status="Responded"]    { background: #a78bfa; box-shadow: 0 0 8px rgba(167,139,250,0.6); }
+.jt-dot[data-status="Accepted"]     { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.6); }
+.jt-dot[data-status="Rejected"]     { background: #ef4444; }
+.jt-dot[data-status="No response"]  { background: #6b6b76; }
 
 .jt-prio { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--jt-text-soft); }
 .jt-prio[data-priority="High"]   { background: #ff5a5a; box-shadow: 0 0 8px rgba(255,90,90,0.65); }
 .jt-prio[data-priority="Medium"] { background: #f5a623; box-shadow: 0 0 7px rgba(245,166,35,0.5); }
 .jt-prio[data-priority="Low"]    { background: #5a6172; }
 
-.jt-bar[data-status="Saved"]      { background: #94a3b8; }
-.jt-bar[data-status="In progress"]{ background: #2dd4bf; box-shadow: 0 0 12px rgba(45,212,191,0.5); }
-.jt-bar[data-status="Applied"]    { background: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.5); }
-.jt-bar[data-status="Screening"]  { background: #f5a623; box-shadow: 0 0 12px rgba(245,166,35,0.5); }
-.jt-bar[data-status="Rejected"]   { background: #ef4444; }
-.jt-bar[data-status="No-response"]{ background: #57575f; }
+.jt-bar[data-status="Saved"]        { background: #94a3b8; }
+.jt-bar[data-status="Applied"]      { background: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.5); }
+.jt-bar[data-status="Reached out"]  { background: #2dd4bf; box-shadow: 0 0 12px rgba(45,212,191,0.5); }
+.jt-bar[data-status="Responded"]    { background: #a78bfa; box-shadow: 0 0 12px rgba(167,139,250,0.5); }
+.jt-bar[data-status="Accepted"]     { background: #22c55e; box-shadow: 0 0 12px rgba(34,197,94,0.5); }
+.jt-bar[data-status="Rejected"]     { background: #ef4444; }
+.jt-bar[data-status="No response"]  { background: #57575f; }
 
 .jt-badge { font-size: 10.5px; font-weight: 500; padding: 3px 8px; border-radius: 999px; }
 .jt-badge.is-high { background: rgba(255,90,90,0.15); color: #ff9b9b; }
@@ -312,37 +315,24 @@
   border: none; outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
   background: var(--jt-surface-2); color: var(--jt-text-med);
 }
-.jt-pill-select[data-status="Saved"]       { background: rgba(148,163,184,0.14); color: #aab2c2; }
-.jt-pill-select[data-status="In progress"] { background: rgba(45,212,191,0.16);  color: #5ee0cf; }
+.jt-pill-select[data-status="Saved"]        { background: rgba(148,163,184,0.14); color: #aab2c2; }
 .jt-pill-select[data-status="Applied"]      { background: rgba(59,130,246,0.16);  color: #82baff; }
-.jt-pill-select[data-status="Screening"]    { background: rgba(245,166,35,0.16);  color: #f5c067; }
+.jt-pill-select[data-status="Reached out"]  { background: rgba(45,212,191,0.16);  color: #5ee0cf; }
+.jt-pill-select[data-status="Responded"]    { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+.jt-pill-select[data-status="Accepted"]     { background: rgba(34,197,94,0.16);   color: #6ee7a0; }
 .jt-pill-select[data-status="Rejected"]     { background: rgba(239,68,68,0.15);   color: #ff8e8e; }
-.jt-pill-select[data-status="No-response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
+.jt-pill-select[data-status="No response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
 .jt-prio-select { font: inherit; font-size: 12px; color: var(--jt-text-med); background: transparent; border: none; outline: none; cursor: pointer; }
 
-/* contact chips + quick add */
-.jt-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.jt-chip {
-  display: inline-flex; align-items: center; gap: 7px; max-width: 100%;
-  font-size: 12.5px; color: var(--jt-text); background: var(--jt-bg);
-  border: 1px solid var(--jt-border); border-radius: 999px; padding: 5px 11px;
-  transition: border-color 0.15s;
+/* editable notes in the detail panel */
+.jt-notes-edit {
+  width: 100%; min-height: 92px; resize: vertical;
+  background: var(--jt-bg); border: 1px solid var(--jt-border); color: var(--jt-text);
+  font: inherit; font-size: 13.5px; line-height: 1.6; padding: 10px 12px; border-radius: var(--jt-r-sm);
+  outline: none; transition: border-color 0.15s;
 }
-.jt-chip:hover { border-color: var(--jt-border-strong); }
-.jt-chip-copy { font-size: 10px; color: var(--jt-text-soft); }
-.jt-chip-x { font: inherit; font-size: 11px; color: var(--jt-text-soft); padding: 0 0 0 2px; line-height: 1; }
-.jt-chip-x:hover { color: #ff9b9b; }
-.jt-add-contact { display: flex; gap: 8px; margin-top: 10px; }
-.jt-add-contact input {
-  flex: 1; min-width: 0; background: var(--jt-bg); border: 1px solid var(--jt-border); color: var(--jt-text);
-  font: inherit; font-size: 13px; padding: 8px 11px; border-radius: var(--jt-r-sm); outline: none;
-}
-.jt-add-contact input:focus { border-color: var(--jt-accent); }
-.jt-add-contact button {
-  font: inherit; font-size: 13px; font-weight: 500; padding: 8px 14px; border-radius: var(--jt-r-sm);
-  background: var(--jt-surface-3); color: var(--jt-text); transition: opacity 0.15s;
-}
-.jt-add-contact button:disabled { opacity: 0.5; }
+.jt-notes-edit::placeholder { color: var(--jt-text-soft); }
+.jt-notes-edit:focus { border-color: var(--jt-accent); }
 
 /* error toast */
 .jt-toast {

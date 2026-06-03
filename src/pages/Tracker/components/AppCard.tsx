@@ -29,9 +29,6 @@ export function AppCard({
         <span className="jt-pill" data-status={app.status}>{app.status || '—'}</span>
         {age && <span>{age}</span>}
         {meta && <span className="jt-muted">{meta}</span>}
-        {app.contacts.length > 0 && (
-          <span>{app.contacts.length} contact{app.contacts.length > 1 ? 's' : ''}</span>
-        )}
         {app.addedBy && <span className="jt-muted">by {app.addedBy}</span>}
       </div>
 

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { emptyDetails, type Overrides, type PendingContacts } from '../lib/overlay';
-import { addApplication, addContact, setPriority, setStatus } from '../lib/writeApi';
-import type { Contact, JoinedApp, NewApplication, ParsedContact } from '../types';
+import { emptyDetails, type Override, type Overrides } from '../lib/overlay';
+import { addApplication, setNotes, setPriority, setStatus } from '../lib/writeApi';
+import type { JoinedApp, NewApplication } from '../types';
 
 const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong');
 
@@ -9,7 +9,6 @@ const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wr
 export function useMutations() {
   const [pendingAdds, setPendingAdds] = useState<JoinedApp[]>([]);
   const [overrides, setOverrides] = useState<Overrides>({});
-  const [pendingContacts, setPendingContacts] = useState<PendingContacts>({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,8 +34,8 @@ export function useMutations() {
   }, []);
 
   // Optimistic field change with rollback on failure.
-  const patch = useCallback(async (id: string, optimistic: Partial<Overrides[string]>, run: () => Promise<Partial<Overrides[string]>>) => {
-    let prev: Overrides[string] | undefined;
+  const patch = useCallback(async (id: string, optimistic: Override, run: () => Promise<Override>) => {
+    let prev: Override | undefined;
     setOverrides((o) => { prev = o[id]; return { ...o, [id]: { ...o[id], ...optimistic } }; });
     try {
       const confirmed = await run();
@@ -56,17 +55,11 @@ export function useMutations() {
   const changePriority = useCallback((id: string, priority: string) =>
     patch(id, { priority }, async () => { await setPriority(id, priority); return { priority }; }), [patch]);
 
-  const addContactTo = useCallback(async (appId: string, parsed: ParsedContact): Promise<Contact> => {
-    setError(null);
-    try {
-      const c = await addContact(appId, parsed);
-      setPendingContacts((pc) => ({ ...pc, [appId]: [...(pc[appId] ?? []), c] }));
-      return c;
-    } catch (e) {
-      setError(msg(e));
-      throw e;
-    }
-  }, []);
+  const changeNotes = useCallback((id: string, notes: string) =>
+    patch(id, { myNotes: notes }, async () => {
+      const r = await setNotes(id, notes);
+      return { myNotes: r.myNotes, lastUpdate: r.lastUpdate };
+    }), [patch]);
 
   // Drop overlay entries the CSV now reflects (called on each refetch) so it doesn't grow or go stale.
   const prune = useCallback((csv: JoinedApp[]) => {
@@ -76,23 +69,15 @@ export function useMutations() {
       const n = { ...o };
       for (const id of Object.keys(n)) {
         const a = byId.get(id);
-        if (a && (n[id].status === undefined || a.status === n[id].status) && (n[id].priority === undefined || a.priority === n[id].priority)) delete n[id];
-      }
-      return n;
-    });
-    setPendingContacts((pc) => {
-      const n = { ...pc };
-      for (const appId of Object.keys(n)) {
-        const a = byId.get(appId);
-        if (a) {
-          const have = new Set(a.contacts.map((c) => c.contactId));
-          n[appId] = n[appId].filter((c) => !have.has(c.contactId));
-          if (!n[appId].length) delete n[appId];
-        }
+        if (!a) continue;
+        const ov = n[id];
+        if ((ov.status === undefined || a.status === ov.status)
+          && (ov.priority === undefined || a.priority === ov.priority)
+          && (ov.myNotes === undefined || (a.details?.myNotes ?? '') === ov.myNotes)) delete n[id];
       }
       return n;
     });
   }, []);
 
-  return { pendingAdds, overrides, pendingContacts, busy, error, setError, add, changeStatus, changePriority, addContactTo, prune };
+  return { pendingAdds, overrides, busy, error, setError, add, changeStatus, changePriority, changeNotes, prune };
 }

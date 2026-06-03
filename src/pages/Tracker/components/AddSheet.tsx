@@ -1,34 +1,28 @@
 import { useEffect, useState } from 'react';
 import { ADDED_BY_OPTIONS, PRIORITY_OPTIONS, STATUS, STATUS_ORDER } from '../config';
-import { parseContact } from '../lib/parseContact';
-import type { JoinedApp, NewApplication, ParsedContact } from '../types';
+import type { JoinedApp, NewApplication } from '../types';
 
 const WHO_KEY = 'jt:who';
-const contactLabel = (c: ParsedContact) => c.name || c.email || c.linkedin || 'contact';
 
-// Add a listing — reuses the slide-over shell. Company, Link, Status, Priority, Notes, Contacts, Added by.
+// Add a listing — reuses the slide-over shell. Company, Link, Status, Priority, Notes, Added by.
 export function AddSheet({
   open,
   busy,
   error,
   onClose,
   onAdd,
-  onAddContact,
 }: {
   open: boolean;
   busy: boolean;
   error: string | null;
   onClose: () => void;
   onAdd: (input: NewApplication) => Promise<JoinedApp>;
-  onAddContact: (appId: string, parsed: ParsedContact) => Promise<unknown>;
 }) {
   const [company, setCompany] = useState('');
   const [link, setLink] = useState('');
   const [status, setStatus] = useState<string>(STATUS.SAVED);
   const [priority, setPriority] = useState('Medium');
   const [notes, setNotes] = useState('');
-  const [contacts, setContacts] = useState<ParsedContact[]>([]);
-  const [contactRaw, setContactRaw] = useState('');
   const [who, setWho] = useState(() => localStorage.getItem(WHO_KEY) || ADDED_BY_OPTIONS[0]);
 
   useEffect(() => {
@@ -38,24 +32,13 @@ export function AddSheet({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const reset = () => {
-    setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium');
-    setNotes(''); setContacts([]); setContactRaw('');
-  };
-
-  const addLocalContact = () => {
-    const parsed = parseContact(contactRaw);
-    if (!parsed) return;
-    setContacts((c) => [...c, parsed]);
-    setContactRaw('');
-  };
+  const reset = () => { setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium'); setNotes(''); };
 
   const submit = async () => {
     if (!company.trim() || busy) return;
     localStorage.setItem(WHO_KEY, who);
     try {
-      const app = await onAdd({ company: company.trim(), link: link.trim(), status, priority, notes: notes.trim(), who });
-      for (const c of contacts) await onAddContact(app.id, c); // contacts saved after the app exists (needs its id)
+      await onAdd({ company: company.trim(), link: link.trim(), status, priority, notes: notes.trim(), who });
       reset();
       onClose();
     } catch {
@@ -99,32 +82,8 @@ export function AddSheet({
           </div>
           <label className="jt-form-row">
             <span className="jt-form-label">Notes</span>
-            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="anything to remember" />
+            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="who to contact, next steps, anything…" />
           </label>
-
-          <div className="jt-form-row">
-            <span className="jt-form-label">Contacts</span>
-            {contacts.length > 0 && (
-              <div className="jt-chips" style={{ marginBottom: 8 }}>
-                {contacts.map((c, i) => (
-                  <span key={i} className="jt-chip">
-                    {contactLabel(c)}
-                    <button className="jt-chip-x" onClick={() => setContacts((list) => list.filter((_, j) => j !== i))} aria-label="Remove">✕</button>
-                  </span>
-                ))}
-              </div>
-            )}
-            <div className="jt-add-contact">
-              <input
-                value={contactRaw}
-                onChange={(e) => setContactRaw(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addLocalContact())}
-                placeholder="Paste a name, email, or LinkedIn…"
-              />
-              <button onClick={addLocalContact} disabled={!contactRaw.trim()}>Add</button>
-            </div>
-          </div>
-
           <label className="jt-form-row">
             <span className="jt-form-label">Added by</span>
             <select value={who} onChange={(e) => setWho(e.target.value)}>

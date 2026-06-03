@@ -73,7 +73,7 @@ function Tracker() {
         writesEnabled={WRITES_ENABLED}
         onStatusChange={mutations.changeStatus}
         onPriorityChange={mutations.changePriority}
-        onAddContact={mutations.addContactTo}
+        onNotesChange={mutations.changeNotes}
       />
 
       {WRITES_ENABLED && (
@@ -85,7 +85,6 @@ function Tracker() {
             error={mutations.error}
             onClose={() => { setShowAdd(false); mutations.setError(null); }}
             onAdd={mutations.add}
-            onAddContact={mutations.addContactTo}
           />
           {mutations.error && !showAdd && (
             <div className="jt-toast" onClick={() => mutations.setError(null)}>{mutations.error}</div>

@@ -18,8 +18,8 @@ export function useTracker() {
   useEffect(() => { prune(data.apps); }, [data.apps, prune]);
 
   const merged = useMemo(
-    () => reconcile(data.apps, mutations.pendingAdds, mutations.overrides, mutations.pendingContacts),
-    [data.apps, mutations.pendingAdds, mutations.overrides, mutations.pendingContacts],
+    () => reconcile(data.apps, mutations.pendingAdds, mutations.overrides),
+    [data.apps, mutations.pendingAdds, mutations.overrides],
   );
   const decorated = useMemo(() => decorate(merged, today), [merged, today]);
   const pulse = useMemo(() => computePulse(decorated, today), [decorated, today]);

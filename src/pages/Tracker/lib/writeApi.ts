@@ -1,5 +1,5 @@
 import { WEB_APP_URL } from '../config';
-import type { Contact, NewApplication, ParsedContact } from '../types';
+import type { NewApplication } from '../types';
 
 // POST as text/plain so the browser sends it without a CORS preflight; the Apps Script /exec
 // redirects to googleusercontent which serves the JSON with Access-Control-Allow-Origin: *.
@@ -23,8 +23,9 @@ export interface AddedApp {
   details: { myNotes: string; lastUpdate: string; dateApplied: string };
 }
 export interface StatusResult { id: string; status: string; lastUpdate: string; dateApplied?: string }
+export interface NotesResult { id: string; myNotes: string; lastUpdate: string }
 
 export const addApplication = (input: NewApplication) => post<AddedApp>({ action: 'add', ...input });
 export const setStatus = (id: string, status: string) => post<StatusResult>({ action: 'setStatus', id, status });
 export const setPriority = (id: string, priority: string) => post<{ id: string; value: string }>({ action: 'setPriority', id, priority });
-export const addContact = (appId: string, c: ParsedContact) => post<Contact>({ action: 'addContact', appId, ...c });
+export const setNotes = (id: string, notes: string) => post<NotesResult>({ action: 'setNotes', id, notes });

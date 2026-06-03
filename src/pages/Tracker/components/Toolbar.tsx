@@ -11,11 +11,10 @@ const SORTS: { key: SortKey; label: string }[] = [
 const ACTIVE_STATUSES = STATUS_ORDER.filter((s) => !CLOSED_STATUSES.includes(s));
 const PRIORITY_ORDER = Object.keys(PRIORITY_RANK); // High, Medium, Low
 
-const ATTENTION_TIP = `Anything that needs a nudge:
-• Follow-up date is due
-• Applied ${THRESHOLDS.staleAppliedDays}+ days ago, still silent
-• Saved ${THRESHOLDS.agingSavedDays}+ days ago, not applied
-• In screening with no next step set`;
+const ATTENTION_TIP = `High/Medium priority (never Low) that's sat > ${THRESHOLDS.staleDays} day:
+• Saved — apply (or drop it)
+• Applied — reach out
+• Reached out / Responded — follow up / move forward`;
 const WEEK_TIP = `Added or applied in the last ${THRESHOLDS.recentDays} days`;
 
 export function Toolbar({
