@@ -1,0 +1,14 @@
+{
+  "name": "job-tracker-tooling",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Local, Claude-operated tooling for the job-tracker Google Sheet (writes + structure). Reference + setup tools. NOT part of the portfolio build — its own deps, never imported by src/.",
+  "scripts": {
+    "verify": "node verify.mjs",
+    "reformat": "node reformat.mjs"
+  },
+  "dependencies": {
+    "googleapis": "^173.0.0"
+  }
+}
