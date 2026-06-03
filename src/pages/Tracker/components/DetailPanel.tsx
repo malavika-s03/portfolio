@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
-import { parseContact } from '../lib/parseContact';
-import type { DecoratedApp, ParsedContact } from '../types';
-import { Contacts } from './Contacts';
+import type { DecoratedApp } from '../types';
 import { Field, Prose } from './panelParts';
 
 interface Props {
@@ -11,12 +9,12 @@ interface Props {
   writesEnabled: boolean;
   onStatusChange: (id: string, status: string) => void;
   onPriorityChange: (id: string, priority: string) => void;
-  onAddContact: (appId: string, parsed: ParsedContact) => Promise<unknown>;
+  onNotesChange: (id: string, notes: string) => void;
 }
 
-// Slide-over: right drawer on desktop, bottom sheet on mobile. Status & Priority are editable
+// Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority & Notes are editable
 // (when writes are on); everything else is read-only. Links out to edit the full row.
-export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onAddContact }: Props) {
+export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange }: Props) {
   const open = app !== null;
   // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
@@ -100,17 +98,27 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
                 <Field label="Follow-up by" value={d?.followUpBy} />
               </div>
 
+              <section className="jt-section">
+                <h3 className="jt-section-title">Notes</h3>
+                {writesEnabled ? (
+                  <textarea
+                    key={shown.id}
+                    className="jt-notes-edit"
+                    defaultValue={d?.myNotes ?? ''}
+                    placeholder="Add notes — who to contact, next steps, anything…"
+                    onBlur={(e) => {
+                      if (e.target.value !== (d?.myNotes ?? '')) onNotesChange(shown.id, e.target.value);
+                    }}
+                  />
+                ) : (
+                  <p className="jt-prose">{d?.myNotes || '—'}</p>
+                )}
+              </section>
+
               <Prose label="Next step" value={d?.nextStep} />
               <Prose label="Job description" value={d?.jobDescription} />
               <Prose label="Requirements" value={d?.requirements} />
               <Prose label="Research notes" value={d?.researchNotes} />
-              <Prose label="My notes" value={d?.myNotes} />
-
-              <Contacts
-                contacts={shown.contacts}
-                canAdd={writesEnabled}
-                onAdd={(parsed: ReturnType<typeof parseContact>) => onAddContact(shown.id, parsed as ParsedContact)}
-              />
             </div>
 
             <footer className="jt-panel-foot">

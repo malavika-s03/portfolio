@@ -18,29 +18,28 @@ export const csvUrl = (gid: string): string =>
 export const SHEET_EDIT_URL =
   'https://docs.google.com/spreadsheets/d/1a3OmKadnsA9ZImqJoP47-LzCSnQRgl71CVzRcDpGYns/edit';
 
-// "Needs attention" thresholds (whole days). Tune freely — each maps to one rule in lib/signals.ts.
+// "Needs attention" thresholds (whole days). An active app goes stale after staleDays.
 export const THRESHOLDS = {
-  staleAppliedDays: 5,
-  agingSavedDays: 7,
-  inProgressDays: 3, // "In progress" with no movement this long → it has pending work, nudge it
+  staleDays: 1, // Saved/Applied/Reached out/Responded with no movement this long → needs attention
   recentDays: 7, // "This week" window
 };
 
 // The strict Status enum — one source of truth (mirror of the sheet's dropdown). Reference these
 // names everywhere instead of string literals. Visual treatment lives in tracker.css via [data-status].
-// "In progress" = started but has a pending task (e.g. still need to mail) — between Saved and Applied.
+// Pipeline: Saved -> Applied -> Reached out -> Responded -> Accepted / Rejected / No response.
 export const STATUS = {
   SAVED: 'Saved',
-  IN_PROGRESS: 'In progress',
   APPLIED: 'Applied',
-  SCREENING: 'Screening',
+  REACHED_OUT: 'Reached out',
+  RESPONDED: 'Responded',
+  ACCEPTED: 'Accepted',
   REJECTED: 'Rejected',
-  NO_RESPONSE: 'No-response',
+  NO_RESPONSE: 'No response',
 } as const;
 
-// Pipeline order (for chips/dropdowns) + which statuses are "closed" (not active).
-export const STATUS_ORDER = [STATUS.SAVED, STATUS.IN_PROGRESS, STATUS.APPLIED, STATUS.SCREENING, STATUS.REJECTED, STATUS.NO_RESPONSE];
-export const CLOSED_STATUSES: string[] = [STATUS.REJECTED, STATUS.NO_RESPONSE];
+// Pipeline order (for chips/dropdowns) + which statuses are "closed" (never need attention).
+export const STATUS_ORDER = [STATUS.SAVED, STATUS.APPLIED, STATUS.REACHED_OUT, STATUS.RESPONDED, STATUS.ACCEPTED, STATUS.REJECTED, STATUS.NO_RESPONSE];
+export const CLOSED_STATUSES: string[] = [STATUS.ACCEPTED, STATUS.REJECTED, STATUS.NO_RESPONSE];
 export const PRIORITY_RANK: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
 export const PRIORITY_OPTIONS = ['High', 'Medium', 'Low'];
 

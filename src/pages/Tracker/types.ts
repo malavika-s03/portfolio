@@ -41,11 +41,10 @@ export interface Contact {
 }
 
 export type SignalType =
-  | 'overdue-followup'
-  | 'stale-applied'
-  | 'aging-saved'
-  | 'in-progress-pending'
-  | 'screening-no-plan';
+  | 'saved-stale'
+  | 'applied-stale'
+  | 'reachedout-stale'
+  | 'responded-stale';
 
 export interface Signal {
   type: SignalType;
@@ -72,10 +71,4 @@ export interface NewApplication {
   priority: string;
   notes: string;
   who: string;
-}
-
-export interface ParsedContact {
-  name?: string;
-  email?: string;
-  linkedin?: string;
 }
