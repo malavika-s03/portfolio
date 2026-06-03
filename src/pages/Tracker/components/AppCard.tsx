@@ -14,7 +14,9 @@ export function AppCard({
   onSelect: () => void;
 }) {
   const age = ageLabel(app.dateAdded, today);
-  const meta = [app.details?.workMode, app.details?.location].filter(Boolean).join(' · ');
+  const yoe = app.details?.minYoe?.trim();
+  const yoeLabel = yoe ? `${yoe.endsWith('+') ? yoe : `${yoe}+`} YOE` : '';
+  const sig = app.signals[0]; // needs-attention signal (at most one) — shown instead of the status pill
 
   return (
     <button className={`jt-card ${selected ? 'is-selected' : ''}`} onClick={onSelect}>
@@ -26,19 +28,17 @@ export function AppCard({
       </div>
 
       <div className="jt-card-meta">
-        <span className="jt-pill" data-status={app.status}>{app.status || '—'}</span>
-        {age && <span>{age}</span>}
-        {meta && <span className="jt-muted">{meta}</span>}
+        {sig ? (
+          <span className={`jt-badge is-${sig.severity}`}>{sig.label}</span>
+        ) : (
+          <>
+            <span className="jt-pill" data-status={app.status}>{app.status || '—'}</span>
+            {age && <span>{age}</span>}
+          </>
+        )}
+        {yoeLabel && <span className="jt-muted">{yoeLabel}</span>}
         {app.addedBy && <span className="jt-muted">by {app.addedBy}</span>}
       </div>
-
-      {app.signals.length > 0 && (
-        <div className="jt-card-badges">
-          {app.signals.map((s) => (
-            <span key={s.type} className={`jt-badge is-${s.severity}`}>{s.label}</span>
-          ))}
-        </div>
-      )}
     </button>
   );
 }
