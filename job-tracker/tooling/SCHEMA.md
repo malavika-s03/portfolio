@@ -39,7 +39,7 @@ fields sit at the end, out of the way). The letters below reflect the current li
 | `Last Update` | date | stamped on any change (onEdit, Web App, or Claude) |
 | `Follow-up By` | date | manual reminder date — no longer drives a dashboard signal |
 | `Next Step` | text | "send follow-up", "prep onsite" |
-| `Job Description` | longtext | parsed from `Link` |
+| `Job Description` | longtext | **compact summary, ≤ 50 words** (keep the CSV lean — rephrase, don't paste the full post) |
 | `Requirements` | longtext | |
 | `Research Notes` | longtext | on-demand research |
 | `My Notes` | longtext | freeform |
