@@ -62,6 +62,7 @@ the repo copies in sync (simple-trigger limits: <30s, no auth-required services)
 | Status | strict | Saved · Applied · Reached out · Responded · Accepted · Rejected · No response |
 | Priority | strict | High · Medium · Low |
 | WorkMode | strict | Remote · Hybrid · Onsite |
+| MinYOE | strict | 0 · 1 · 2 · 3 · 3+ |
 | Approached | strict | Not yet · Reached out · Replied · No response |
 | Platform | suggest | LinkedIn · Company site · Referral · Indeed · Wellfound · Naukri · Other |
 | TheirRole | suggest | Recruiter · Hiring Manager · Referral · Other |

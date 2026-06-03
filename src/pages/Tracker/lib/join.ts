@@ -22,7 +22,7 @@ const toDetails = (r: Row): Details => ({
   platform: r['Platform'] ?? '',
   location: r['Location'] ?? '',
   workMode: r['Work Mode'] ?? '',
-  yoeRequired: r['YOE Required'] ?? '',
+  minYoe: r['Min YOE'] ?? '',
   glassdoor: r['Glassdoor'] ?? '',
   salary: r['Salary'] ?? '',
   dateApplied: normalizeDate(r['Date Applied'] ?? ''),

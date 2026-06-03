@@ -32,7 +32,7 @@ fields sit at the end, out of the way). The letters below reflect the current li
 | `Platform` | enum: Platform | dropdown (suggest) |
 | `Location` | text | city / "Remote" |
 | `Work Mode` | enum: WorkMode | dropdown (strict) |
-| `YOE Required` | text | years of experience required, e.g. `1+`, `2–4 yrs` |
+| `Min YOE` | enum: MinYOE | minimum years of experience required; dropdown (strict): `0` `1` `2` `3` `3+` |
 | `Glassdoor` | number | company rating, `0.0` |
 | `Salary` | text | if listed |
 | `Date Applied` | date | blank while just "Saved" |

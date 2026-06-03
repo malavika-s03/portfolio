@@ -15,7 +15,7 @@ export interface Details {
   platform: string;
   location: string;
   workMode: string;
-  yoeRequired: string;
+  minYoe: string;
   glassdoor: string;
   salary: string;
   dateApplied: string;
