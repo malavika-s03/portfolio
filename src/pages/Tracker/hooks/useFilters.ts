@@ -19,7 +19,7 @@ const DEFAULT: FilterState = { query: '', needsAttention: false, week: false, st
 function searchBlob(a: DecoratedApp): string {
   return [
     a.company, a.status, a.priority,
-    a.details?.tags, a.details?.location, a.details?.platform,
+    a.details?.location, a.details?.platform,
     a.details?.nextStep, a.details?.myNotes, a.details?.researchNotes,
     ...a.contacts.map((c) => c.name),
   ]
