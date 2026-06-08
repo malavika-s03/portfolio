@@ -43,6 +43,9 @@ export const CLOSED_STATUSES: string[] = [STATUS.ACCEPTED, STATUS.REJECTED, STAT
 export const PRIORITY_RANK: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
 export const PRIORITY_OPTIONS = ['High', 'Medium', 'Low'];
 
+// Min YOE enum — mirror of the sheet's "Min YOE" dropdown (strict). '' = unset.
+export const MIN_YOE_OPTIONS = ['0', '1', '2', '3', '3+'];
+
 // ---- Writing from the UI (see job-tracker/docs/04-write-from-ui.md) ----
 // Paste the Apps Script Web App /exec URL here to ENABLE the add/edit controls. Blank = read-only.
 export const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdETZLw4leTYnxqGYtCLoKs3vUqLKUDDQXzImGU47wQf-hO0UTVfKJmTzFFX_oowtf0A/exec';

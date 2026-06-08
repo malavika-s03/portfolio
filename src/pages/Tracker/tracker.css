@@ -324,6 +324,14 @@
 .jt-pill-select[data-status="No response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
 .jt-prio-select { font: inherit; font-size: 12px; color: var(--jt-text-med); background: transparent; border: none; outline: none; cursor: pointer; }
 
+/* editable field-level dropdown (e.g. Min YOE) in the panel's fields grid */
+.jt-field-select {
+  font: inherit; font-size: 13.5px; color: var(--jt-text); margin-top: 3px; max-width: 100%;
+  background: var(--jt-bg); border: 1px solid var(--jt-border); border-radius: var(--jt-r-sm);
+  padding: 4px 8px; outline: none; cursor: pointer; transition: border-color 0.15s;
+}
+.jt-field-select:focus { border-color: var(--jt-accent); }
+
 /* editable notes in the detail panel */
 .jt-notes-edit {
   width: 100%; min-height: 92px; resize: vertical;

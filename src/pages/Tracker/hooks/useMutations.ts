@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { emptyDetails, type Override, type Overrides } from '../lib/overlay';
-import { addApplication, setNotes, setPriority, setStatus } from '../lib/writeApi';
+import { addApplication, setMinYoe, setNotes, setPriority, setStatus } from '../lib/writeApi';
 import type { JoinedApp, NewApplication } from '../types';
 
 const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong');
@@ -20,7 +20,7 @@ export function useMutations() {
       const app: JoinedApp = {
         id: r.id, company: r.company, status: r.status, priority: r.priority, link: r.link,
         dateAdded: r.dateAdded, addedBy: r.addedBy,
-        details: { ...emptyDetails(r.id), myNotes: r.details.myNotes, lastUpdate: r.details.lastUpdate, dateApplied: r.details.dateApplied },
+        details: { ...emptyDetails(r.id), myNotes: r.details.myNotes, lastUpdate: r.details.lastUpdate, dateApplied: r.details.dateApplied, minYoe: r.details.minYoe },
         contacts: [],
       };
       setPendingAdds((p) => [app, ...p]);
@@ -61,6 +61,12 @@ export function useMutations() {
       return { myNotes: r.myNotes, lastUpdate: r.lastUpdate };
     }), [patch]);
 
+  const changeMinYoe = useCallback((id: string, minYoe: string) =>
+    patch(id, { minYoe }, async () => {
+      const r = await setMinYoe(id, minYoe);
+      return { minYoe: r.minYoe, lastUpdate: r.lastUpdate };
+    }), [patch]);
+
   // Drop overlay entries the CSV now reflects (called on each refetch) so it doesn't grow or go stale.
   const prune = useCallback((csv: JoinedApp[]) => {
     const byId = new Map(csv.map((a) => [a.id, a]));
@@ -73,11 +79,12 @@ export function useMutations() {
         const ov = n[id];
         if ((ov.status === undefined || a.status === ov.status)
           && (ov.priority === undefined || a.priority === ov.priority)
-          && (ov.myNotes === undefined || (a.details?.myNotes ?? '') === ov.myNotes)) delete n[id];
+          && (ov.myNotes === undefined || (a.details?.myNotes ?? '') === ov.myNotes)
+          && (ov.minYoe === undefined || (a.details?.minYoe ?? '') === ov.minYoe)) delete n[id];
       }
       return n;
     });
   }, []);
 
-  return { pendingAdds, overrides, busy, error, setError, add, changeStatus, changePriority, changeNotes, prune };
+  return { pendingAdds, overrides, busy, error, setError, add, changeStatus, changePriority, changeNotes, changeMinYoe, prune };
 }
