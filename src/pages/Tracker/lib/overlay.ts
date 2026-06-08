@@ -7,6 +7,7 @@ export interface Override {
   status?: string;
   priority?: string;
   myNotes?: string;
+  minYoe?: string;
   dateApplied?: string;
   lastUpdate?: string;
 }
@@ -26,12 +27,13 @@ function applyOverlay(app: JoinedApp, overrides: Overrides): JoinedApp {
   const next = { ...app };
   if (ov.status !== undefined) next.status = ov.status;
   if (ov.priority !== undefined) next.priority = ov.priority;
-  if (ov.dateApplied !== undefined || ov.lastUpdate !== undefined || ov.myNotes !== undefined) {
+  if (ov.dateApplied !== undefined || ov.lastUpdate !== undefined || ov.myNotes !== undefined || ov.minYoe !== undefined) {
     next.details = {
       ...(next.details ?? emptyDetails(app.id)),
       ...(ov.dateApplied !== undefined ? { dateApplied: ov.dateApplied } : {}),
       ...(ov.lastUpdate !== undefined ? { lastUpdate: ov.lastUpdate } : {}),
       ...(ov.myNotes !== undefined ? { myNotes: ov.myNotes } : {}),
+      ...(ov.minYoe !== undefined ? { minYoe: ov.minYoe } : {}),
     };
   }
   return next;

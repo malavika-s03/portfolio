@@ -23,6 +23,7 @@ function doPost(e) {
       case 'setStatus': data = apiSetStatus_(b); break;
       case 'setPriority': data = apiSetField_('Priority', b.id, b.priority); break;
       case 'setNotes': data = apiSetNotes_(b); break;
+      case 'setMinYoe': data = apiSetMinYoe_(b); break;
       case 'addContact': data = apiAddContact_(b); break;
       default: throw new Error('unknown action: ' + b.action);
     }
@@ -86,15 +87,16 @@ function apiAdd_(b) {
 
   const det = apiSheet_('Details');
   const DH = apiHeader_(det);
+  const minYoe = b.minYoe || ''; // string like '0'/'1'/'3+'; the Min YOE column is TEXT-formatted
   det.appendRow(apiRowFor_(DH, {
-    'id': id, 'My Notes': b.notes || '', 'Last Update': today,
+    'id': id, 'Min YOE': minYoe, 'My Notes': b.notes || '', 'Last Update': today,
     'Date Applied': status === 'Applied' ? today : '',
   }));
 
   return {
     id: id, company: b.company || '', status: status, priority: priority, link: b.link || '',
     dateAdded: today, addedBy: b.who || '',
-    details: { myNotes: b.notes || '', lastUpdate: today, dateApplied: status === 'Applied' ? today : '' },
+    details: { myNotes: b.notes || '', lastUpdate: today, dateApplied: status === 'Applied' ? today : '', minYoe: minYoe },
   };
 }
 
@@ -141,6 +143,21 @@ function apiSetNotes_(b) {
   det.getRange(row, apiCol_(DH, 'My Notes') + 1).setValue(notes);
   det.getRange(row, apiCol_(DH, 'Last Update') + 1).setValue(today);
   return { id: b.id, myNotes: notes, lastUpdate: today };
+}
+
+function apiSetMinYoe_(b) {
+  const today = apiTodayStr_();
+  const det = apiSheet_('Details');
+  const DH = apiHeader_(det);
+  const yoe = b.minYoe || ''; // '0'/'1'/'2'/'3'/'3+' or '' to clear; Min YOE column is TEXT-formatted
+  let row = apiFindRow_(det, apiCol_(DH, 'id'), b.id);
+  if (row < 0) {
+    det.appendRow(apiRowFor_(DH, { 'id': b.id, 'Min YOE': yoe, 'Last Update': today }));
+    return { id: b.id, minYoe: yoe, lastUpdate: today };
+  }
+  det.getRange(row, apiCol_(DH, 'Min YOE') + 1).setValue(yoe);
+  det.getRange(row, apiCol_(DH, 'Last Update') + 1).setValue(today);
+  return { id: b.id, minYoe: yoe, lastUpdate: today };
 }
 
 function apiAddContact_(b) {

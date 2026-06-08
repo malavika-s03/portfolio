@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
+import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
 import type { DecoratedApp } from '../types';
 import { Field, Prose } from './panelParts';
 
@@ -10,11 +10,12 @@ interface Props {
   onStatusChange: (id: string, status: string) => void;
   onPriorityChange: (id: string, priority: string) => void;
   onNotesChange: (id: string, notes: string) => void;
+  onMinYoeChange: (id: string, minYoe: string) => void;
 }
 
-// Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority & Notes are editable
-// (when writes are on); everything else is read-only. Links out to edit the full row.
-export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange }: Props) {
+// Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority, Min YOE & Notes are
+// editable (when writes are on); everything else is read-only. Links out to edit the full row.
+export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange }: Props) {
   const open = app !== null;
   // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
@@ -87,7 +88,22 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
               <div className="jt-fields">
                 <Field label="Platform" value={d?.platform} />
                 <Field label="Work mode" value={d?.workMode} />
-                <Field label="Min YOE" value={d?.minYoe} />
+                {writesEnabled ? (
+                  <div className="jt-field">
+                    <div className="jt-field-label">Min YOE</div>
+                    <select
+                      className="jt-field-select"
+                      value={d?.minYoe ?? ''}
+                      onChange={(e) => onMinYoeChange(shown.id, e.target.value)}
+                      aria-label="Min YOE"
+                    >
+                      <option value="">—</option>
+                      {MIN_YOE_OPTIONS.map((y) => <option key={y} value={y}>{y}</option>)}
+                    </select>
+                  </div>
+                ) : (
+                  <Field label="Min YOE" value={d?.minYoe} />
+                )}
                 <Field label="Location" value={d?.location} />
                 <Field label="Salary" value={d?.salary} />
                 <Field label="Glassdoor" value={d?.glassdoor} />

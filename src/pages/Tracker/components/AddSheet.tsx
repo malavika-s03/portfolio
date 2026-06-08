@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ADDED_BY_OPTIONS, PRIORITY_OPTIONS, STATUS, STATUS_ORDER } from '../config';
+import { ADDED_BY_OPTIONS, MIN_YOE_OPTIONS, PRIORITY_OPTIONS, STATUS, STATUS_ORDER } from '../config';
 import type { JoinedApp, NewApplication } from '../types';
 
 const WHO_KEY = 'jt:who';
@@ -22,6 +22,7 @@ export function AddSheet({
   const [link, setLink] = useState('');
   const [status, setStatus] = useState<string>(STATUS.SAVED);
   const [priority, setPriority] = useState('Medium');
+  const [minYoe, setMinYoe] = useState('');
   const [notes, setNotes] = useState('');
   const [who, setWho] = useState(() => localStorage.getItem(WHO_KEY) || ADDED_BY_OPTIONS[0]);
 
@@ -32,13 +33,13 @@ export function AddSheet({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const reset = () => { setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium'); setNotes(''); };
+  const reset = () => { setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium'); setMinYoe(''); setNotes(''); };
 
   const submit = async () => {
     if (!company.trim() || busy) return;
     localStorage.setItem(WHO_KEY, who);
     try {
-      await onAdd({ company: company.trim(), link: link.trim(), status, priority, notes: notes.trim(), who });
+      await onAdd({ company: company.trim(), link: link.trim(), status, priority, minYoe, notes: notes.trim(), who });
       reset();
       onClose();
     } catch {
@@ -84,12 +85,21 @@ export function AddSheet({
             <span className="jt-form-label">Notes</span>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="who to contact, next steps, anything…" />
           </label>
-          <label className="jt-form-row">
-            <span className="jt-form-label">Added by</span>
-            <select value={who} onChange={(e) => setWho(e.target.value)}>
-              {ADDED_BY_OPTIONS.map((w) => <option key={w} value={w}>{w}</option>)}
-            </select>
-          </label>
+          <div className="jt-form-two">
+            <label className="jt-form-row">
+              <span className="jt-form-label">Min YOE</span>
+              <select value={minYoe} onChange={(e) => setMinYoe(e.target.value)}>
+                <option value="">—</option>
+                {MIN_YOE_OPTIONS.map((y) => <option key={y} value={y}>{y}</option>)}
+              </select>
+            </label>
+            <label className="jt-form-row">
+              <span className="jt-form-label">Added by</span>
+              <select value={who} onChange={(e) => setWho(e.target.value)}>
+                {ADDED_BY_OPTIONS.map((w) => <option key={w} value={w}>{w}</option>)}
+              </select>
+            </label>
+          </div>
 
           {error && <p className="jt-form-error">{error}</p>}
         </div>

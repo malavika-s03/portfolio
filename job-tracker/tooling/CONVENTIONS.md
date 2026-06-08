@@ -49,7 +49,7 @@ Two scripts live on the sheet (canonical copies in [`apps-script/`](./apps-scrip
   id, it fills `id` (`app_NNN`), `Date Added`, `Added by` (editor's email prefix), `Priority`
   (default `Medium`), and stamps the matching `Details.Last Update` on edits. Columns located by name.
 - **`Api.gs` — `doPost` Web App:** the dashboard's write endpoint (`add`/`setStatus`/`setPriority`/
-  `setNotes`), running as the owner. ⚠️ editing it needs a **re-deploy** (new version); `onEdit` is live.
+  `setNotes`/`setMinYoe`), running as the owner. ⚠️ editing it needs a **re-deploy** (new version); `onEdit` is live.
 
 Neither fires on **Sheets-API** writes, so **Claude sets `id`/`Date Added`/`Added by`/`Priority`
 itself** on API writes (same rules). Don't duplicate the `onEdit` logic; extend the scripts and keep

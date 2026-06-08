@@ -20,12 +20,14 @@ async function post<T>(payload: Record<string, unknown>): Promise<T> {
 export interface AddedApp {
   id: string; company: string; status: string; priority: string; link: string;
   dateAdded: string; addedBy: string;
-  details: { myNotes: string; lastUpdate: string; dateApplied: string };
+  details: { myNotes: string; lastUpdate: string; dateApplied: string; minYoe: string };
 }
 export interface StatusResult { id: string; status: string; lastUpdate: string; dateApplied?: string }
 export interface NotesResult { id: string; myNotes: string; lastUpdate: string }
+export interface MinYoeResult { id: string; minYoe: string; lastUpdate: string }
 
 export const addApplication = (input: NewApplication) => post<AddedApp>({ action: 'add', ...input });
 export const setStatus = (id: string, status: string) => post<StatusResult>({ action: 'setStatus', id, status });
 export const setPriority = (id: string, priority: string) => post<{ id: string; value: string }>({ action: 'setPriority', id, priority });
 export const setNotes = (id: string, notes: string) => post<NotesResult>({ action: 'setNotes', id, notes });
+export const setMinYoe = (id: string, minYoe: string) => post<MinYoeResult>({ action: 'setMinYoe', id, minYoe });

@@ -74,6 +74,7 @@ function Tracker() {
         onStatusChange={mutations.changeStatus}
         onPriorityChange={mutations.changePriority}
         onNotesChange={mutations.changeNotes}
+        onMinYoeChange={mutations.changeMinYoe}
       />
 
       {WRITES_ENABLED && (

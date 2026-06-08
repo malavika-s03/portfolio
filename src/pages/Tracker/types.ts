@@ -69,6 +69,7 @@ export interface NewApplication {
   link: string;
   status: string;
   priority: string;
+  minYoe: string;
   notes: string;
   who: string;
 }
