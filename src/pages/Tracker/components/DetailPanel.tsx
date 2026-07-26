@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
 import type { DecoratedApp } from '../types';
-import { Field, Prose } from './panelParts';
+import { Field } from './panelParts';
 
 interface Props {
   app: DecoratedApp | null;
@@ -86,8 +86,6 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
               )}
 
               <div className="jt-fields">
-                <Field label="Platform" value={d?.platform} />
-                <Field label="Work mode" value={d?.workMode} />
                 {writesEnabled ? (
                   <div className="jt-field">
                     <div className="jt-field-label">Min YOE</div>
@@ -104,14 +102,9 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
                 ) : (
                   <Field label="Min YOE" value={d?.minYoe} />
                 )}
-                <Field label="Location" value={d?.location} />
-                <Field label="Salary" value={d?.salary} />
-                <Field label="Glassdoor" value={d?.glassdoor} />
                 <Field label="Date added" value={shown.dateAdded} />
-                <Field label="Added by" value={shown.addedBy} />
                 <Field label="Date applied" value={d?.dateApplied} />
                 <Field label="Last update" value={d?.lastUpdate} />
-                <Field label="Follow-up by" value={d?.followUpBy} />
               </div>
 
               <section className="jt-section">
@@ -130,11 +123,6 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
                   <p className="jt-prose">{d?.myNotes || '—'}</p>
                 )}
               </section>
-
-              <Prose label="Next step" value={d?.nextStep} />
-              <Prose label="Job description" value={d?.jobDescription} />
-              <Prose label="Requirements" value={d?.requirements} />
-              <Prose label="Research notes" value={d?.researchNotes} />
             </div>
 
             <footer className="jt-panel-foot">

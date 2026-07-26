@@ -17,8 +17,8 @@ read view of the published CSV, plus a few non-destructive writes (see `04-write
 ## Data flow
 
 ```
-fetch 3 published CSVs (parallel)  →  RFC-4180 parse → rows keyed by header NAME
-  →  normalize + join (Details 1:1 by id, Contacts 1:many by app_id)  =  the MODEL (facts)
+fetch 2 published CSVs (parallel)  →  RFC-4180 parse → rows keyed by header NAME
+  →  normalize + join (Details 1:1 by id)  =  the MODEL (facts)
   →  derive signals + pulse  (live, from model + today — NEVER cached)
   →  filter / search / sort in memory (useMemo)  →  render
 ```
@@ -26,11 +26,10 @@ fetch 3 published CSVs (parallel)  →  RFC-4180 parse → rows keyed by header 
 - **Read endpoint:** publish-to-web CSV, keyless, CDN-cached ~5 min. The dashboard can NOT use the
   Sheets API (API key only reads link-public sheets; the service-account key must never ship to a
   browser). Published-CSV is the only safe browser read. See `tooling/ACCESS.md`.
-- **Columns are mapped by header name**, never by position — so reordering the sheet (as happened
-  with `Applications`) doesn't affect the dashboard. Field-name strings live in `lib/join.ts`; a
-  schema rename is a one-file change.
-- **A row is real iff its key column is non-empty** (`Applications`→Company/id, `Details`→id,
-  `Contacts`→app_id). Enforced in `buildModel`.
+- **Columns are mapped by header name**, never by position — so reordering the sheet doesn't affect
+  the dashboard. Field-name strings live in `lib/join.ts`; a schema rename is a one-file change.
+- **A row is real iff its key column is non-empty** (`Applications`→Company/id, `Details`→id).
+  Enforced in `buildModel`.
 
 ## Caching
 
@@ -89,7 +88,7 @@ src/pages/Tracker/
   index.tsx            page shell, selection state, layout, error boundary; imports tracker.css
   tracker.css          scoped dark theme (.jt) — see "Styling" above; do NOT use Tailwind here
   config.ts            pub URL + gids + thresholds + status order  (the settings file)
-  types.ts             Application · Details · Contact · JoinedApp · Signal
+  types.ts             Application · Details · JoinedApp · Signal
   lib/  csv.ts · dates.ts · fetchTabs.ts · join.ts · signals.ts · cache.ts
   hooks/  useTrackerData.ts (fetch/cache/SWR) · useFilters.ts (filter/search/sort)
   components/  Pulse · Toolbar · AppCard · AppList · DetailPanel · ErrorBoundary · states

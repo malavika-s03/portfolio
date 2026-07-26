@@ -37,7 +37,6 @@ export function AppCard({
           </>
         )}
         {yoeLabel && <span className="jt-muted">{yoeLabel}</span>}
-        {app.addedBy && <span className="jt-muted">by {app.addedBy}</span>}
       </div>
     </button>
   );

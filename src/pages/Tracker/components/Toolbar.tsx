@@ -49,7 +49,7 @@ export function Toolbar({
           type="search"
           value={filter.query}
           onChange={(e) => setFilter((f) => ({ ...f, query: e.target.value }))}
-          placeholder="Search company, notes, contacts…"
+          placeholder="Search company, notes…"
         />
       </div>
 

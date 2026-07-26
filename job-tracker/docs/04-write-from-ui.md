@@ -20,7 +20,7 @@ edit → New version). `onEdit` in `Code.gs` is live; `doPost` is not.
 
 | Action | Writes | Returns |
 |---|---|---|
-| `add` | Applications row (id/Date Added/Added by/Priority auto) + a Details row (My Notes, Last Update, Date Applied if Applied) | the new app |
+| `add` | Applications row (id/Date Added/Priority auto) + a Details row (My Notes, Last Update, Date Applied if Applied) | the new app |
 | `setStatus` | Applications.Status; stamps Details.Last Update (+ Date Applied on →Applied) | `{id,status,lastUpdate,dateApplied?}` |
 | `setPriority` | Applications.Priority | `{id,priority}` |
 | `setNotes` | Details.My Notes; stamps Last Update | `{id,myNotes,lastUpdate}` |

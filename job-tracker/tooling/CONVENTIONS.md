@@ -37,21 +37,18 @@ The dashboard filters on this. Never treat a row as blank by "all cells empty."
   (an Applications row edit stamps that app's Details row by id; a Details row edit stamps its own).
 - `Priority`: defaults to **Medium** on a new row (onEdit script on hand-entry; Claude on API adds) if left blank.
 - `Date Applied`: blank until applied; set to today when `Status` becomes `Applied`.
-- `Added by`: **auto** — the onEdit script writes the editor's email prefix (e.g. `malavika`) on a
-  new hand-entered row; Claude writes `claude` on API adds. Owner/same-domain editors resolve; an
-  outside personal-Gmail collaborator may get a blank (Google privacy) — that's fine.
 
 ## Sheet-bound Apps Scripts
 
 Two scripts live on the sheet (canonical copies in [`apps-script/`](./apps-script/)):
 
 - **`Code.gs` — `onEdit`:** on a **manual UI edit** to a new `Applications` row with content but no
-  id, it fills `id` (`app_NNN`), `Date Added`, `Added by` (editor's email prefix), `Priority`
-  (default `Medium`), and stamps the matching `Details.Last Update` on edits. Columns located by name.
+  id, it fills `id` (`app_NNN`), `Date Added`, `Priority` (default `Medium`), and stamps the matching
+  `Details.Last Update` on edits. Columns located by name.
 - **`Api.gs` — `doPost` Web App:** the dashboard's write endpoint (`add`/`setStatus`/`setPriority`/
   `setNotes`/`setMinYoe`), running as the owner. ⚠️ editing it needs a **re-deploy** (new version); `onEdit` is live.
 
-Neither fires on **Sheets-API** writes, so **Claude sets `id`/`Date Added`/`Added by`/`Priority`
+Neither fires on **Sheets-API** writes, so **Claude sets `id`/`Date Added`/`Priority`
 itself** on API writes (same rules). Don't duplicate the `onEdit` logic; extend the scripts and keep
 the repo copies in sync (simple-trigger limits: <30s, no auth-required services).
 
@@ -61,11 +58,7 @@ the repo copies in sync (simple-trigger limits: <30s, no auth-required services)
 |---|---|---|
 | Status | strict | Saved · Applied · Reached out · Responded · Accepted · Rejected · No response |
 | Priority | strict | High · Medium · Low |
-| WorkMode | strict | Remote · Hybrid · Onsite |
 | MinYOE | strict | 0 · 1 · 2 · 3 · 3+ |
-| Approached | strict | Not yet · Reached out · Replied · No response |
-| Platform | suggest | LinkedIn · Company site · Referral · Indeed · Wellfound · Naukri · Other |
-| TheirRole | suggest | Recruiter · Hiring Manager · Referral · Other |
 
 *(suggest = dropdown shown but new values allowed; strict = only listed values.)*
 
@@ -82,5 +75,6 @@ When deciding writes (finding a row, computing the next id, spotting half-entere
 
 ## Ownership
 
-Humans hand-edit `Applications` (Company / Status / Link / Priority). Claude owns `Details`,
-`Contacts`, and all enrichment fields. The `Owner` field was intentionally dropped.
+Humans hand-edit `Applications` (Company / Status / Link / Priority). Claude owns `Details`
+and all enrichment fields (Min YOE, dates, My Notes). The `Owner`, `Contacts` tab, and `Added by`
+fields were intentionally dropped to keep the system lean.

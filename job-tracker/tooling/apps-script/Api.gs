@@ -7,7 +7,7 @@
  * NOT live like onEdit.
  *
  * Runs as the owner, so it has edit rights -- no service-account key in the browser. The dashboard
- * POSTs text/plain JSON {action, ...}; we set id/dates/Added by/Priority ourselves (API writes do
+ * POSTs text/plain JSON {action, ...}; we set id/dates/Priority ourselves (API writes do
  * not fire onEdit). NON-DESTRUCTIVE: only append/edit -- no delete.
  */
 
@@ -24,7 +24,6 @@ function doPost(e) {
       case 'setPriority': data = apiSetField_('Priority', b.id, b.priority); break;
       case 'setNotes': data = apiSetNotes_(b); break;
       case 'setMinYoe': data = apiSetMinYoe_(b); break;
-      case 'addContact': data = apiAddContact_(b); break;
       default: throw new Error('unknown action: ' + b.action);
     }
     return apiJson_({ ok: true, data: data });
@@ -82,7 +81,7 @@ function apiAdd_(b) {
   const id = apiNextSeq_(apps, apiCol_(H, 'id'), 'app');
   apps.appendRow(apiRowFor_(H, {
     'Company': b.company || '', 'Status': status, 'Priority': priority, 'Link': b.link || '',
-    'Date Added': today, 'id': id, 'Added by': b.who || '',
+    'Date Added': today, 'id': id,
   }));
 
   const det = apiSheet_('Details');
@@ -95,7 +94,7 @@ function apiAdd_(b) {
 
   return {
     id: id, company: b.company || '', status: status, priority: priority, link: b.link || '',
-    dateAdded: today, addedBy: b.who || '',
+    dateAdded: today,
     details: { myNotes: b.notes || '', lastUpdate: today, dateApplied: status === 'Applied' ? today : '', minYoe: minYoe },
   };
 }
@@ -160,16 +159,3 @@ function apiSetMinYoe_(b) {
   return { id: b.id, minYoe: yoe, lastUpdate: today };
 }
 
-function apiAddContact_(b) {
-  const c = apiSheet_('Contacts');
-  const H = apiHeader_(c);
-  const cid = apiNextSeq_(c, apiCol_(H, 'contact_id'), 'c');
-  c.appendRow(apiRowFor_(H, {
-    'contact_id': cid, 'app_id': b.appId, 'Name': b.name || '',
-    'Email': b.email || '', 'LinkedIn': b.linkedin || '',
-  }));
-  return {
-    contactId: cid, appId: b.appId, name: b.name || '', theirRole: '',
-    email: b.email || '', linkedin: b.linkedin || '', approached: '', lastContacted: '', notes: '',
-  };
-}

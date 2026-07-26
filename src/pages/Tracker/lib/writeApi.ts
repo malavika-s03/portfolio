@@ -19,7 +19,7 @@ async function post<T>(payload: Record<string, unknown>): Promise<T> {
 // Returned by the `add` action (app fields + the partial Details it created).
 export interface AddedApp {
   id: string; company: string; status: string; priority: string; link: string;
-  dateAdded: string; addedBy: string;
+  dateAdded: string;
   details: { myNotes: string; lastUpdate: string; dateApplied: string; minYoe: string };
 }
 export interface StatusResult { id: string; status: string; lastUpdate: string; dateApplied?: string }

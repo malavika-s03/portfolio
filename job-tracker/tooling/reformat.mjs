@@ -19,20 +19,14 @@ const sheets = google.sheets({ version: 'v4', auth });
 const ENUM = {
   Status: ['Saved', 'Applied', 'Reached out', 'Responded', 'Accepted', 'Rejected', 'No response'],
   Priority: ['High', 'Medium', 'Low'],
-  WorkMode: ['Remote', 'Hybrid', 'Onsite'],
   MinYOE: ['0', '1', '2', '3', '3+'],
-  Approached: ['Not yet', 'Reached out', 'Replied', 'No response'],
-  Platform: ['LinkedIn', 'Company site', 'Referral', 'Indeed', 'Wellfound', 'Naukri', 'Other'],
-  TheirRole: ['Recruiter', 'Hiring Manager', 'Referral', 'Other'],
 };
 const SPEC = {
   Applications: { date: ['Date Added'], dropdown: { Status: ['Status', true], Priority: ['Priority', true] } },
   Details: {
-    date: ['Date Applied', 'Last Update', 'Follow-up By'],
-    number: { Glassdoor: '0.0' },
-    dropdown: { Platform: ['Platform', false], 'Work Mode': ['WorkMode', true], 'Min YOE': ['MinYOE', true] },
+    date: ['Date Applied', 'Last Update'],
+    dropdown: { 'Min YOE': ['MinYOE', true] },
   },
-  Contacts: { date: ['Last Contacted'], dropdown: { 'Their Role': ['TheirRole', false], Approached: ['Approached', true] } },
 };
 
 const range = (sheetId, col) => ({ sheetId, startRowIndex: 1, endRowIndex: ROWS, startColumnIndex: col, endColumnIndex: col + 1 });

@@ -19,9 +19,8 @@ export function useMutations() {
       const r = await addApplication(input);
       const app: JoinedApp = {
         id: r.id, company: r.company, status: r.status, priority: r.priority, link: r.link,
-        dateAdded: r.dateAdded, addedBy: r.addedBy,
+        dateAdded: r.dateAdded,
         details: { ...emptyDetails(r.id), myNotes: r.details.myNotes, lastUpdate: r.details.lastUpdate, dateApplied: r.details.dateApplied, minYoe: r.details.minYoe },
-        contacts: [],
       };
       setPendingAdds((p) => [app, ...p]);
       return app;

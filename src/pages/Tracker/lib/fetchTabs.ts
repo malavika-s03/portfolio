@@ -4,7 +4,6 @@ import { parseCSVToObjects } from './csv';
 export interface RawTabs {
   applications: Record<string, string>[];
   details: Record<string, string>[];
-  contacts: Record<string, string>[];
 }
 
 async function fetchTab(gid: string): Promise<Record<string, string>[]> {
@@ -13,12 +12,11 @@ async function fetchTab(gid: string): Promise<Record<string, string>[]> {
   return parseCSVToObjects(await res.text());
 }
 
-// All three tabs in parallel — they're small, so this is one cheap round trip.
+// Both tabs in parallel — they're small, so this is one cheap round trip.
 export async function fetchTabs(): Promise<RawTabs> {
-  const [applications, details, contacts] = await Promise.all([
+  const [applications, details] = await Promise.all([
     fetchTab(TAB_GIDS.applications),
     fetchTab(TAB_GIDS.details),
-    fetchTab(TAB_GIDS.contacts),
   ]);
-  return { applications, details, contacts };
+  return { applications, details };
 }

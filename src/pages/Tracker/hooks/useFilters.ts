@@ -17,12 +17,7 @@ export interface FilterState {
 const DEFAULT: FilterState = { query: '', needsAttention: false, week: false, statuses: [], priorities: [], sort: 'recent' };
 
 function searchBlob(a: DecoratedApp): string {
-  return [
-    a.company, a.status, a.priority,
-    a.details?.location, a.details?.platform,
-    a.details?.nextStep, a.details?.myNotes, a.details?.researchNotes,
-    ...a.contacts.map((c) => c.name),
-  ]
+  return [a.company, a.status, a.priority, a.details?.myNotes]
     .filter(Boolean)
     .join(' ')
     .toLowerCase();
