@@ -67,7 +67,7 @@ matching requires a `company` (no company → always append, never claim a stran
 const H = rows[0], idC = col(H, 'id'), coC = col(H, 'Company'), data = rows.slice(1);
 const bare = company ? data.findIndex((r) => (r[coC] || '').trim().toLowerCase() === company.toLowerCase() && !(r[idC] || '').trim()) : -1;
 const id = nextId(rows, idC, 'app');
-const want = { id, 'Date Added': today(), 'Added by': 'claude', Company: company, Status: status, Link: link, Priority: priority || 'Medium' };
+const want = { id, 'Date Added': today(), Company: company, Status: status, Link: link, Priority: priority || 'Medium' };
 const build = (cur = []) => H.map((h, i) => keep(want[h], cur[i]));
 if (bare >= 0) await sheets.spreadsheets.values.update({ spreadsheetId: SHEET_ID, range: `Applications!A${bare + 2}`, valueInputOption: 'USER_ENTERED', requestBody: { values: [build(data[bare])] } });
 else           await sheets.spreadsheets.values.append({ spreadsheetId: SHEET_ID, range: 'Applications!A1', valueInputOption: 'USER_ENTERED', insertDataOption: 'INSERT_ROWS', requestBody: { values: [build()] } });
@@ -98,19 +98,9 @@ if (di < 0) await sheets.spreadsheets.values.append({ spreadsheetId: SHEET_ID, r
 else        await sheets.spreadsheets.values.update({ spreadsheetId: SHEET_ID, range: `Details!A${di + 2}`, valueInputOption: 'USER_ENTERED', requestBody: { values: [rowVals] } });
 ```
 
-**Append a `Contact`** (1:many) — *legacy; the dashboard no longer shows contacts (use `Details.My
-Notes`). Recipe kept in case you ever need it.*
-```js
-const c = await get('Contacts'), cid = nextId(c, 0, 'c');
-await sheets.spreadsheets.values.append({
-  spreadsheetId: SHEET_ID, range: 'Contacts!A1', valueInputOption: 'USER_ENTERED', insertDataOption: 'INSERT_ROWS',
-  requestBody: { values: [[cid, appId, name, theirRole, email, linkedin, approached, lastContacted, notes]] },
-});
-```
-
-**Join (full view / dashboard parity)** — index `Details` by `id`, group `Contacts` by `app_id`,
-attach to each Application. Join by `id`, never row position (so human re-sorting can't break it).
-Long text round-trips through CSV intact, but parse with a real RFC-4180 parser, not `split(',')`.
+**Join (full view / dashboard parity)** — index `Details` by `id`, attach to each Application.
+Join by `id`, never row position (so human re-sorting can't break it). Long text round-trips through
+CSV intact, but parse with a real RFC-4180 parser, not `split(',')`.
 
 **Structure changes** — add a column / tab via `batchUpdate` (`insertDimension` / `addSheet`), update
 `SCHEMA.md`, then run `reformat.mjs` to (re)apply dropdowns/formats by header name.

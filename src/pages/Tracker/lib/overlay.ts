@@ -14,11 +14,7 @@ export interface Override {
 export type Overrides = Record<string, Override>;
 
 export function emptyDetails(id: string): Details {
-  return {
-    id, platform: '', location: '', workMode: '', minYoe: '', glassdoor: '', salary: '',
-    dateApplied: '', lastUpdate: '', followUpBy: '', nextStep: '', jobDescription: '',
-    requirements: '', researchNotes: '', myNotes: '',
-  };
+  return { id, minYoe: '', dateApplied: '', lastUpdate: '', myNotes: '' };
 }
 
 function applyOverlay(app: JoinedApp, overrides: Overrides): JoinedApp {

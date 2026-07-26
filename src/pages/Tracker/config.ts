@@ -8,7 +8,6 @@ const PUB_BASE =
 export const TAB_GIDS = {
   applications: '0',
   details: '733619242',
-  contacts: '876919554',
 } as const;
 
 export const csvUrl = (gid: string): string =>
@@ -50,4 +49,3 @@ export const MIN_YOE_OPTIONS = ['0', '1', '2', '3', '3+'];
 // Paste the Apps Script Web App /exec URL here to ENABLE the add/edit controls. Blank = read-only.
 export const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdETZLw4leTYnxqGYtCLoKs3vUqLKUDDQXzImGU47wQf-hO0UTVfKJmTzFFX_oowtf0A/exec';
 export const WRITES_ENABLED = WEB_APP_URL.length > 0;
-export const ADDED_BY_OPTIONS = ['Malavika', 'Abhijeet', 'Other'];

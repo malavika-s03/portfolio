@@ -28,7 +28,7 @@ To **operate the sheet** (add/enrich jobs, manage structure), start at [`tooling
 Everything except the optional backup. The operator manual for any agent maintaining the sheet is
 [`tooling/README.md`](tooling/README.md).
 
-- ✅ **Data schema** — `Applications` / `Details` / `Contacts`, linked by `id`. See `tooling/SCHEMA.md`.
+- ✅ **Data schema** — `Applications` / `Details`, linked by `id`. See `tooling/SCHEMA.md`.
 - ✅ **Write tooling** — service-account access, API recipes, `reformat`/`verify` scripts, two
   bound Apps Scripts (`onEdit` auto-stamp + a `doPost` Web App). See `tooling/`.
 - ✅ **Dashboard** — the `/tracker` route in the portfolio: reads the published CSV, and does light

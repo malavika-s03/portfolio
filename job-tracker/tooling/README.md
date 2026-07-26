@@ -24,8 +24,8 @@ Product/architecture context: [`../README.md`](../README.md), [`../docs/`](../do
 
 ## Key facts
 
-- **Live sheet:** "Tracker", id `1a3OmKadnsA9ZImqJoP47-LzCSnQRgl71CVzRcDpGYns` — 3 tabs
-  (`Applications`, `Details`, `Contacts`) linked by the application `id`.
+- **Live sheet:** "Tracker", id `1a3OmKadnsA9ZImqJoP47-LzCSnQRgl71CVzRcDpGYns` — 2 tabs
+  (`Applications`, `Details`) linked by the application `id`.
 - **Read live via the Sheets API** for any decision — the published CSV lags 1–5 min.
 - **Auth:** service-account key in `.env` (Editor on the sheet). Never print/commit it.
 - **Two bound Apps Scripts** live on the sheet (canonical copies in [`apps-script/`](./apps-script/)):
@@ -69,9 +69,6 @@ Set `id` / `Date Added` / `Added by` (`claude`) / `Priority` yourself (the scrip
 - **Change an enum** (e.g. Status values) — update `CONVENTIONS.md` + `SCHEMA.md` + the `ENUM` in
   `reformat.mjs`, run `reformat.mjs` to refresh the live dropdown, and re-map any rows still holding
   an old value. Also update the dashboard's `config.ts` `STATUS` + `tracker.css`.
-- **Contacts — legacy.** The `Contacts` tab/data still exist, but the dashboard no longer shows or
-  edits contacts (contact info goes in `Details.My Notes` now). The append recipe in `ACCESS.md`
-  still works if needed.
 - **Back up** — deferred (no backup sheet yet).
 
 ## Hard rules (full list in CONVENTIONS)
