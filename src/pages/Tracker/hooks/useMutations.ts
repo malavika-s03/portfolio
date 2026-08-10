@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { emptyDetails, type Override, type Overrides } from '../lib/overlay';
-import { addApplication, setMinYoe, setNotes, setPriority, setStatus } from '../lib/writeApi';
+import { addApplication, deleteApplication, setMinYoe, setNotes, setPriority, setStatus } from '../lib/writeApi';
 import type { JoinedApp, NewApplication } from '../types';
 
 const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong');
@@ -9,6 +9,7 @@ const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wr
 export function useMutations() {
   const [pendingAdds, setPendingAdds] = useState<JoinedApp[]>([]);
   const [overrides, setOverrides] = useState<Overrides>({});
+  const [pendingDeletes, setPendingDeletes] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,6 +28,21 @@ export function useMutations() {
     } catch (e) {
       setError(msg(e));
       throw e;
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  const remove = useCallback(async (id: string): Promise<void> => {
+    setBusy(true);
+    setError(null);
+    setPendingDeletes((d) => (d.includes(id) ? d : [...d, id]));
+    try {
+      await deleteApplication(id);
+      // stays in pendingDeletes until prune() sees it gone from the CSV
+    } catch (e) {
+      setPendingDeletes((d) => d.filter((x) => x !== id)); // roll back
+      setError(msg(e));
     } finally {
       setBusy(false);
     }
@@ -83,7 +99,8 @@ export function useMutations() {
       }
       return n;
     });
+    setPendingDeletes((d) => d.filter((id) => !byId.has(id))); // CSV caught up → stop hiding it
   }, []);
 
-  return { pendingAdds, overrides, busy, error, setError, add, changeStatus, changePriority, changeNotes, changeMinYoe, prune };
+  return { pendingAdds, overrides, pendingDeletes, busy, error, setError, add, remove, changeStatus, changePriority, changeNotes, changeMinYoe, prune };
 }
