@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './tracker.css';
 import { WRITES_ENABLED } from './config';
 import { AddSheet } from './components/AddSheet';
@@ -14,6 +14,12 @@ import { clockTime } from './lib/dates';
 
 function Tracker() {
   const { today, data, pulse, filters, selected, selectedId, select, mutations } = useTracker();
+  const handleDelete = useCallback((app: typeof selected) => {
+    if (!app) return;
+    if (!window.confirm(`Delete "${app.company || 'this entry'}"? This removes it from the sheet.`)) return;
+    mutations.remove(app.id);
+    select(null);
+  }, [mutations, select]);
   const { apps, phase, error, fetchedAt, refreshing, refresh } = data;
   const { filter, setFilter, visible, toggleStatus, togglePriority, clearAll, hasFilters } = filters;
   const [showAdd, setShowAdd] = useState(false);
@@ -75,6 +81,7 @@ function Tracker() {
         onPriorityChange={mutations.changePriority}
         onNotesChange={mutations.changeNotes}
         onMinYoeChange={mutations.changeMinYoe}
+        onDelete={handleDelete}
       />
 
       {WRITES_ENABLED && (

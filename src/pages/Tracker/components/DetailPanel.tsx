@@ -11,11 +11,12 @@ interface Props {
   onPriorityChange: (id: string, priority: string) => void;
   onNotesChange: (id: string, notes: string) => void;
   onMinYoeChange: (id: string, minYoe: string) => void;
+  onDelete: (app: DecoratedApp) => void;
 }
 
 // Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority, Min YOE & Notes are
 // editable (when writes are on); everything else is read-only. Links out to edit the full row.
-export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange }: Props) {
+export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange, onDelete }: Props) {
   const open = app !== null;
   // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
@@ -70,7 +71,22 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
                     )}
                   </span>
 
-                  {shown.id && <span className="jt-panel-id">{shown.id}</span>}
+                  {writesEnabled && (
+                    <button
+                      type="button"
+                      className="jt-panel-delete"
+                      onClick={() => onDelete(shown)}
+                      aria-label={`Delete ${shown.company || 'entry'}`}
+                      title="Delete entry"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M3 6h18" />
+                        <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                        <path d="M10 11v6M14 11v6" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
               <button className="jt-panel-close" onClick={onClose} aria-label="Close">✕</button>
