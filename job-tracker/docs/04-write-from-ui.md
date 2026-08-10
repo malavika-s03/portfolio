@@ -1,7 +1,7 @@
 # 04 — Writing from the dashboard
 
 Adds minimal, **non-destructive** write actions to the `/tracker` UI: add a listing, change a
-listing's status & priority, and edit its notes. No deletes; everything else is read-only.
+listing's status & priority, and edit its notes. No deletes among the edits; the one destructive action is `delete` (see the table below). Everything else is read-only.
 
 ## Write path (no service-account key in the browser)
 
@@ -16,7 +16,7 @@ the script writes the sheet and returns the affected row as JSON. Reads stay on 
 **Re-deploy reminder:** editing `Api.gs` requires redeploying the Web App (Manage deployments →
 edit → New version). `onEdit` in `Code.gs` is live; `doPost` is not.
 
-## Actions (4, all append/edit — never delete)
+## Actions (5 — four append/edit, one delete)
 
 | Action | Writes | Returns |
 |---|---|---|
@@ -24,8 +24,14 @@ edit → New version). `onEdit` in `Code.gs` is live; `doPost` is not.
 | `setStatus` | Applications.Status; stamps Details.Last Update (+ Date Applied on →Applied) | `{id,status,lastUpdate,dateApplied?}` |
 | `setPriority` | Applications.Priority | `{id,priority}` |
 | `setNotes` | Details.My Notes; stamps Last Update | `{id,myNotes,lastUpdate}` |
+| `delete` | Applications row **and** its Details row, by id (hard delete; row removal, not cell-clear) | `{id}` |
 
 Web-App writes don't fire `onEdit`, so `doPost` sets id/dates/etc. itself (same rules as Claude).
+
+> `delete` is the **lone destructive action** — every other action is append/edit. It removes the
+> application's rows from both tabs. Deleted ids are never reused (`max+1` still holds; see
+> CONVENTIONS.md). Re-deploy the Web App after editing `Api.gs` or `delete` is unknown to the live
+> endpoint.
 
 ## UI surfaces (2)
 
