@@ -8,7 +8,7 @@
  *
  * Runs as the owner, so it has edit rights -- no service-account key in the browser. The dashboard
  * POSTs text/plain JSON {action, ...}; we set id/dates/Priority ourselves (API writes do
- * not fire onEdit). NON-DESTRUCTIVE: only append/edit -- no delete.
+ * not fire onEdit). Supports add/edit/delete actions (add/setStatus/setPriority/setNotes/setMinYoe/delete).
  */
 
 const API_TOKEN = ''; // optional shared secret; '' = open (auth out of scope for now)
@@ -24,6 +24,7 @@ function doPost(e) {
       case 'setPriority': data = apiSetField_('Priority', b.id, b.priority); break;
       case 'setNotes': data = apiSetNotes_(b); break;
       case 'setMinYoe': data = apiSetMinYoe_(b); break;
+      case 'delete': data = apiDelete_(b); break;
       default: throw new Error('unknown action: ' + b.action);
     }
     return apiJson_({ ok: true, data: data });
@@ -157,5 +158,26 @@ function apiSetMinYoe_(b) {
   det.getRange(row, apiCol_(DH, 'Min YOE') + 1).setValue(yoe);
   det.getRange(row, apiCol_(DH, 'Last Update') + 1).setValue(today);
   return { id: b.id, minYoe: yoe, lastUpdate: today };
+}
+
+function apiDelete_(b) {
+  if (!b.id) throw new Error('id required');
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  // Applications row (delete first; Details is the dependent record).
+  const apps = apiSheet_('Applications');
+  if (apps) {
+    const aRow = apiFindRow_(apps, apiCol_(apiHeader_(apps), 'id'), b.id);
+    if (aRow > 0) apps.deleteRow(aRow);
+  }
+
+  // Matching Details row, if one exists.
+  const det = apiSheet_('Details');
+  if (det) {
+    const dRow = apiFindRow_(det, apiCol_(apiHeader_(det), 'id'), b.id);
+    if (dRow > 0) det.deleteRow(dRow);
+  }
+
+  return { id: b.id };
 }
 
