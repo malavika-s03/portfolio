@@ -77,6 +77,7 @@ function Tracker() {
         app={selected}
         onClose={() => select(null)}
         writesEnabled={WRITES_ENABLED}
+        busy={mutations.busy}
         onStatusChange={mutations.changeStatus}
         onPriorityChange={mutations.changePriority}
         onNotesChange={mutations.changeNotes}

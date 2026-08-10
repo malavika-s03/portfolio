@@ -16,6 +16,7 @@ export interface TrackerData {
 }
 
 const REVALIDATE_AFTER = 60_000; // ms — don't refetch fresher than this on mount
+const REVALIDATE_INTERVAL = 5 * 60_000; // ms — periodic background refetch (matches CSV lag)
 
 export function useTrackerData(): TrackerData {
   const [apps, setApps] = useState<JoinedApp[]>([]);
@@ -58,6 +59,13 @@ export function useTrackerData(): TrackerData {
     } else {
       load(false);
     }
+  }, [load]);
+
+  // Periodic background revalidation: drives `prune` (drops pendingDeletes once the CSV catches up)
+  // and keeps add/edit optimistic state from going stale. ~5 min matches the published-CSV lag.
+  useEffect(() => {
+    const id = setInterval(() => load(true), REVALIDATE_INTERVAL);
+    return () => clearInterval(id);
   }, [load]);
 
   const refresh = useCallback(() => load(true), [load]);

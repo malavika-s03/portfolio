@@ -7,6 +7,7 @@ interface Props {
   app: DecoratedApp | null;
   onClose: () => void;
   writesEnabled: boolean;
+  busy?: boolean;
   onStatusChange: (id: string, status: string) => void;
   onPriorityChange: (id: string, priority: string) => void;
   onNotesChange: (id: string, notes: string) => void;
@@ -16,7 +17,7 @@ interface Props {
 
 // Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority, Min YOE & Notes are
 // editable (when writes are on); everything else is read-only. Links out to edit the full row.
-export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange, onDelete }: Props) {
+export function DetailPanel({ app, onClose, writesEnabled, busy, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange, onDelete }: Props) {
   const open = app !== null;
   // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
@@ -76,6 +77,7 @@ export function DetailPanel({ app, onClose, writesEnabled, onStatusChange, onPri
                       type="button"
                       className="jt-panel-delete"
                       onClick={() => onDelete(shown)}
+                      disabled={busy}
                       aria-label={`Delete ${shown.company || 'entry'}`}
                       title="Delete entry"
                     >

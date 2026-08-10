@@ -162,7 +162,6 @@ function apiSetMinYoe_(b) {
 
 function apiDelete_(b) {
   if (!b.id) throw new Error('id required');
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
 
   // Applications row (delete first; Details is the dependent record).
   const apps = apiSheet_('Applications');
