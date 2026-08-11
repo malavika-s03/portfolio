@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { emptyDetails, type Override, type Overrides } from '../lib/overlay';
+import { readPendingDeletes, writePendingDeletes } from '../lib/cache';
 import { addApplication, deleteApplication, setMinYoe, setNotes, setPriority, setStatus } from '../lib/writeApi';
 import type { JoinedApp, NewApplication } from '../types';
 
@@ -9,9 +10,11 @@ const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wr
 export function useMutations() {
   const [pendingAdds, setPendingAdds] = useState<JoinedApp[]>([]);
   const [overrides, setOverrides] = useState<Overrides>({});
-  const [pendingDeletes, setPendingDeletes] = useState<string[]>([]);
+  const [pendingDeletes, setPendingDeletes] = useState<string[]>(() => readPendingDeletes());
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => { writePendingDeletes(pendingDeletes); }, [pendingDeletes]);
 
   const add = useCallback(async (input: NewApplication): Promise<JoinedApp> => {
     setBusy(true);
