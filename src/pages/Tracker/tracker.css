@@ -180,6 +180,11 @@
 .jt-prio[data-priority="Medium"] { background: #f5a623; box-shadow: 0 0 7px rgba(245,166,35,0.5); }
 .jt-prio[data-priority="Low"]    { background: #5a6172; }
 
+.jt-qual { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--jt-text-soft); }
+.jt-qual[data-quality="High"]   { background: #2dd4bf; box-shadow: 0 0 8px rgba(45,212,191,0.6); }
+.jt-qual[data-quality="Medium"] { background: #a78bfa; box-shadow: 0 0 7px rgba(167,139,250,0.5); }
+.jt-qual[data-quality="Low"]    { background: #5a6172; }
+
 .jt-bar[data-status="Saved"]        { background: #94a3b8; }
 .jt-bar[data-status="Applied"]      { background: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.5); }
 .jt-bar[data-status="Reached out"]  { background: #2dd4bf; box-shadow: 0 0 12px rgba(45,212,191,0.5); }
@@ -233,6 +238,7 @@
 
 .jt-panel-head-main { min-width: 0; flex: 1; }
 .jt-prio-inline { display: inline-flex; align-items: center; gap: 6px; }
+.jt-qual-inline { display: inline-flex; align-items: center; gap: 6px; }
 
 .jt-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
 .jt-field { min-width: 0; }
@@ -308,6 +314,7 @@
 .jt-form input:focus, .jt-form select:focus, .jt-form textarea:focus { border-color: var(--jt-accent); }
 .jt-form textarea { resize: vertical; line-height: 1.5; }
 .jt-form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.jt-form-three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
 .jt-form-error { color: #ff9b9b; font-size: 12.5px; }
 
 /* editable status / priority in the panel */
@@ -324,6 +331,7 @@
 .jt-pill-select[data-status="Rejected"]     { background: rgba(239,68,68,0.15);   color: #ff8e8e; }
 .jt-pill-select[data-status="No response"]  { background: rgba(148,148,160,0.13); color: #9a9aa6; }
 .jt-prio-select { font: inherit; font-size: 12px; color: var(--jt-text-med); background: transparent; border: none; outline: none; cursor: pointer; }
+.jt-qual-select { font: inherit; font-size: 12px; color: var(--jt-text-med); background: transparent; border: none; outline: none; cursor: pointer; }
 
 /* editable field-level dropdown (e.g. Min YOE) in the panel's fields grid */
 .jt-field-select {

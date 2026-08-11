@@ -21,7 +21,7 @@ function Tracker() {
     select(null);
   }, [mutations, select]);
   const { apps, phase, error, fetchedAt, refreshing, refresh } = data;
-  const { filter, setFilter, visible, toggleStatus, togglePriority, clearAll, hasFilters } = filters;
+  const { filter, setFilter, visible, toggleStatus, togglePriority, toggleQuality, clearAll, hasFilters } = filters;
   const [showAdd, setShowAdd] = useState(false);
 
   useEffect(() => {
@@ -63,10 +63,12 @@ function Tracker() {
           setFilter={setFilter}
           toggleStatus={toggleStatus}
           togglePriority={togglePriority}
+          toggleQuality={toggleQuality}
           clearAll={clearAll}
           hasFilters={hasFilters}
           statusCounts={pulse.overall.byStatus}
           priorityCounts={pulse.overall.byPriority}
+          qualityCounts={pulse.overall.byQuality}
           count={visible.length}
         />
 
