@@ -1,4 +1,4 @@
-import { CLOSED_STATUSES, PRIORITY_RANK, STATUS_ORDER, THRESHOLDS } from '../config';
+import { CLOSED_STATUSES, PRIORITY_RANK, QUALITY_RANK, STATUS_ORDER, THRESHOLDS } from '../config';
 import type { FilterState, SortKey } from '../hooks/useFilters';
 import { FacetDropdown } from './FacetDropdown';
 
@@ -6,10 +6,12 @@ const SORTS: { key: SortKey; label: string }[] = [
   { key: 'attention', label: 'Attention first' },
   { key: 'recent', label: 'Newest' },
   { key: 'priority', label: 'Priority' },
+  { key: 'quality', label: 'Quality' },
 ];
 
 const ACTIVE_STATUSES = STATUS_ORDER.filter((s) => !CLOSED_STATUSES.includes(s));
 const PRIORITY_ORDER = Object.keys(PRIORITY_RANK); // High, Medium, Low
+const QUALITY_ORDER = Object.keys(QUALITY_RANK); // High, Medium, Low
 
 const ATTENTION_TIP = `High/Medium priority (never Low) that's sat > ${THRESHOLDS.staleDays} day:
 • Saved — apply (or drop it)
@@ -22,20 +24,24 @@ export function Toolbar({
   setFilter,
   toggleStatus,
   togglePriority,
+  toggleQuality,
   clearAll,
   hasFilters,
   statusCounts,
   priorityCounts,
+  qualityCounts,
   count,
 }: {
   filter: FilterState;
   setFilter: React.Dispatch<React.SetStateAction<FilterState>>;
   toggleStatus: (s: string) => void;
   togglePriority: (p: string) => void;
+  toggleQuality: (q: string) => void;
   clearAll: () => void;
   hasFilters: boolean;
   statusCounts: Record<string, number>;
   priorityCounts: Record<string, number>;
+  qualityCounts: Record<string, number>;
   count: number;
 }) {
   return (
@@ -75,6 +81,15 @@ export function Toolbar({
         selected={filter.priorities}
         onToggle={togglePriority}
         onSet={(priorities) => setFilter((f) => ({ ...f, priorities }))}
+      />
+      <FacetDropdown
+        label="Quality"
+        kind="quality"
+        options={QUALITY_ORDER}
+        counts={qualityCounts}
+        selected={filter.qualities}
+        onToggle={toggleQuality}
+        onSet={(qualities) => setFilter((f) => ({ ...f, qualities }))}
       />
       <button
         className={`jt-toggle ${filter.needsAttention ? 'is-on' : ''}`}
