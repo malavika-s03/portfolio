@@ -12,6 +12,7 @@ const toApplication = (r: Row): Application => ({
   company: r['Company'] ?? '',
   status: r['Status'] ?? '',
   priority: r['Priority'] ?? '',
+  quality: r['Quality'] ?? '',
   link: r['Link'] ?? '',
   dateAdded: normalizeDate(r['Date Added'] ?? ''),
 });
