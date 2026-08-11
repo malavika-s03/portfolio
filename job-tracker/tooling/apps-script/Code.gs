@@ -17,6 +17,8 @@ const ID_HEADER = 'id';
 const DATE_ADDED_HEADER = 'Date Added';
 const PRIORITY_HEADER = 'Priority';
 const DEFAULT_PRIORITY = 'Medium';
+const QUALITY_HEADER = 'Quality';
+const DEFAULT_QUALITY = 'Medium';
 const LAST_UPDATE_HEADER = 'Last Update';
 
 function onEdit(e) {
@@ -30,6 +32,7 @@ function onEdit(e) {
   const idCol = header.indexOf(ID_HEADER) + 1;
   const dateCol = header.indexOf(DATE_ADDED_HEADER) + 1;
   const prioCol = header.indexOf(PRIORITY_HEADER) + 1;
+  const qualCol = header.indexOf(QUALITY_HEADER) + 1;
   if (!idCol) return;
 
   const auto = [idCol, dateCol];
@@ -44,6 +47,7 @@ function onEdit(e) {
     const hadId = !!row[idCol - 1];
     if (!hadId) sh.getRange(r, idCol).setValue(nextId_(sh, idCol));
     if (!hadId && prioCol && !row[prioCol - 1]) sh.getRange(r, prioCol).setValue(DEFAULT_PRIORITY);
+    if (!hadId && qualCol && !row[qualCol - 1]) sh.getRange(r, qualCol).setValue(DEFAULT_QUALITY);
     if (dateCol && !row[dateCol - 1]) sh.getRange(r, dateCol).setValue(new Date());
     if (hadId) touchDetailsLastUpdate_(row[idCol - 1]);
   }
