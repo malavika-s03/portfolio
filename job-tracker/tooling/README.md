@@ -33,10 +33,10 @@ Product/architecture context: [`../README.md`](../README.md), [`../docs/`](../do
     `Added by` (editor's email prefix), `Priority` (default `Medium`), and stamps the matching
     `Details.Last Update` on edits. Located by header **name**. Does **not** fire on API/Web-App writes.
   - **`Api.gs` — `doPost` Web App:** the dashboard's write endpoint (`add` / `setStatus` /
-    `setPriority` / `setNotes` / `setMinYoe` / `delete`). Runs **as the owner**. `delete` is the
+    `setPriority` / `setQuality` / `setNotes` / `setMinYoe` / `delete`). Runs **as the owner**. `delete` is the
     only destructive action (removes both tabs' rows by id). ⚠️ **editing it
     requires a re-deploy** (Manage deployments → new version); `onEdit` is live, `doPost` is not.
-- **API and Web-App writes don't fire `onEdit`**, so those paths set `id` / dates / `Added by` /
+- **API and Web-App writes don't fire `onEdit`**, so those paths set `id` / dates / `Priority` /
   `Priority` themselves (same rules).
 
 ## The map
