@@ -6,6 +6,7 @@ import type { Details, JoinedApp } from '../types';
 export interface Override {
   status?: string;
   priority?: string;
+  quality?: string;
   myNotes?: string;
   minYoe?: string;
   dateApplied?: string;
@@ -23,6 +24,7 @@ function applyOverlay(app: JoinedApp, overrides: Overrides): JoinedApp {
   const next = { ...app };
   if (ov.status !== undefined) next.status = ov.status;
   if (ov.priority !== undefined) next.priority = ov.priority;
+  if (ov.quality !== undefined) next.quality = ov.quality;
   if (ov.dateApplied !== undefined || ov.lastUpdate !== undefined || ov.myNotes !== undefined || ov.minYoe !== undefined) {
     next.details = {
       ...(next.details ?? emptyDetails(app.id)),
