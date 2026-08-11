@@ -35,9 +35,18 @@ function applyOverlay(app: JoinedApp, overrides: Overrides): JoinedApp {
   return next;
 }
 
-export function reconcile(csv: JoinedApp[], pendingAdds: JoinedApp[], overrides: Overrides): JoinedApp[] {
+export function reconcile(
+  csv: JoinedApp[],
+  pendingAdds: JoinedApp[],
+  overrides: Overrides,
+  pendingDeletes: string[] = [],
+): JoinedApp[] {
+  const gone = pendingDeletes.length ? new Set(pendingDeletes) : null;
   const ids = new Set(csv.map((a) => a.id));
-  const merged = csv.map((a) => applyOverlay(a, overrides));
-  const adds = pendingAdds.filter((a) => !ids.has(a.id)).map((a) => applyOverlay(a, overrides));
+  const merged = csv.filter((a) => !gone || !gone.has(a.id)).map((a) => applyOverlay(a, overrides));
+  const adds = pendingAdds
+    .filter((a) => !ids.has(a.id))
+    .filter((a) => !gone || !gone.has(a.id))
+    .map((a) => applyOverlay(a, overrides));
   return [...adds, ...merged]; // newest adds on top; sort still applies downstream
 }

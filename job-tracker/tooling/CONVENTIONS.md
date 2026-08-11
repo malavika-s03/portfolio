@@ -9,6 +9,7 @@ Read before writing to the sheet. Pairs with [`SCHEMA.md`](./SCHEMA.md) (fields)
   (`app_001` … `app_999` … `app_1000`).
   **Next id = (highest existing number in `Applications.id`) + 1.** Never reuse a deleted id —
   always `max + 1`, even if there are gaps. Empty sheet → `app_001`.
+  (Gaps are now common — `delete` removes rows but never frees their ids for reuse.)
 - **Contact `contact_id`:** `c_` + number, same rule, scoped to the `Contacts` tab.
 - Humans add rows **without** an id. Claude assigns it on pickup, then writes any linked
   `Details` / `Contacts` rows using that same id as the foreign key.

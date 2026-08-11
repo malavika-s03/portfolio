@@ -26,3 +26,22 @@ export function writeCache(apps: JoinedApp[], fetchedAt: number): void {
     // quota / private mode — non-fatal, we just lose the cache
   }
 }
+
+const DELETES_KEY = 'job-tracker:deletes:v1';
+
+export function readPendingDeletes(): string[] {
+  try {
+    const raw = sessionStorage.getItem(DELETES_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function writePendingDeletes(ids: string[]): void {
+  try {
+    sessionStorage.setItem(DELETES_KEY, JSON.stringify(ids));
+  } catch {
+    // quota / private mode — non-fatal, we just lose the persisted hide
+  }
+}

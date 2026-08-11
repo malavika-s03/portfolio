@@ -31,3 +31,4 @@ export const setStatus = (id: string, status: string) => post<StatusResult>({ ac
 export const setPriority = (id: string, priority: string) => post<{ id: string; value: string }>({ action: 'setPriority', id, priority });
 export const setNotes = (id: string, notes: string) => post<NotesResult>({ action: 'setNotes', id, notes });
 export const setMinYoe = (id: string, minYoe: string) => post<MinYoeResult>({ action: 'setMinYoe', id, minYoe });
+export const deleteApplication = (id: string) => post<{ id: string }>({ action: 'delete', id });
