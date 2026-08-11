@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
+import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, QUALITY_OPTIONS, SHEET_EDIT_URL, STATUS_ORDER } from '../config';
 import type { DecoratedApp } from '../types';
 import { Field } from './panelParts';
 
@@ -10,6 +10,7 @@ interface Props {
   busy?: boolean;
   onStatusChange: (id: string, status: string) => void;
   onPriorityChange: (id: string, priority: string) => void;
+  onQualityChange: (id: string, quality: string) => void;
   onNotesChange: (id: string, notes: string) => void;
   onMinYoeChange: (id: string, minYoe: string) => void;
   onDelete: (app: DecoratedApp) => void;
@@ -17,7 +18,7 @@ interface Props {
 
 // Slide-over: right drawer on desktop, bottom sheet on mobile. Status, Priority, Min YOE & Notes are
 // editable (when writes are on); everything else is read-only. Links out to edit the full row.
-export function DetailPanel({ app, onClose, writesEnabled, busy, onStatusChange, onPriorityChange, onNotesChange, onMinYoeChange, onDelete }: Props) {
+export function DetailPanel({ app, onClose, writesEnabled, busy, onStatusChange, onPriorityChange, onQualityChange, onNotesChange, onMinYoeChange, onDelete }: Props) {
   const open = app !== null;
   // Retain the last app while the panel slides out (guarded set-during-render, not an effect).
   const [shown, setShown] = useState<DecoratedApp | null>(app);
@@ -69,6 +70,22 @@ export function DetailPanel({ app, onClose, writesEnabled, busy, onStatusChange,
                       </select>
                     ) : (
                       shown.priority
+                    )}
+                  </span>
+
+                  <span className="jt-qual-inline">
+                    <span className="jt-qual" data-quality={shown.quality} />
+                    {writesEnabled ? (
+                      <select
+                        className="jt-qual-select"
+                        value={shown.quality || 'Medium'}
+                        onChange={(e) => onQualityChange(shown.id, e.target.value)}
+                        aria-label="Quality"
+                      >
+                        {QUALITY_OPTIONS.map((q) => <option key={q} value={q}>{q}</option>)}
+                      </select>
+                    ) : (
+                      shown.quality
                     )}
                   </span>
 

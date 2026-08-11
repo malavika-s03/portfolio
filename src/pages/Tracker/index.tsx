@@ -80,6 +80,7 @@ function Tracker() {
         busy={mutations.busy}
         onStatusChange={mutations.changeStatus}
         onPriorityChange={mutations.changePriority}
+        onQualityChange={mutations.changeQuality}
         onNotesChange={mutations.changeNotes}
         onMinYoeChange={mutations.changeMinYoe}
         onDelete={handleDelete}

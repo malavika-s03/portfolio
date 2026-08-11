@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, STATUS, STATUS_ORDER } from '../config';
+import { MIN_YOE_OPTIONS, PRIORITY_OPTIONS, QUALITY_OPTIONS, STATUS, STATUS_ORDER } from '../config';
 import type { JoinedApp, NewApplication } from '../types';
 
 // Add a listing — reuses the slide-over shell. Company, Link, Status, Priority, Notes, Added by.
@@ -20,6 +20,7 @@ export function AddSheet({
   const [link, setLink] = useState('');
   const [status, setStatus] = useState<string>(STATUS.SAVED);
   const [priority, setPriority] = useState('Medium');
+  const [quality, setQuality] = useState('Medium');
   const [minYoe, setMinYoe] = useState('');
   const [notes, setNotes] = useState('');
 
@@ -30,12 +31,12 @@ export function AddSheet({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const reset = () => { setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium'); setMinYoe(''); setNotes(''); };
+  const reset = () => { setCompany(''); setLink(''); setStatus(STATUS.SAVED); setPriority('Medium'); setQuality('Medium'); setMinYoe(''); setNotes(''); };
 
   const submit = async () => {
     if (!company.trim() || busy) return;
     try {
-      await onAdd({ company: company.trim(), link: link.trim(), status, priority, minYoe, notes: notes.trim() });
+      await onAdd({ company: company.trim(), link: link.trim(), status, priority, quality, minYoe, notes: notes.trim() });
       reset();
       onClose();
     } catch {
@@ -63,7 +64,7 @@ export function AddSheet({
             <span className="jt-form-label">Link</span>
             <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="job posting URL" />
           </label>
-          <div className="jt-form-two">
+          <div className="jt-form-three">
             <label className="jt-form-row">
               <span className="jt-form-label">Status</span>
               <select value={status} onChange={(e) => setStatus(e.target.value)}>
@@ -74,6 +75,12 @@ export function AddSheet({
               <span className="jt-form-label">Priority</span>
               <select value={priority} onChange={(e) => setPriority(e.target.value)}>
                 {PRIORITY_OPTIONS.map((p) => <option key={p} value={p}>{p}</option>)}
+              </select>
+            </label>
+            <label className="jt-form-row">
+              <span className="jt-form-label">Quality</span>
+              <select value={quality} onChange={(e) => setQuality(e.target.value)}>
+                {QUALITY_OPTIONS.map((q) => <option key={q} value={q}>{q}</option>)}
               </select>
             </label>
           </div>
