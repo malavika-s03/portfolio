@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { emptyDetails, type Override, type Overrides } from '../lib/overlay';
 import { readPendingDeletes, writePendingDeletes } from '../lib/cache';
-import { addApplication, deleteApplication, setMinYoe, setNotes, setPriority, setStatus } from '../lib/writeApi';
+import { addApplication, deleteApplication, setMinYoe, setNotes, setPriority, setQuality, setStatus } from '../lib/writeApi';
 import type { JoinedApp, NewApplication } from '../types';
 
 const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wrong');
@@ -22,7 +22,7 @@ export function useMutations() {
     try {
       const r = await addApplication(input);
       const app: JoinedApp = {
-        id: r.id, company: r.company, status: r.status, priority: r.priority, link: r.link,
+        id: r.id, company: r.company, status: r.status, priority: r.priority, quality: r.quality, link: r.link,
         dateAdded: r.dateAdded,
         details: { ...emptyDetails(r.id), myNotes: r.details.myNotes, lastUpdate: r.details.lastUpdate, dateApplied: r.details.dateApplied, minYoe: r.details.minYoe },
       };
@@ -73,6 +73,9 @@ export function useMutations() {
   const changePriority = useCallback((id: string, priority: string) =>
     patch(id, { priority }, async () => { await setPriority(id, priority); return { priority }; }), [patch]);
 
+  const changeQuality = useCallback((id: string, quality: string) =>
+    patch(id, { quality }, async () => { await setQuality(id, quality); return { quality }; }), [patch]);
+
   const changeNotes = useCallback((id: string, notes: string) =>
     patch(id, { myNotes: notes }, async () => {
       const r = await setNotes(id, notes);
@@ -97,6 +100,7 @@ export function useMutations() {
         const ov = n[id];
         if ((ov.status === undefined || a.status === ov.status)
           && (ov.priority === undefined || a.priority === ov.priority)
+          && (ov.quality === undefined || a.quality === ov.quality)
           && (ov.myNotes === undefined || (a.details?.myNotes ?? '') === ov.myNotes)
           && (ov.minYoe === undefined || (a.details?.minYoe ?? '') === ov.minYoe)) delete n[id];
       }
@@ -105,5 +109,5 @@ export function useMutations() {
     setPendingDeletes((d) => d.filter((id) => !byId.has(id))); // CSV caught up → stop hiding it
   }, []);
 
-  return { pendingAdds, overrides, pendingDeletes, busy, error, setError, add, remove, changeStatus, changePriority, changeNotes, changeMinYoe, prune };
+  return { pendingAdds, overrides, pendingDeletes, busy, error, setError, add, remove, changeStatus, changePriority, changeQuality, changeNotes, changeMinYoe, prune };
 }

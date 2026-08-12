@@ -5,6 +5,7 @@ export interface Application {
   company: string;
   status: string;
   priority: string;
+  quality: string;
   link: string;
   dateAdded: string;
 }
@@ -45,6 +46,7 @@ export interface NewApplication {
   link: string;
   status: string;
   priority: string;
+  quality: string;
   minYoe: string;
   notes: string;
 }

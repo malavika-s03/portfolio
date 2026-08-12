@@ -37,6 +37,7 @@ The dashboard filters on this. Never treat a row as blank by "all cells empty."
 - `Last Update`: stamped on any change — Claude on its API writes; the onEdit script on manual edits
   (an Applications row edit stamps that app's Details row by id; a Details row edit stamps its own).
 - `Priority`: defaults to **Medium** on a new row (onEdit script on hand-entry; Claude on API adds) if left blank.
+- `Quality`: defaults to **Medium** on a new row (onEdit script on hand-entry; Claude on API adds) if left blank.
 - `Date Applied`: blank until applied; set to today when `Status` becomes `Applied`.
 
 ## Sheet-bound Apps Scripts
@@ -59,6 +60,7 @@ the repo copies in sync (simple-trigger limits: <30s, no auth-required services)
 |---|---|---|
 | Status | strict | Saved · Applied · Reached out · Responded · Accepted · Rejected · No response |
 | Priority | strict | High · Medium · Low |
+| Quality | strict | High · Medium · Low |
 | MinYOE | strict | 0 · 1 · 2 · 3 · 3+ |
 
 *(suggest = dropdown shown but new values allowed; strict = only listed values.)*

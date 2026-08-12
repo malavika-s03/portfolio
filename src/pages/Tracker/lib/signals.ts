@@ -42,13 +42,14 @@ export function decorate(apps: JoinedApp[], today: string): DecoratedApp[] {
 export interface Pulse {
   // Today's newly-added applications (added, and how many are already Applied), plus rows touched today.
   today: { added: number; applied: number; updated: number };
-  overall: { total: number; active: number; needsAttention: number; byStatus: Record<string, number>; byPriority: Record<string, number> };
+  overall: { total: number; active: number; needsAttention: number; byStatus: Record<string, number>; byPriority: Record<string, number>; byQuality: Record<string, number> };
 }
 
 export function computePulse(apps: DecoratedApp[], today: string): Pulse {
   const t = { added: 0, applied: 0, updated: 0 };
   const byStatus: Record<string, number> = {};
   const byPriority: Record<string, number> = {};
+  const byQuality: Record<string, number> = {};
   let active = 0;
   let needsAttention = 0;
 
@@ -60,9 +61,10 @@ export function computePulse(apps: DecoratedApp[], today: string): Pulse {
     if (a.details?.lastUpdate === today) t.updated++;
     byStatus[a.status] = (byStatus[a.status] ?? 0) + 1;
     if (a.priority) byPriority[a.priority] = (byPriority[a.priority] ?? 0) + 1;
+    if (a.quality) byQuality[a.quality] = (byQuality[a.quality] ?? 0) + 1;
     if (!CLOSED_STATUSES.includes(a.status)) active++;
     if (a.signals.length > 0) needsAttention++;
   }
 
-  return { today: t, overall: { total: apps.length, active, needsAttention, byStatus, byPriority } };
+  return { today: t, overall: { total: apps.length, active, needsAttention, byStatus, byPriority, byQuality } };
 }

@@ -41,6 +41,8 @@ export const STATUS_ORDER = [STATUS.SAVED, STATUS.APPLIED, STATUS.REACHED_OUT, S
 export const CLOSED_STATUSES: string[] = [STATUS.ACCEPTED, STATUS.REJECTED, STATUS.NO_RESPONSE];
 export const PRIORITY_RANK: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
 export const PRIORITY_OPTIONS = ['High', 'Medium', 'Low'];
+export const QUALITY_RANK: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
+export const QUALITY_OPTIONS = ['High', 'Medium', 'Low'];
 
 // Min YOE enum — mirror of the sheet's "Min YOE" dropdown (strict). '' = unset.
 export const MIN_YOE_OPTIONS = ['0', '1', '2', '3', '3+'];

@@ -16,13 +16,14 @@ the script writes the sheet and returns the affected row as JSON. Reads stay on 
 **Re-deploy reminder:** editing `Api.gs` requires redeploying the Web App (Manage deployments →
 edit → New version). `onEdit` in `Code.gs` is live; `doPost` is not.
 
-## Actions (5 — four append/edit, one delete)
+## Actions (6 — five append/edit, one delete)
 
 | Action | Writes | Returns |
 |---|---|---|
 | `add` | Applications row (id/Date Added/Priority auto) + a Details row (My Notes, Last Update, Date Applied if Applied) | the new app |
 | `setStatus` | Applications.Status; stamps Details.Last Update (+ Date Applied on →Applied) | `{id,status,lastUpdate,dateApplied?}` |
 | `setPriority` | Applications.Priority | `{id,priority}` |
+| `setQuality` | Applications.Quality | `{id,quality}` |
 | `setNotes` | Details.My Notes; stamps Last Update | `{id,myNotes,lastUpdate}` |
 | `delete` | Applications row **and** its Details row, by id (hard delete; row removal, not cell-clear) | `{id}` |
 
@@ -35,14 +36,13 @@ Web-App writes don't fire `onEdit`, so `doPost` sets id/dates/etc. itself (same 
 
 ## UI surfaces (2)
 
-- **FAB (＋)** → **Add sheet** (reuses the slide-over): Company, Link, Status, Priority, Notes, and
-  an **Added-by dropdown** (Malavika · Abhijeet · Other; last choice remembered in localStorage).
-- **Detail sheet:** Status & Priority become inline selects; **Notes** is an editable textarea
+- **FAB (＋)** → **Add sheet** (reuses the slide-over): Company, Link, Status, Priority, Quality, Notes, Min YOE.
+- **Detail sheet:** Status, Priority & Quality become inline selects; **Notes** is an editable textarea
   (saves on blur). Everything else is read-only.
 
 ## Optimistic + reconcile (so the ~5-min CSV lag is invisible)
 
-`useMutations` holds an overlay — `pendingAdds` + `overrides{id → status/priority/myNotes/dates}`.
+`useMutations` holds an overlay — `pendingAdds` + `overrides{id → status/priority/quality/myNotes/dates}`.
 `reconcile()` merges it over the CSV model: edits show instantly; new apps appear immediately and
 overrides drop out once the CSV reflects them (`prune` on each refetch). Write failure → roll back
 + inline error/toast.
@@ -54,7 +54,7 @@ delete action exists anywhere.
 
 ## Files
 ```
-job-tracker/tooling/apps-script/Api.gs   doPost + add / setStatus / setPriority / setNotes
+job-tracker/tooling/apps-script/Api.gs   doPost + add / setStatus / setPriority / setQuality / setNotes / setMinYoe / delete
 src/pages/Tracker/
   config.ts            WEB_APP_URL, WRITES_ENABLED, ADDED_BY_OPTIONS, PRIORITY_OPTIONS
   lib/writeApi.ts      POST client (text/plain) + the 4 action fns

@@ -19,10 +19,11 @@ const sheets = google.sheets({ version: 'v4', auth });
 const ENUM = {
   Status: ['Saved', 'Applied', 'Reached out', 'Responded', 'Accepted', 'Rejected', 'No response'],
   Priority: ['High', 'Medium', 'Low'],
+  Quality: ['High', 'Medium', 'Low'],
   MinYOE: ['0', '1', '2', '3', '3+'],
 };
 const SPEC = {
-  Applications: { date: ['Date Added'], dropdown: { Status: ['Status', true], Priority: ['Priority', true] } },
+  Applications: { date: ['Date Added'], dropdown: { Status: ['Status', true], Priority: ['Priority', true], Quality: ['Quality', true] } },
   Details: {
     date: ['Date Applied', 'Last Update'],
     dropdown: { 'Min YOE': ['MinYOE', true] },

@@ -8,7 +8,7 @@
  *
  * Runs as the owner, so it has edit rights -- no service-account key in the browser. The dashboard
  * POSTs text/plain JSON {action, ...}; we set id/dates/Priority ourselves (API writes do
- * not fire onEdit). Supports add/edit/delete actions (add/setStatus/setPriority/setNotes/setMinYoe/delete).
+ * not fire onEdit). Supports add/edit/delete actions (add/setStatus/setPriority/setQuality/setNotes/setMinYoe/delete).
  */
 
 const API_TOKEN = ''; // optional shared secret; '' = open (auth out of scope for now)
@@ -22,6 +22,7 @@ function doPost(e) {
       case 'add': data = apiAdd_(b); break;
       case 'setStatus': data = apiSetStatus_(b); break;
       case 'setPriority': data = apiSetField_('Priority', b.id, b.priority); break;
+      case 'setQuality': data = apiSetField_('Quality', b.id, b.quality); break;
       case 'setNotes': data = apiSetNotes_(b); break;
       case 'setMinYoe': data = apiSetMinYoe_(b); break;
       case 'delete': data = apiDelete_(b); break;
@@ -76,12 +77,13 @@ function apiAdd_(b) {
   const today = apiTodayStr_();
   const status = b.status || 'Saved';
   const priority = b.priority || 'Medium';
+  const quality = b.quality || 'Medium';
 
   const apps = apiSheet_('Applications');
   const H = apiHeader_(apps);
   const id = apiNextSeq_(apps, apiCol_(H, 'id'), 'app');
   apps.appendRow(apiRowFor_(H, {
-    'Company': b.company || '', 'Status': status, 'Priority': priority, 'Link': b.link || '',
+    'Company': b.company || '', 'Status': status, 'Priority': priority, 'Quality': quality, 'Link': b.link || '',
     'Date Added': today, 'id': id,
   }));
 
@@ -94,7 +96,7 @@ function apiAdd_(b) {
   }));
 
   return {
-    id: id, company: b.company || '', status: status, priority: priority, link: b.link || '',
+    id: id, company: b.company || '', status: status, priority: priority, quality: quality, link: b.link || '',
     dateAdded: today,
     details: { myNotes: b.notes || '', lastUpdate: today, dateApplied: status === 'Applied' ? today : '', minYoe: minYoe },
   };

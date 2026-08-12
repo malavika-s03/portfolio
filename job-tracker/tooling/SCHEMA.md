@@ -10,7 +10,7 @@ relevant table here; the workflows populate every field listed, formatting it by
 
 ## Tab: `Applications` (gid 0) — lean human capture surface
 
-Human types Company / Status / Priority / Link by hand. `id` + `Date Added` auto-fill (onEdit script or Claude).
+Human types Company / Status / Priority / Quality / Link by hand. `id` + `Date Added` auto-fill (onEdit script or Claude).
 Column **order is flexible** — the tooling and dashboard map by header **name**, not position (so the auto
 fields sit at the end, out of the way). The letters below reflect the current live order.
 
@@ -19,9 +19,10 @@ fields sit at the end, out of the way). The letters below reflect the current li
 | A | `Company` | text | human | **required** (key column) |
 | B | `Status` | enum: Status | human | dropdown (strict) |
 | C | `Priority` | enum: Priority | human | dropdown (strict) |
-| D | `Link` | url | human | the job post |
-| E | `Date Added` | date | auto | onEdit script / Claude, `yyyy-mm-dd` |
-| F | `id` | id `app_NNN` | auto | the key linking to Details |
+| D | `Quality` | enum: Quality | human | dropdown (strict) |
+| E | `Link` | url | human | the job post |
+| F | `Date Added` | date | auto | onEdit script / Claude, `yyyy-mm-dd` |
+| G | `id` | id `app_NNN` | auto | the key linking to Details |
 
 ## Tab: `Details` (1:1, key = `id`) — Claude enrichment + notes (may be blank)
 

@@ -13,7 +13,7 @@ export function FacetDropdown({
   quick = [],
 }: {
   label: string;
-  kind: 'status' | 'priority';
+  kind: 'status' | 'priority' | 'quality';
   options: string[];
   counts: Record<string, number>;
   selected: string[];
@@ -60,7 +60,9 @@ export function FacetDropdown({
               <input type="checkbox" checked={selected.includes(o)} onChange={() => onToggle(o)} />
               {kind === 'status'
                 ? <span className="jt-dot" data-status={o} />
-                : <span className="jt-prio" data-priority={o} />}
+                : kind === 'priority'
+                  ? <span className="jt-prio" data-priority={o} />
+                  : <span className="jt-qual" data-quality={o} />}
               <span className="jt-check-name">{o}</span>
               <span className="jt-check-count">{counts[o] ?? 0}</span>
             </label>
