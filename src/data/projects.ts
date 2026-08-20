@@ -4,6 +4,15 @@ const BASE = import.meta.env.BASE_URL + 'images/projects';
 
 export const projects: Project[] = [
   {
+    id: 6,
+    title: "ARTIUM : FOR KIDS",
+    slug: "artium",
+    thumbnail: `${BASE}/artium-map.png`,
+    category: "Product Design",
+    description: "Practice after class is where young learners drop off, so I tried turning it into play. Kids on Artium Academy get a little island of levels to come home to, a story-driven theory task, and a studio where notes fall onto the keys as they play along, with a frog for company. Designed and prototyped fully in Figma.",
+    year: "2026",
+  },
+  {
     id: 1,
     title: "YULU : A UX STUDY",
     slug: "yulu",

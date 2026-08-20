@@ -7,6 +7,7 @@ import { Header } from '@/components/layout/Header';
 import { HomePage } from '@/pages/Home';
 import { ProjectPage } from '@/pages/Project';
 import { YuluCaseStudyPage } from '@/pages/YuluCaseStudy';
+import { ArtiumCaseStudyPage } from '@/pages/ArtiumCaseStudy';
 import { VectorVaultCaseStudyPage } from '@/pages/VectorVaultCaseStudy';
 import { DistrictCaseStudyPage } from '@/pages/DistrictCaseStudy';
 import { ZohoCaseStudyPage } from '@/pages/ZohoCaseStudy';
@@ -63,6 +64,7 @@ function App() {
         {/* Portfolio — wrapped in the shell layout route. */}
         <Route element={<PortfolioLayout />}>
           <Route path="/" element={null} />
+          <Route path="/project/artium" element={<ArtiumCaseStudyPage />} />
           <Route path="/project/yulu" element={<YuluCaseStudyPage />} />
           <Route path="/project/vector-vault" element={<VectorVaultCaseStudyPage />} />
           <Route path="/project/district" element={<DistrictCaseStudyPage />} />
