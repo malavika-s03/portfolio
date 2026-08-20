@@ -30,10 +30,65 @@ function bezierEasing(x1: number, y1: number, x2: number, y2: number) {
 }
 
 const accordionEasing = bezierEasing(...SCROLL_EASE);
-const yulu = projects[0];
-const vectorVault = projects[1];
-const zoho = projects[3];
-const district = projects[4];
+const artium = projects.find((p) => p.slug === 'artium')!;
+const yulu = projects.find((p) => p.slug === 'yulu')!;
+const vectorVault = projects.find((p) => p.slug === 'vector-vault')!;
+const zoho = projects.find((p) => p.slug === 'zoho')!;
+const district = projects.find((p) => p.slug === 'district')!;
+
+function ArtiumProjectCard() {
+  return (
+    <div className="bg-black w-full relative overflow-hidden" style={{ height: '46.5vw' }}>
+      {/* ARTIUM title — right edge aligned with the preview, like the VV card */}
+      <motion.p
+        className="absolute font-medium text-[#fffefe]"
+        style={{ right: '6.57vw', top: '0.4vw', fontSize: '3.75vw', lineHeight: '7.03vw', letterSpacing: '-0.142vw' }}
+        {...projectSectionAppear.title}
+      >
+        {artium.title}
+      </motion.p>
+
+      {/* ARTIUM preview — the prototype playing (muted loop, poster = map) */}
+      <motion.video
+        ref={(el: HTMLVideoElement | null) => {
+          if (el) el.muted = true;
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={artium.thumbnail}
+        className="absolute object-cover"
+        style={{ left: '50.70vw', top: '9.5vw', width: '42.73vw', height: '27.77vw', maxWidth: 'none', borderRadius: '0.78vw' }}
+        {...projectSectionAppear.image}
+      >
+        <source src={`${BASE}videos/artium-proto.mp4`} type="video/mp4" />
+      </motion.video>
+
+      {/* ARTIUM description */}
+      <motion.p
+        className="absolute font-normal text-[#fffbfb]"
+        style={{ left: '6.88vw', top: '13.5vw', width: '36.72vw', fontSize: '1.56vw', lineHeight: '1.90vw' }}
+        {...projectSectionAppear.text}
+      >
+        {artium.description}
+      </motion.p>
+
+      {/* ARTIUM button */}
+      <motion.div className="absolute" style={{ left: '6.88vw', top: '31.5vw' }} {...projectSectionAppear.button}>
+        <Link
+          to="/project/artium"
+          className="inline-flex items-center justify-center bg-white text-black rounded-full font-medium hover:opacity-80 transition-opacity no-underline"
+          style={{ width: '11.17vw', height: '3.75vw', fontSize: '1.09vw', lineHeight: '1.56vw' }}
+        >
+          VIew Project →
+        </Link>
+      </motion.div>
+
+    </div>
+  );
+}
 
 function DarkProjectsSection() {
   const yuluLink = '/project/yulu';
@@ -367,6 +422,7 @@ export function Projects() {
             style={{ left: '4.06vw', top: '9.77vw', width: '89.92vw', height: '1px' }}
           />
         </div>
+        <ArtiumProjectCard />
         <DarkProjectsSection />
 
         <AnimatePresence initial={false}>
